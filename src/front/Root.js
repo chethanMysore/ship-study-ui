@@ -22,7 +22,7 @@ function Root() {
       <ConnectedRouter history={history}>
         <ScrollTop>
           <Switch>
-            <Route exact path="/login" component={Login} />
+            {/* <Route exact path="/login" component={Login} /> */}
             <App />
             <Route path="*" component={PageNotFound} />
           </Switch>

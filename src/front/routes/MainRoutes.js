@@ -5,6 +5,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../components/privateRoute/PrivateRoute';
 import HomeConnected from '../views/home';
+import FeatureImportance from '../views/FeatureImportance';
+import Task2 from '../views/Task2';
+import Task3 from '../views/Task3';
+import Task4 from '../views/Task4';
+import Extra from '../views/Extra';
 import AlertConnected from '../views/alert';
 import BasicElementsConnected from '../views/basicElements';
 import BasicProgressBarConnected from '../views/basicProgressBar';
@@ -29,6 +34,11 @@ export const MainRoutes = () => (
     <Route exact path="/" component={HomeConnected} />
 
     <Route path="/Dashboard/statsCard" component={StatsCardConnected} />
+    <Route path="/Dashboard/featureImportance" component={FeatureImportance} />
+    <Route path="/Dashboard/task2" component={Task2} />
+    <Route path="/Dashboard/task3" component={Task3} />
+    <Route path="/Dashboard/task4" component={Task4} />
+    <Route path="/Dashboard/extra" component={Extra} />
     <Route path="/Dashboard/earningGraph" component={EarningGraphConnected} />
     <Route path="/Dashboard/notifications" component={NotificationsConnected} />
     <Route path="/Dashboard/workProgress" component={WorkProgressConnected} />

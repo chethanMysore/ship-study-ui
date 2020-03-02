@@ -69,7 +69,7 @@ const AsideLeft = ({
     }}
   >
     <section className="sidebar">
-      <UserPanel
+      {/* <UserPanel
         hello={helloWord}
         username={username}
         connectionStatus={connectionStatus}
@@ -77,9 +77,9 @@ const AsideLeft = ({
         userPicture={userPicture}
         showUserPicture={showPicture}
       />
-      <Horloge />
+      <Horloge /> */}
 
-      <SearchForm onSearchSubmit={value => console.log('searching: ', value)} />
+      {/* <SearchForm onSearchSubmit={value => console.log('searching: ', value)} /> */}
       {sideMenu.map(({ id, group, menus }, menuIdx) => {
         return (
           <Menu

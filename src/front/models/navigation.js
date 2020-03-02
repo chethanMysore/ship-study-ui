@@ -29,117 +29,107 @@ export const navigation = Object.freeze({
           faIconName: 'fa-eye',
         },
         {
-          name: 'StatsCard',
-          linkTo: '/Dashboard/statsCard',
+          name: 'Feature Importance',
+          linkTo: '/Dashboard/featureImportance',
           faIconName: 'fa-check-square-o',
         },
         {
-          name: 'EarningGraph',
-          linkTo: '/Dashboard/earningGraph',
+          name: 'Task2',
+          linkTo: '/Dashboard/task2',
           faIconName: 'fa-area-chart',
         },
         {
-          name: 'Notifications',
-          linkTo: '/Dashboard/notifications',
+          name: 'Task3',
+          linkTo: '/Dashboard/task3',
           faIconName: 'fa-bell',
         },
         {
-          name: 'Work progress',
-          linkTo: '/Dashboard/workProgress',
+          name: 'Task4',
+          linkTo: '/Dashboard/task4',
           faIconName: 'fa-briefcase',
         },
         {
-          name: 'Twitter feed',
-          linkTo: '/Dashboard/twitterFeed',
-          faIconName: 'fa-twitter',
-        },
-        {
-          name: 'Team Mates',
-          linkTo: '/Dashboard/teamMates',
-          faIconName: 'fa-user',
-        },
-        {
-          name: 'Todo list',
-          linkTo: '/Dashboard/todoList',
-          faIconName: 'fa-check',
+          name: 'Extra',
+          linkTo: '/Dashboard/extra',
+          faIconName: 'fa-bell',
         },
       ],
     },
-    // group menu #2
-    {
-      id: 2,
-      group: 'General',
-      menus: [
-        {
-          name: 'General preview',
-          linkTo: '/general',
-          faIconName: 'fa-eye',
-        },
-        {
-          name: 'Breadcrumb',
-          linkTo: '/general/breadcrumb',
-          faIconName: 'fa-bars',
-        },
-        {
-          name: 'Stat',
-          linkTo: '/general/stat',
-          faIconName: 'fa-bar-chart',
-        },
-        {
-          name: 'Basic progress bars',
-          linkTo: '/general/basicProgressBars',
-          faIconName: 'fa-tasks',
-        },
-        {
-          name: 'Tab panels',
-          linkTo: '/general/tabPanels',
-          faIconName: 'fa-columns',
-        },
-        {
-          name: 'Striped progress bar',
-          linkTo: '/general/stripedProgressBars',
-          faIconName: 'fa-tasks',
-        },
-        {
-          name: 'Alerts',
-          linkTo: '/general/alerts',
-          faIconName: 'fa-exclamation-triangle',
-        },
-        {
-          name: 'Pagination',
-          linkTo: '/general/pagination',
-          faIconName: 'fa-sort',
-        },
-        {
-          name: 'Default buttons',
-          linkTo: '/general/defaultButtons',
-          faIconName: 'fa-hand-o-up',
-        },
-      ],
-    },
-    // group menu #3
-    {
-      id: 3,
-      group: 'BasicElements',
-      menus: [
-        {
-          name: 'Basic Elements preview',
-          linkTo: '/basicElements',
-          faIconName: 'fa-eye',
-        },
-      ],
-    },
-    // group menu #4
-    {
-      id: 4,
-      group: 'SimpleTables',
-      menus: [
-        {
-          name: 'Simple tables preview',
-          linkTo: '/simpleTables',
-          faIconName: 'fa-eye',
-        },
-      ],
-    },
+    // // group menu #2
+    // {
+    //   id: 2,
+    //   group: 'General',
+    //   menus: [
+    //     {
+    //       name: 'General preview',
+    //       linkTo: '/general',
+    //       faIconName: 'fa-eye',
+    //     },
+    //     {
+    //       name: 'Breadcrumb',
+    //       linkTo: '/general/breadcrumb',
+    //       faIconName: 'fa-bars',
+    //     },
+    //     {
+    //       name: 'Stat',
+    //       linkTo: '/general/stat',
+    //       faIconName: 'fa-bar-chart',
+    //     },
+    //     {
+    //       name: 'Basic progress bars',
+    //       linkTo: '/general/basicProgressBars',
+    //       faIconName: 'fa-tasks',
+    //     },
+    //     {
+    //       name: 'Tab panels',
+    //       linkTo: '/general/tabPanels',
+    //       faIconName: 'fa-columns',
+    //     },
+    //     {
+    //       name: 'Striped progress bar',
+    //       linkTo: '/general/stripedProgressBars',
+    //       faIconName: 'fa-tasks',
+    //     },
+    //     {
+    //       name: 'Alerts',
+    //       linkTo: '/general/alerts',
+    //       faIconName: 'fa-exclamation-triangle',
+    //     },
+    //     {
+    //       name: 'Pagination',
+    //       linkTo: '/general/pagination',
+    //       faIconName: 'fa-sort',
+    //     },
+    //     {
+    //       name: 'Default buttons',
+    //       linkTo: '/general/defaultButtons',
+    //       faIconName: 'fa-hand-o-up',
+    //     },
+    //   ],
+    // },
+    // // group menu #3
+    // {
+    //   id: 3,
+    //   group: 'BasicElements',
+    //   menus: [
+    //     {
+    //       name: 'Basic Elements preview',
+    //       linkTo: '/basicElements',
+    //       faIconName: 'fa-eye',
+    //     },
+    //   ],
+    // },
+    // // group menu #4
+    // {
+    //   id: 4,
+    //   group: 'SimpleTables',
+    //   menus: [
+    //     {
+    //       name: 'Simple tables preview',
+    //       linkTo: '/simpleTables',
+    //       faIconName: 'fa-eye',
+    //     },
+    //   ],
+    // },
   ],
 });

@@ -55,7 +55,7 @@ const Header = ({
     </a>
     <nav className="navbar navbar-static-top" role="navigation">
       <Button toggleSideMenu={toggleSideMenu} />
-      <div className="navbar-right">
+      {/* <div className="navbar-right">
         <ul className="nav navbar-nav">
           <MessageMenu />
           <TaskMenu />
@@ -68,7 +68,7 @@ const Header = ({
             onLogout={onLogout}
           />
         </ul>
-      </div>
+      </div> */}
     </nav>
   </FixedHeader>
 );

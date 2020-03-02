@@ -3,7 +3,7 @@
 import React from 'react';
 
 const Footer = () => (
-  <div className="footer-main">react Director Admin Template</div>
+  <div className="footer-main">Ship Cohort Study</div>
 );
 
 Footer.displayName = 'Footer';
