@@ -1,33 +1,27 @@
 // @flow
 
 import React from 'react';
-import { ConnectedRouter } from 'connected-react-router';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import configureStore from './redux/store/configureStore';
-import { history } from './redux/store/configureStore';
 import ScrollTop from './components/scrollToTop/ScrollToTop';
-import Login from './views/login/index';
-import PageNotFound from './views/pageNotFound';
-import App from './containers/app';
+import App from './containers/App';
+import { configureStore } from './redux/store';
 
 // #region constants
 // $FlowIgnore
-const store = configureStore();
+// const store = configureStore();
 // #endregion
 
 function Root() {
   return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
+    <Provider store={configureStore()}>
+      <Router>
         <ScrollTop>
           <Switch>
-            {/* <Route exact path="/login" component={Login} /> */}
-            <App />
-            <Route path="*" component={PageNotFound} />
+            <Route path="/" component={App} />
           </Switch>
         </ScrollTop>
-      </ConnectedRouter>
+      </Router>
     </Provider>
   );
 }

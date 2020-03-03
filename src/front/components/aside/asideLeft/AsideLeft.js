@@ -41,12 +41,6 @@ type Props = {
 };
 
 const AsideLeft = ({
-  connectionStatus,
-  userIsConnected,
-  username,
-  helloWord = '',
-  userPicture,
-  showPicture,
   isAnimated,
   isCollapsed,
   currentView,
@@ -69,16 +63,6 @@ const AsideLeft = ({
     }}
   >
     <section className="sidebar">
-      {/* <UserPanel
-        hello={helloWord}
-        username={username}
-        connectionStatus={connectionStatus}
-        online={userIsConnected}
-        userPicture={userPicture}
-        showUserPicture={showPicture}
-      />
-      <Horloge /> */}
-
       {/* <SearchForm onSearchSubmit={value => console.log('searching: ', value)} /> */}
       {sideMenu.map(({ id, group, menus }, menuIdx) => {
         return (

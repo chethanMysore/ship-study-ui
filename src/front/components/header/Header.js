@@ -3,9 +3,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import UserMenu from './userMenu/UserMenu';
-import TaskMenu from './taskMenu/TaskMenu';
-import MessageMenu from './messageMenu/MessageMenu';
 import Button from './button/Button';
 
 type Props = {
@@ -39,36 +36,13 @@ const FixedHeader = styled.header`
   }
 `;
 
-const Header = ({
-  userLogin,
-  userFirstname,
-  userLastname,
-  userPicture,
-  showPicture,
-  appName,
-  toggleSideMenu,
-  onLogout,
-}: Props) => (
+const Header = ({ toggleSideMenu, appName }: Props) => (
   <FixedHeader className="header fixed--header">
     <a href="#" className="logo">
       {appName}
     </a>
     <nav className="navbar navbar-static-top" role="navigation">
       <Button toggleSideMenu={toggleSideMenu} />
-      {/* <div className="navbar-right">
-        <ul className="nav navbar-nav">
-          <MessageMenu />
-          <TaskMenu />
-          <UserMenu
-            login={userLogin}
-            firstname={userFirstname}
-            lastname={userLastname}
-            picture={userPicture}
-            showUserPicture={showPicture}
-            onLogout={onLogout}
-          />
-        </ul>
-      </div> */}
     </nav>
   </FixedHeader>
 );

@@ -7,8 +7,7 @@ import { type State } from '../../types/redux/modules/sideMenu';
 // #endregion
 
 // #region constants
-const SIDEMU_IS_COLLAPSED_KEY = 'SIDEMENU_IS_OPENED_KEY';
-const SIDEMU_IS_COLLAPSED_VALUE: boolean = true;
+const SIDEMU_IS_COLLAPSED_KEY: boolean = true;
 const SIDEMU_IS_NOT_COLLAPSED_VALUE: boolean = false;
 const READ_LOCALSTORAGE = false;
 const WRITE_LOCALSTORAGE = true;
