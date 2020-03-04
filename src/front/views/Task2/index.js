@@ -1,44 +1,27 @@
 // @flow
 
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import {
-  AnimatedView,
-  StatsCard,
-  EarningGraph,
-  Notifications,
-  WorkProgress,
-  TwitterFeed,
-  TodoListDemo,
-  TeamMatesDemo,
-} from '../../components';
-import { type RouterProps } from '../../types/react-router';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { AnimatedView } from '../../components';
 
-type Props = {
-  
-} & RouterProps;
-
-function Task2({
-  
-}: Props) {
-  useEffect(() => {
-    
-  }, []);
-
-  return (
-    <AnimatedView>
-      <div className="row" style={{ marginBottom: '5px' }}>
-        TBA
-      </div>
-    </AnimatedView>
-  );
+class Task2 extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <AnimatedView>
+        <div className="row" style={{ marginBottom: '5px' }}>
+          TBA
+        </div>
+      </AnimatedView>
+    );
+  }
 }
 
-Task2.displayName = 'Task2';
-
-Task2.propTypes = {
-  // react-router 4:
-  
+const mapStateToProps = ({}) => {
+  // const { isCollapsed, currentView } = settings;
+  return {};
 };
 
-export default Task2;
+export default connect(mapStateToProps, {})(Task2);

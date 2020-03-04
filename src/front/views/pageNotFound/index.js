@@ -1,28 +1,35 @@
 // @flow
 
-import { bindActionCreators } from 'redux';
+import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
-import * as viewActions from '../../redux/modules/views';
-import PageNotFound from './PageNotFound';
+import AnimatedView from '../../components/animatedView/AnimatedView';
 
-const mapStateToProps = state => {
-  return {
-    currentView: state.views.currentView,
-  };
+class PageNotFound extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <AnimatedView>
+        <div className="row">
+          <div className="col-md-12">
+            <h2>
+              <i className="fa fa-frown-o" aria-hidden="true" />
+              &nbsp; Sorry... This page does not exist
+            </h2>
+          </div>
+        </div>
+      </AnimatedView>
+    );
+  }
+}
+
+const mapStateToProps = ({ settings }) => {
+  const { currentView } = settings;
+  return { currentView };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(
-      {
-        ...viewActions,
-      },
-      dispatch,
-    ),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PageNotFound);
+export default connect(mapStateToProps, {
+  enterPageNotFound,
+  leavePageNotFound,
+})(PageNotFound);

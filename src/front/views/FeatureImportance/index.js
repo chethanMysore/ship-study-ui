@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { AnimatedView } from '../../components';
 import CanvasJSReact from '../../util/js/canvasjs.react';
 const CanvasJS = CanvasJSReact.CanvasJS;
@@ -62,7 +61,6 @@ class FeatureImportance extends Component {
           />
           {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
         </div>
-        ;
       </AnimatedView>
     );
   }
