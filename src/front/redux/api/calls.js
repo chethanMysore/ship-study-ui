@@ -8,9 +8,10 @@ import {
   grantType,
   oauthUsername,
   oauthPassword,
+  featureImportancePath,
 } from '../../constants/defaultValues';
 
-import {} from '../../constants/actionTypes';
+import { FEATURE_IMPORTANCE_DATA } from '../../constants/actionTypes';
 
 /**
  * Builds final Url by adding query params
@@ -32,16 +33,15 @@ const BuildUrlQuery = (url, params) => {
  * Makes ger request to api to get data from respective entity data table
  */
 const getRequest = (
-  token,
   entityName,
   options = { byId: false, id: '', queryParams: [] },
 ) => {
   return new Promise((resolve, reject) => {
     let entityPath = '';
     switch (entityName) {
-      // case LOCATION_DATA:
-      //   entityPath = locationDataPath;
-      //   break;
+      case FEATURE_IMPORTANCE_DATA:
+        entityPath = featureImportancePath;
+        break;
       default:
         entityPath = '';
     }
@@ -53,7 +53,7 @@ const getRequest = (
       requestUrl = BuildUrlQuery(requestUrl, options.queryParams);
     }
     const request = axios.create();
-    request.defaults.headers.common.Authorization = `Bearer ${token}`;
+    // request.defaults.headers.common.Authorization = `Bearer ${token}`;
     request
       .get(requestUrl)
       .then(res => resolve(res.data))
@@ -322,19 +322,19 @@ export const fetchTableData = (
   options = { byId: false, id: '', queryParams: [] },
 ) => {
   return new Promise(async (resolve, reject) => {
-    fetchOAuthToken()
-      .then(accessToken => {
-        getRequest(accessToken, entityName, options)
-          .then(data => resolve(data))
-          .catch(err => {
-            err.isError = true;
-            reject(err);
-          });
-      })
+    // fetchOAuthToken()
+    // .then(accessToken => {
+    getRequest(entityName, options)
+      .then(data => resolve(data))
       .catch(err => {
         err.isError = true;
         reject(err);
       });
+    // })
+    // .catch(err => {
+    //   err.isError = true;
+    //   reject(err);
+    // });
   });
 };
 

@@ -4,13 +4,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnimatedView } from '../../components';
 import CanvasJSReact from '../../util/js/canvasjs.react';
+import { fetchFeatureImportance } from '../../redux/actions';
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+const importanceSelector = featureImportance => {
+  let importanceData = [];
+  const xCords = featureImportance[0];
+  const yCords = featureImportance[1];
+  if (
+    !!featureImportance &&
+    featureImportance.length > 0 &&
+    !!xCords &&
+    !!yCords &&
+    xCords.length == yCords.length
+  ) {
+    xCords.forEach((data, index) => {
+      importanceData.push({ label: xCords[index], y: yCords[index] });
+    });
+  }
+  return importanceData;
+};
 
 class FeatureImportance extends Component {
   constructor(props) {
     super(props);
     this.addSymbols = this.addSymbols.bind(this);
+  }
+  componentDidMount() {
+    this.props.fetchFeatureImportance();
   }
   addSymbols(e) {
     var suffixes = ['', 'K', 'M', 'B'];
@@ -22,6 +44,10 @@ class FeatureImportance extends Component {
     return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
   }
   render() {
+    console.log(
+      'this.props.fetchFeatureImportance',
+      this.props.fetchFeatureImportance,
+    );
     const options = {
       animationEnabled: true,
       theme: 'light2',
@@ -39,15 +65,16 @@ class FeatureImportance extends Component {
       data: [
         {
           type: 'bar',
-          dataPoints: [
-            { y: 2200000000, label: 'Facebook' },
-            { y: 1800000000, label: 'YouTube' },
-            { y: 800000000, label: 'Instagram' },
-            { y: 563000000, label: 'Qzone' },
-            { y: 376000000, label: 'Weibo' },
-            { y: 336000000, label: 'Twitter' },
-            { y: 330000000, label: 'Reddit' },
-          ],
+          dataPoints: this.props.featureImportanceData,
+          // dataPoints: [
+          //   { y: 2200000000, label: 'Facebook' },
+          //   { y: 1800000000, label: 'YouTube' },
+          //   { y: 800000000, label: 'Instagram' },
+          //   { y: 563000000, label: 'Qzone' },
+          //   { y: 376000000, label: 'Weibo' },
+          //   { y: 336000000, label: 'Twitter' },
+          //   { y: 330000000, label: 'Reddit' },
+          // ],
         },
       ],
     };
@@ -66,9 +93,11 @@ class FeatureImportance extends Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  // const { isCollapsed, currentView } = settings;
-  return {};
+const mapStateToProps = ({ api }) => {
+  const featureImportanceData = importanceSelector(api.featureImportanceData);
+  return { featureImportanceData };
 };
 
-export default connect(mapStateToProps, {})(FeatureImportance);
+export default connect(mapStateToProps, { fetchFeatureImportance })(
+  FeatureImportance,
+);

@@ -1,11 +1,10 @@
-import {} from '../../constants/actionTypes';
+import { FETCH_FEATURE_IMPORTANCE } from '../../constants/actionTypes';
 
-// export const fetchLocationData = () => {
-//   return {
-//     type: FETCH_LOCATION_DATA,
-//     payload: { queryParams: [{ key: 'view', value: 'location-with-details' }] },
-//   };
-// };
+export const fetchFeatureImportance = () => {
+  return {
+    type: FETCH_FEATURE_IMPORTANCE,
+  };
+};
 
 // export const createNewLocation = data => {
 //   return {

@@ -3,6 +3,8 @@ import { call, put, takeLatest, all } from 'redux-saga/effects';
 import {
   CREATE_NEW_NOTIFICATION,
   WRITE_ERROR_MESSAGE,
+  FETCH_FEATURE_IMPORTANCE,
+  FEATURE_IMPORTANCE_DATA,
 } from '../../constants/actionTypes';
 
 import { fetchTableData, dispatchAction, createNewDataInstance } from './calls';
@@ -14,7 +16,7 @@ import { fetchTableData, dispatchAction, createNewDataInstance } from './calls';
  * @sideEffects 1. dispatch error message if request fails,
  *              2. Updates corresponding entity in the store on success
  */
-const getTableData = function*(entityName, payload) {
+const getData = function*(entityName, payload) {
   try {
     let data = [];
     data = yield call(() => fetchTableData(entityName, payload));
@@ -26,7 +28,7 @@ const getTableData = function*(entityName, payload) {
   } catch (error) {
     yield put({
       type: WRITE_ERROR_MESSAGE,
-      payload: { message: error.message, source: 'getTableData' },
+      payload: { message: error.message, source: 'getData' },
     });
   }
 };
@@ -108,9 +110,9 @@ const uploadImageFile = function*(entityName, payload) {
  * @param {*} action
  */
 export const apiSagas = function*(action) {
-  // yield takeLatest(FETCH_LOCATION_DATA, action =>
-  //   getTableData(LOCATION_DATA, action.payload),
-  // );
+  yield takeLatest(FETCH_FEATURE_IMPORTANCE, action =>
+    getData(FEATURE_IMPORTANCE_DATA, null),
+  );
   // yield takeLatest(CREATE_NEW_LOCATION, action =>
   //   addNewInstance(LOCATION_DATA, action.payload),
   // );
