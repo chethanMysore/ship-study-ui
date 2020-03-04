@@ -43,3 +43,4 @@ export { default as Button } from './button/Button';
 export { default as Label } from './label/label';
 export { default as AnimatedView } from './animatedView/AnimatedView';
 export { default as ScrollTop } from './scrollToTop/ScrollToTop';
+// export { default as CustomModal } from './CustomModal/CustomModal';
