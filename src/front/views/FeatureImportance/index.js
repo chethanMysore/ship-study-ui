@@ -33,20 +33,32 @@ class FeatureImportance extends Component {
     this.props.fetchFeatureImportance();
   }
   render() {
+    const width = Math.round(window.screen.width) * 0.8;
+    const height = Math.round(window.screen.height) * 0.8;
     const options = {
       animationEnabled: true,
       theme: 'light2',
+      // height: height,
+      // width: width,
       title: {
-        text: 'Importance of crucial factors on diagnosis of Hepatic Steatosis',
+        text: 'Importance of Crucial Factors on Diagnosis of Hepatic Steatosis',
+        padding: 30,
       },
       axisX: {
-        title: 'Feature Importance',
+        title: 'Features',
+        titleFontWeight: 700,
+        margin: 20,
         interval: 1,
         reversed: true,
       },
       axisY: {
-        title: 'Features',
+        title: 'Feature Importance',
+        margin: 20,
+        titleFontWeight: 700,
         // labelFormatter: addSymbols,
+      },
+      toolTip: {
+        backgroundColor: '#eee',
       },
       data: [
         {
