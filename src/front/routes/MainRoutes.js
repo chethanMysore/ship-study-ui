@@ -9,6 +9,7 @@ import Task2 from '../views/Task2';
 import Task3 from '../views/Task3';
 import Task4 from '../views/Task4';
 import Extra from '../views/Extra';
+import HomePage from '../views/HomePage';
 
 export const MainRoutes = () => (
   <Switch>

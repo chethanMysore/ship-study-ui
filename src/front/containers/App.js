@@ -7,6 +7,7 @@ import Task2 from '../views/Task2';
 import Task3 from '../views/Task3';
 import Task4 from '../views/Task4';
 import Extra from '../views/Extra';
+import HomePage from '../views/HomePage';
 
 // #region imports
 import { Header, AsideLeft, AsideRight } from '../components';
@@ -52,16 +53,18 @@ class App extends Component {
               />
               <AsideRight isAnimated={true} isExpanded={isCollapsed}>
                 <Switch>
-                  <Route exact path="/" component={FeatureImportance} />
+                <Route exact path="/" component={HomePage} />
                   <Route
-                    path="/Dashboard/featureImportance"
-                    component={FeatureImportance}
+                    path="/Dashboard/Homepage"
+                    component={HomePage}
                   />
+                   <Route path="/Dashboard/featureimportance" component={FeatureImportance} />
+                   <Route path="/Dashboard/home" component={HomePage} />
                   <Route path="/Dashboard/task2" component={Task2} />
                   <Route path="/Dashboard/task3" component={Task3} />
                   <Route path="/Dashboard/task4" component={Task4} />
                   <Route path="/Dashboard/extra" component={Extra} />
-                  <Route path="/" component={FeatureImportance} />
+                  <Route path="/" component={HomePage} />
                 </Switch>
                 {/* <MainRoutes /> */}
               </AsideRight>
