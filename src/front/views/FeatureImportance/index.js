@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import { AnimatedView, Label, StatsCard } from '../../components';
 import CustomModal from '../../newComponents/CustomModal';
 import CanvasJSReact from '../../util/js/canvasjs.react';
-import { fetchFeatureImportance } from '../../redux/actions';
+import {
+  fetchFeatureImportance,
+  fetchFeatureIceCoords,
+} from '../../redux/actions';
 import { addSymbols } from '../../util/Utils';
 import { importanceSelector } from '../../redux/selectors';
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -18,19 +21,24 @@ class FeatureImportance extends Component {
       selectedBin: null,
       title: 'Feature Description',
     };
-
-    this.toggle = this.toggle.bind(this);
+    // Uncomment this for modal
+    // this.toggle = this.toggle.bind(this);
+    this.getFeatureICE = this.getFeatureICE.bind(this);
   }
-  toggle(e) {
-    console.log('e', e);
-    this.setState({
-      modal: !this.state.modal,
-      selectedBin:
-        !!e && !!e.datapoint ? e.datapoint.y : this.state.selectedBin,
-    });
-  }
+  // Uncomment this for modal
+  // toggle(e) {
+  //   console.log('e', e);
+  //   this.setState({
+  //     modal: !this.state.modal,
+  //     selectedBin:
+  //       !!e && !!e.datapoint ? e.datapoint.y : this.state.selectedBin,
+  //   });
+  // }
   componentDidMount() {
     this.props.fetchFeatureImportance();
+  }
+  getFeatureICE() {
+    this.props.fetchFeatureIceCoords('frac_class_0_in_neighborhood_s2');
   }
   render() {
     const width = Math.round(window.screen.width) * 0.8;
@@ -81,7 +89,7 @@ class FeatureImportance extends Component {
 
     return (
       <AnimatedView>
-        <div>
+        <div onClick={this.getFeatureICE}>
           <CanvasJSChart
             options={options}
             /* onRef={ref => this.chart = ref} */
@@ -102,9 +110,11 @@ class FeatureImportance extends Component {
 
 const mapStateToProps = ({ api }) => {
   const featureImportanceData = importanceSelector(api.featureImportanceData);
-  return { featureImportanceData };
+  const { featureIceCoords } = api;
+  return { featureImportanceData, featureIceCoords };
 };
 
-export default connect(mapStateToProps, { fetchFeatureImportance })(
-  FeatureImportance,
-);
+export default connect(mapStateToProps, {
+  fetchFeatureImportance,
+  fetchFeatureIceCoords,
+})(FeatureImportance);
