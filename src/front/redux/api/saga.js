@@ -5,9 +5,11 @@ import {
   WRITE_ERROR_MESSAGE,
   FETCH_FEATURE_IMPORTANCE,
   FEATURE_IMPORTANCE_DATA,
+  FEATURE_ICE_COORDS,
+  FETCH_FEATURE_ICE_COORDS,
 } from '../../constants/actionTypes';
 
-import { fetchTableData, dispatchAction, createNewDataInstance } from './calls';
+import { fetchTableData, dispatchAction } from './calls';
 
 /**
  * Handle GET requests
@@ -40,28 +42,34 @@ const getData = function*(entityName, payload) {
  * @sideEffects 1. dispatch error message if request fails
  *              2. Creates a notification to the user on success
  */
-const addNewInstance = function*(entityName, payload) {
+const dispatchPostRequest = function*(entityName, payload) {
   try {
-    const res = yield call(createNewDataInstance, entityName, payload);
+    const res = yield call(dispatchAction, entityName, payload);
     if (res.isError) {
       yield put({
         type: WRITE_ERROR_MESSAGE,
-        payload: { message: 'Action Failed', source: 'addNewInstance' },
+        payload: { message: 'Action Failed', source: 'dispatchPostRequest' },
       });
     } else {
-      yield put({
-        type: CREATE_NEW_NOTIFICATION,
-        payload: {
-          message: 'Action Successful',
-          messageType: 'success',
-          source: 'addNewInstance',
-        },
-      });
+      yield [
+        put({
+          type: entityName,
+          data: res,
+        }),
+        put({
+          type: CREATE_NEW_NOTIFICATION,
+          payload: {
+            message: 'Action Successful',
+            messageType: 'success',
+            source: 'addNewInstance',
+          },
+        }),
+      ];
     }
   } catch (error) {
     yield put({
       type: WRITE_ERROR_MESSAGE,
-      payload: { message: error.message, source: 'addNewInstance' },
+      payload: { message: error.message, source: 'dispatchPostRequest' },
     });
   }
 };
@@ -112,6 +120,9 @@ const uploadImageFile = function*(entityName, payload) {
 export const apiSagas = function*(action) {
   yield takeLatest(FETCH_FEATURE_IMPORTANCE, action =>
     getData(FEATURE_IMPORTANCE_DATA, null),
+  );
+  yield takeLatest(FETCH_FEATURE_ICE_COORDS, action =>
+    dispatchPostRequest(FEATURE_ICE_COORDS, action.payload),
   );
   // yield takeLatest(CREATE_NEW_LOCATION, action =>
   //   addNewInstance(LOCATION_DATA, action.payload),

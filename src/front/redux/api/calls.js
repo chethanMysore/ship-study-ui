@@ -9,9 +9,13 @@ import {
   oauthUsername,
   oauthPassword,
   featureImportancePath,
+  featureICECoordsPath,
 } from '../../constants/defaultValues';
 
-import { FEATURE_IMPORTANCE_DATA } from '../../constants/actionTypes';
+import {
+  FEATURE_IMPORTANCE_DATA,
+  FEATURE_ICE_COORDS,
+} from '../../constants/actionTypes';
 
 /**
  * Builds final Url by adding query params
@@ -97,17 +101,15 @@ const updateEntitiesRequest = (token, entityName, id, updateData) => {
  * @param {*} entityName
  * @param {*} payload
  */
-const dispatchUserAction = (token, entityName, payload) => {
+const dispatchUserAction = (entityName, payload) => {
   return new Promise((resolve, reject) => {
     let entityPath = '';
     const options = { byId: false, id: '', queryParams: [] };
     const contentType = 'application/json';
     switch (entityName) {
-      // case UPLOAD_FILE:
-      //   options = { queryParams: [{ key: 'name', value: payload.name }] };
-      //   entityPath = filesPath;
-      //   contentType = 'image/jpeg';
-      //   break;
+      case FEATURE_ICE_COORDS:
+        entityPath = featureICECoordsPath;
+        break;
       default:
         entityPath = '';
     }
@@ -116,17 +118,17 @@ const dispatchUserAction = (token, entityName, payload) => {
       requestUrl = BuildUrlQuery(requestUrl, options.queryParams);
     }
     const request = axios.create();
-    request.defaults.headers.common.Authorization = `Bearer ${token}`;
+    // request.defaults.headers.common.Authorization = `Bearer ${token}`;
     request.defaults.headers.common.ContentType = contentType;
     axios({
       method: 'post',
       url: requestUrl,
-      config: {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': contentType,
-        },
-      },
+      // config: {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //     'Content-Type': contentType,
+      //   },
+      // },
       data: payload,
     })
       .then(res => resolve(res.data))
@@ -392,15 +394,8 @@ export const createNewDataInstance = (entityName, data) => {
  */
 export const dispatchAction = (entityName, payload) => {
   return new Promise(async (resolve, reject) => {
-    fetchOAuthToken()
-      .then(accessToken => {
-        dispatchUserAction(accessToken, entityName, payload)
-          .then(res => resolve(res))
-          .catch(err => {
-            err.isError = true;
-            reject(err);
-          });
-      })
+    dispatchUserAction(entityName, payload)
+      .then(res => resolve(res))
       .catch(err => {
         err.isError = true;
         reject(err);

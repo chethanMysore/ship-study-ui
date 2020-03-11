@@ -9,10 +9,11 @@ import Task2 from '../views/Task2';
 import Task3 from '../views/Task3';
 import Task4 from '../views/Task4';
 import Extra from '../views/Extra';
+import HomePage from '../views/HomePage';
 
 export const MainRoutes = () => (
   <Switch>
-    <Route exact path="/" component={FeatureImportance} />
+    <Route exact path="/" component={HomePage} />
 
     <Route path="/Dashboard/featureImportance" component={FeatureImportance} />
     <Route path="/Dashboard/task2" component={Task2} />
@@ -36,7 +37,7 @@ export const MainRoutes = () => (
 
     {/* <PrivateRoute path="/protected" component={ProtectedConnected} /> */}
 
-    <Route path="/" component={FeatureImportance} />
+    <Route path="/" component={HomePage} />
   </Switch>
 );
 

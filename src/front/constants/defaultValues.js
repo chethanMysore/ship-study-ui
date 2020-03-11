@@ -16,6 +16,7 @@ export const oauthPassword = 'secret';
 
 /* DataObject paths */
 export const featureImportancePath = 'getFeatureImportance';
+export const featureICECoordsPath = 'getIceCoords';
 
 // export const userDataPath = "/entities/sec$User";
 export const ERROR_400 = 'Request failed with status code 400';
