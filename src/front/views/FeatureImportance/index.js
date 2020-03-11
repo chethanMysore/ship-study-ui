@@ -7,7 +7,6 @@ import CustomModal from '../../newComponents/CustomModal';
 import CanvasJSReact from '../../util/js/canvasjs.react';
 import {
   fetchFeatureImportance,
-  fetchFeatureIceCoords,
 } from '../../redux/actions';
 import { addSymbols } from '../../util/Utils';
 import { importanceSelector } from '../../redux/selectors';
@@ -23,7 +22,6 @@ class FeatureImportance extends Component {
     };
     // Uncomment this for modal
     // this.toggle = this.toggle.bind(this);
-    this.getFeatureICE = this.getFeatureICE.bind(this);
   }
   // Uncomment this for modal
   // toggle(e) {
@@ -37,9 +35,7 @@ class FeatureImportance extends Component {
   componentDidMount() {
     this.props.fetchFeatureImportance();
   }
-  getFeatureICE() {
-    this.props.fetchFeatureIceCoords('frac_class_0_in_neighborhood_s2');
-  }
+
   render() {
     const width = Math.round(window.screen.width) * 0.8;
     const height = Math.round(window.screen.height) * 0.8;
@@ -89,7 +85,7 @@ class FeatureImportance extends Component {
 
     return (
       <AnimatedView>
-        <div onClick={this.getFeatureICE}>
+        <div>
           <CanvasJSChart
             options={options}
             /* onRef={ref => this.chart = ref} */
@@ -110,11 +106,9 @@ class FeatureImportance extends Component {
 
 const mapStateToProps = ({ api }) => {
   const featureImportanceData = importanceSelector(api.featureImportanceData);
-  const { featureIceCoords } = api;
-  return { featureImportanceData, featureIceCoords };
+  return { featureImportanceData };
 };
 
 export default connect(mapStateToProps, {
   fetchFeatureImportance,
-  fetchFeatureIceCoords,
 })(FeatureImportance);
