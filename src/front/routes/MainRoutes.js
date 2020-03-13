@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../components/privateRoute/PrivateRoute';
 import FeatureImportance from '../views/FeatureImportance';
 import Task2 from '../views/Task2';
-import Task3 from '../views/Task3';
+import Task3 from '../views/IndividualFeatureExplaination';
 import Task4 from '../views/Task4';
 import Extra from '../views/Extra';
 import HomePage from '../views/HomePage';

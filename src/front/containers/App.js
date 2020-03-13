@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import FeatureImportance from '../views/FeatureImportance';
 import Task2 from '../views/Task2';
-import Task3 from '../views/Task3';
+import Task3 from '../views/IndividualFeatureExplaination';
 import Task4 from '../views/Task4';
 import Extra from '../views/Extra';
 import HomePage from '../views/HomePage';
@@ -16,13 +16,16 @@ import { appConfig } from '../config';
 import { navigation } from '../models';
 import MainRoutes from '../routes/MainRoutes';
 import { NotificationContainer } from '../components/ReactNotifications';
-import { toggleSideMenu } from '../redux/actions';
+import { toggleSideMenu, fetchFeatureImportance } from '../redux/actions';
 // #endregion
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.toggleMenu = this.toggleMenu.bind(this);
+  }
+  componentDidMount() {
+    this.props.fetchFeatureImportance();
   }
   toggleMenu(e) {
     if (e) {
@@ -53,13 +56,13 @@ class App extends Component {
               />
               <AsideRight isAnimated={true} isExpanded={isCollapsed}>
                 <Switch>
-                <Route exact path="/" component={HomePage} />
+                  <Route exact path="/" component={HomePage} />
+                  <Route path="/Dashboard/Homepage" component={HomePage} />
                   <Route
-                    path="/Dashboard/Homepage"
-                    component={HomePage}
+                    path="/Dashboard/featureimportance"
+                    component={FeatureImportance}
                   />
-                   <Route path="/Dashboard/featureimportance" component={FeatureImportance} />
-                   <Route path="/Dashboard/home" component={HomePage} />
+                  <Route path="/Dashboard/home" component={HomePage} />
                   <Route path="/Dashboard/task2" component={Task2} />
                   <Route path="/Dashboard/task3" component={Task3} />
                   <Route path="/Dashboard/task4" component={Task4} />
@@ -84,4 +87,7 @@ const mapStateToProps = ({ settings }) => {
   return { isCollapsed, currentView };
 };
 
-export default connect(mapStateToProps, { toggleSideMenu })(App);
+export default connect(mapStateToProps, {
+  toggleSideMenu,
+  fetchFeatureImportance,
+})(App);

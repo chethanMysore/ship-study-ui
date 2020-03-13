@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import { AnimatedView, Label, StatsCard } from '../../components';
 import CustomModal from '../../newComponents/CustomModal';
 import CanvasJSReact from '../../util/js/canvasjs.react';
-import {
-  fetchFeatureImportance,
-} from '../../redux/actions';
+import { fetchFeatureImportance } from '../../redux/actions';
 import { addSymbols } from '../../util/Utils';
 import { importanceSelector } from '../../redux/selectors';
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -33,7 +31,7 @@ class FeatureImportance extends Component {
   //   });
   // }
   componentDidMount() {
-    this.props.fetchFeatureImportance();
+    // this.props.fetchFeatureImportance();
   }
 
   render() {
@@ -90,14 +88,6 @@ class FeatureImportance extends Component {
             options={options}
             /* onRef={ref => this.chart = ref} */
           />
-          {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-          {/* <CustomModal
-            title={this.state.title}
-            modal={this.state.modal}
-            toggle={this.toggle}
-          >
-            <StatsCard statValue={''} statLabel={'title'} backColor={'green'} />
-          </CustomModal> */}
         </div>
       </AnimatedView>
     );

@@ -6,7 +6,7 @@ import {
 /** ToDo: This is the static data. Remove after testing */
 
 const INIT_STATE = {
-  featureImportanceData: [],
+  featureImportanceData: {},
   featureIceCoords: [],
 };
 
