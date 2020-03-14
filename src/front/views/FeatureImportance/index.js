@@ -1,13 +1,13 @@
 // @flow
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { AnimatedView, Label, StatsCard } from '../../components';
-import CustomModal from '../../newComponents/CustomModal';
-import CanvasJSReact from '../../util/js/canvasjs.react';
-import { fetchFeatureImportance } from '../../redux/actions';
-import { addSymbols } from '../../util/Utils';
-import { importanceSelector } from '../../redux/selectors';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { AnimatedView, Label, StatsCard } from "../../components";
+import CustomModal from "../../newComponents/CustomModal";
+import CanvasJSReact from "../../util/js/canvasjs.react";
+import { fetchFeatureImportance } from "../../redux/actions";
+import { addSymbols } from "../../util/Utils";
+import { importanceSelector } from "../../redux/selectors";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class FeatureImportance extends Component {
@@ -16,7 +16,7 @@ class FeatureImportance extends Component {
     this.state = {
       modal: false,
       selectedBin: null,
-      title: 'Feature Description',
+      title: "Feature Description"
     };
     // Uncomment this for modal
     // this.toggle = this.toggle.bind(this);
@@ -31,7 +31,7 @@ class FeatureImportance extends Component {
   //   });
   // }
   componentDidMount() {
-    // this.props.fetchFeatureImportance();
+    // this.props.fetchFeatureImportance(ON_LOADER_HIDE);
   }
 
   render() {
@@ -39,32 +39,32 @@ class FeatureImportance extends Component {
     const height = Math.round(window.screen.height) * 0.8;
     const options = {
       animationEnabled: true,
-      theme: 'light2',
+      theme: "light2",
       // height: height,
       // width: width,
       title: {
-        text: 'Importance of Crucial Factors on Diagnosis of Hepatic Steatosis',
-        padding: 30,
+        text: "Importance of Crucial Factors on Diagnosis of Hepatic Steatosis",
+        padding: 30
       },
       axisX: {
-        title: 'Features',
+        title: "Features",
         titleFontWeight: 700,
         margin: 20,
         interval: 1,
-        reversed: true,
+        reversed: true
       },
       axisY: {
-        title: 'Feature Importance',
+        title: "Feature Importance",
         margin: 20,
-        titleFontWeight: 700,
+        titleFontWeight: 700
         // labelFormatter: addSymbols,
       },
       toolTip: {
-        backgroundColor: '#eee',
+        backgroundColor: "#eee"
       },
       data: [
         {
-          type: 'bar',
+          type: "bar",
           // click: this.toggle,
           dataPoints: this.props.featureImportanceData,
           // dataPoints: [
@@ -76,9 +76,9 @@ class FeatureImportance extends Component {
           //   { y: 336000000, label: 'Twitter' },
           //   { y: 330000000, label: 'Reddit' },
           // ],
-          toolTipContent: '<span>{desc}</span>',
-        },
-      ],
+          toolTipContent: "<span>{desc}</span>"
+        }
+      ]
     };
 
     return (
@@ -100,5 +100,5 @@ const mapStateToProps = ({ api }) => {
 };
 
 export default connect(mapStateToProps, {
-  fetchFeatureImportance,
+  fetchFeatureImportance
 })(FeatureImportance);

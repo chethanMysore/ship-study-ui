@@ -1,107 +1,146 @@
 // @flow
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { AnimatedView } from '../../components';
-import { fetchFeatureIceCoords } from '../../redux/actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { AnimatedView, LoaderComponent } from "../../components";
+import { fetchFeatureIceCoords, showIceLoader } from "../../redux/actions";
+import { ON_ICE_LOADER_HIDE } from "../../constants/actionTypes";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  FormGroup,
+  Label,
+  Input
+} from "reactstrap";
+import CanvasJSReact from "../../util/js/canvasjs.react";
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class IndividualFeatureExplaination extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedFeature:
-        !!this.props.featureImportanceData &&
-        this.props.featureImportanceData.features
-          ? this.props.featureImportanceData.features[0]
-          : '',
-      features:
-        !!this.props.featureImportanceData &&
-        this.props.featureImportanceData.features
-          ? this.props.featureImportanceData.features
-          : [],
+      selectedFeature: ""
     };
+    this.setSelectedFeature = this.setSelectedFeature.bind(this);
   }
   componentDidMount() {
     if (
       !!this.props.featureImportanceData &&
-      this.props.featureImportanceData.features
+      !!this.props.featureImportanceData.features &&
+      !!this.props.fetchFeatureIceCoords
     ) {
       const defaultFeature = this.props.featureImportanceData.features[0];
-      this.props.fetchFeatureIceCoords(defaultFeature);
+      this.props.fetchFeatureIceCoords(defaultFeature, ON_ICE_LOADER_HIDE);
     }
   }
+
+  setSelectedFeature(e) {
+    const selectedFeature = e.target.value;
+    this.props.fetchFeatureIceCoords(selectedFeature);
+    this.setState({ selectedFeature });
+  }
+
   render() {
-    const { features, selectedFeature } = this.state;
+    console.log("featureImportance", this.props.featureImportanceData);
+    const features =
+      !!this.props.featureImportanceData &&
+      !!this.props.featureImportanceData.features
+        ? this.props.featureImportanceData.features
+        : [];
     const options = {
       animationEnabled: true,
-      theme: 'light2',
+      theme: "light2",
       axisX: {
-        title: `${selectedFeature} values`,
+        title: !!this.state.selectedFeature
+          ? `${this.state.selectedFeature} values`
+          : `Feature Values`,
         titleFontWeight: 700,
         margin: 20,
         interval: 1,
-        reversed: true,
+        reversed: true
       },
       axisY: {
-        title: 'Predicted Liver Fat Percentage',
+        title: "Predicted Liver Fat Percentage",
         margin: 20,
-        titleFontWeight: 700,
+        titleFontWeight: 700
         // labelFormatter: addSymbols,
       },
       toolTip: {
-        backgroundColor: '#eee',
+        backgroundColor: "#eee"
       },
       data: [
         {
-          type: 'bar',
+          type: "bar",
           // click: this.toggle,
-          dataPoints: this.props.featureImportanceData,
-          // dataPoints: [
-          //   { y: 2200000000, label: 'Facebook' },
-          //   { y: 1800000000, label: 'YouTube' },
-          //   { y: 800000000, label: 'Instagram' },
-          //   { y: 563000000, label: 'Qzone' },
-          //   { y: 376000000, label: 'Weibo' },
-          //   { y: 336000000, label: 'Twitter' },
-          //   { y: 330000000, label: 'Reddit' },
-          // ],
-          toolTipContent: '<span>{desc}</span>',
-        },
-      ],
+          // dataPoints: this.props.featureImportanceData,
+          dataPoints: [
+            { y: 2200000000, label: "Facebook" },
+            { y: 1800000000, label: "YouTube" },
+            { y: 800000000, label: "Instagram" },
+            { y: 563000000, label: "Qzone" },
+            { y: 376000000, label: "Weibo" },
+            { y: 336000000, label: "Twitter" },
+            { y: 330000000, label: "Reddit" }
+          ],
+          toolTipContent: "<span>{desc}</span>"
+        }
+      ]
     };
-    return (
-      <div />
-      // <AnimatedView>
-      //   <div>
-      //     <Card>
-      //       <CardBody>
-      //         <CardTitle>{`Effect of ${(
-      //           <strong>{selectedFeature}</strong>
-      //         )} over all participants`}</CardTitle>
-      //         <CardSubtitle>{`ICE plot below demonstrates the change in model prediction with respect to the change in the values of ${(
-      //           <strong>{selectedFeature}</strong>
-      //         )} while keeping all other contributing features constant`}</CardSubtitle>
-      //       </CardBody>
-      //       <img width="100%" src="/assets/318x180.svg" alt="Card image cap" />
-      //       <CardBody>
-      //         <CanvasJSChart
-      //           options={options}
-      //           /* onRef={ref => this.chart = ref} */
-      //         />
-      //         <CardLink href="#">Card Link</CardLink>
-      //         <CardLink href="#">Another Link</CardLink>
-      //       </CardBody>
-      //     </Card>
-      //   </div>
-      // </AnimatedView>
+    return this.props.iceLoader ? (
+      <LoaderComponent />
+    ) : (
+      <AnimatedView>
+        <div>
+          <FormGroup>
+            <Label for="exampleSelect">Select a feature</Label>
+            <Input
+              type="select"
+              name="feature"
+              id="selectedFeature"
+              onChange={this.setSelectedFeature}
+            >
+              {features.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </Input>
+          </FormGroup>
+          {!!this.state.selectedFeature && (
+            <Card>
+              <CardBody>
+                <CardTitle>
+                  {`Effect of `} <strong>{this.state.selectedFeature}</strong>
+                  {` over all participants`}
+                </CardTitle>
+                <CardSubtitle>
+                  {`ICE plot below demonstrates the change in model prediction with respect to the change in the values of `}
+                  <strong>{this.state.selectedFeature}</strong>
+                  {` while keeping all other contributing features constant`}
+                </CardSubtitle>
+              </CardBody>
+              <CardBody>
+                <CanvasJSChart
+                  options={options}
+                  /* onRef={ref => this.chart = ref} */
+                />
+              </CardBody>
+            </Card>
+          )}
+        </div>
+      </AnimatedView>
     );
   }
 }
-const mapStateToProps = ({ api }) => {
+const mapStateToProps = ({ api, settings }) => {
   const { featureIceCoords, featureImportanceData } = api;
-  return { featureIceCoords, featureImportanceData };
+  const { iceLoader } = settings;
+  return { featureIceCoords, featureImportanceData, iceLoader };
 };
 
-export default connect(mapStateToProps, { fetchFeatureIceCoords })(
-  IndividualFeatureExplaination,
-);
+export default connect(mapStateToProps, {
+  fetchFeatureIceCoords,
+  showIceLoader
+})(IndividualFeatureExplaination);

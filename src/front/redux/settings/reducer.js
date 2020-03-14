@@ -48,22 +48,21 @@ import {
   READ_LOCALSTORAGE,
   SIDEMU_IS_NOT_COLLAPSED_VALUE,
   WRITE_LOCALSTORAGE,
-} from '../../constants/actionTypes';
-
-type PermanentStore = {
-  required: boolean,
-  storeKey: string,
-  storeValue: boolean,
-  ReadOrWrite: boolean, // write key / value to localStorage
-};
+  ON_LOADER_SHOW,
+  ON_LOADER_HIDE,
+  ON_ICE_LOADER_SHOW,
+  ON_ICE_LOADER_HIDE
+} from "../../constants/actionTypes";
 
 const INIT_STATE = {
-  currentView: 'home',
+  currentView: "home",
   enterTime: null,
   leaveTime: null,
   isCollapsed: false,
-  time: '',
+  time: "",
   sideMenuIsCollapsed: false,
+  loader: true,
+  iceLoader: true
 };
 
 export default (state = INIT_STATE, action) => {
@@ -95,7 +94,7 @@ export default (state = INIT_STATE, action) => {
           ...state,
           currentView: action.currentView,
           enterTime: action.enterTime,
-          leaveTime: action.leaveTime,
+          leaveTime: action.leaveTime
         };
       }
       return state;
@@ -127,7 +126,7 @@ export default (state = INIT_STATE, action) => {
           ...state,
           currentView: action.currentView,
           enterTime: action.enterTime,
-          leaveTime: action.leaveTime,
+          leaveTime: action.leaveTime
         };
       }
       return state;
@@ -136,7 +135,7 @@ export default (state = INIT_STATE, action) => {
 
       return {
         isCollapsed: Boolean(permanentStore.storeValue),
-        time,
+        time
       };
     }
 
@@ -146,7 +145,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         isCollapsed,
-        time,
+        time
       };
     }
 
@@ -156,9 +155,38 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         isCollapsed,
-        time,
+        time
       };
     }
+
+    case ON_LOADER_SHOW: {
+      return {
+        ...state,
+        loader: true
+      };
+    }
+
+    case ON_LOADER_HIDE: {
+      return {
+        ...state,
+        loader: false
+      };
+    }
+
+    case ON_ICE_LOADER_SHOW: {
+      return {
+        ...state,
+        iceLoader: true
+      };
+    }
+
+    case ON_ICE_LOADER_HIDE: {
+      return {
+        ...state,
+        iceLoader: false
+      };
+    }
+
     default:
       return state;
   }

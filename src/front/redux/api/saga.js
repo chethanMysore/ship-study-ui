@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects';
+import { call, put, takeLatest, all } from "redux-saga/effects";
 
 import {
   CREATE_NEW_NOTIFICATION,
@@ -7,9 +7,10 @@ import {
   FEATURE_IMPORTANCE_DATA,
   FEATURE_ICE_COORDS,
   FETCH_FEATURE_ICE_COORDS,
-} from '../../constants/actionTypes';
+  ON_LOADER_HIDE
+} from "../../constants/actionTypes";
 
-import { fetchTableData, dispatchAction } from './calls';
+import { fetchTableData, dispatchAction } from "./calls";
 
 /**
  * Handle GET requests
@@ -18,19 +19,19 @@ import { fetchTableData, dispatchAction } from './calls';
  * @sideEffects 1. dispatch error message if request fails,
  *              2. Updates corresponding entity in the store on success
  */
-const getData = function*(entityName, payload) {
+const getData = function*(entityName, loader, options) {
   try {
     let data = [];
-    data = yield call(() => fetchTableData(entityName, payload));
+    data = yield call(() => fetchTableData(entityName, options));
     if (data.isError) {
       throw data;
     } else {
-      yield all([put({ type: entityName, data })]);
+      yield all([put({ type: entityName, data }), put({ type: loader })]);
     }
   } catch (error) {
     yield put({
       type: WRITE_ERROR_MESSAGE,
-      payload: { message: error.message, source: 'getData' },
+      payload: { message: error.message, source: "getData" }
     });
   }
 };
@@ -44,32 +45,25 @@ const getData = function*(entityName, payload) {
  */
 const dispatchPostRequest = function*(entityName, payload) {
   try {
-    const res = yield call(dispatchAction, entityName, payload);
+    const res = yield call(dispatchAction, entityName, payload.requestData);
     if (res.isError) {
       yield put({
         type: WRITE_ERROR_MESSAGE,
-        payload: { message: 'Action Failed', source: 'dispatchPostRequest' },
+        payload: { message: "Action Failed", source: "dispatchPostRequest" }
       });
     } else {
-      yield [
+      yield all([
         put({
           type: entityName,
-          data: res,
+          data: res
         }),
-        put({
-          type: CREATE_NEW_NOTIFICATION,
-          payload: {
-            message: 'Action Successful',
-            messageType: 'success',
-            source: 'addNewInstance',
-          },
-        }),
-      ];
+        put({ type: payload.loader })
+      ]);
     }
   } catch (error) {
     yield put({
       type: WRITE_ERROR_MESSAGE,
-      payload: { message: error.message, source: 'dispatchPostRequest' },
+      payload: { message: error.message, source: "dispatchPostRequest" }
     });
   }
 };
@@ -87,28 +81,28 @@ const uploadImageFile = function*(entityName, payload) {
     if (data.isError) {
       yield put({
         type: WRITE_ERROR_MESSAGE,
-        payload: { message: 'Action Failed', source: 'uploadImageFile' },
+        payload: { message: "Action Failed", source: "uploadImageFile" }
       });
     } else {
       yield all([
         put({
           type: DOWNLOAD_FILE,
-          data: data.id,
+          data: data.id
         }),
         put({
           type: CREATE_NEW_NOTIFICATION,
           payload: {
-            message: 'Action Successful',
-            messageType: 'success',
-            source: 'uploadImageFile',
-          },
-        }),
+            message: "Action Successful",
+            messageType: "success",
+            source: "uploadImageFile"
+          }
+        })
       ]);
     }
   } catch (error) {
     yield put({
       type: WRITE_ERROR_MESSAGE,
-      payload: { message: error.message, source: 'uploadImageFile' },
+      payload: { message: error.message, source: "uploadImageFile" }
     });
   }
 };
@@ -119,10 +113,10 @@ const uploadImageFile = function*(entityName, payload) {
  */
 export const apiSagas = function*(action) {
   yield takeLatest(FETCH_FEATURE_IMPORTANCE, action =>
-    getData(FEATURE_IMPORTANCE_DATA, null),
+    getData(FEATURE_IMPORTANCE_DATA, action.payload, null)
   );
   yield takeLatest(FETCH_FEATURE_ICE_COORDS, action =>
-    dispatchPostRequest(FEATURE_ICE_COORDS, action.payload),
+    dispatchPostRequest(FEATURE_ICE_COORDS, action.payload)
   );
   // yield takeLatest(CREATE_NEW_LOCATION, action =>
   //   addNewInstance(LOCATION_DATA, action.payload),

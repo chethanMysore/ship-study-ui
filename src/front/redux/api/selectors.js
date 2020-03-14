@@ -12,9 +12,9 @@ export const importanceSelector = featureImportance => {
           name: desc[index],
           desc: `If the <b>${
             desc[index]
-            }</b> changes by 1 unit, <br />then the patient has a <b>${Math.round(
-              parseFloat(xCords[index]) * 100.0,
-            )}</b>% increase <br />in the chance of diagnosing as positive, <br />provided the patients other crucial features remain unchanged.`,
+          }</b> changes by 1 unit, <br />then the patient has a <b>${Math.round(
+            parseFloat(xCords[index]) * 100.0
+          )}</b>% increase <br />in the chance of diagnosing as positive, <br />provided the patients other crucial features remain unchanged.`
         });
       });
     }
