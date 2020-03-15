@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { AnimatedView, LoaderComponent } from "../../components";
 import { fetchFeatureIceCoords, showIceLoader } from "../../redux/actions";
 import { ON_ICE_LOADER_HIDE } from "../../constants/actionTypes";
+import { iceSelector } from "../../redux/selectors";
 import {
   Card,
   CardBody,
@@ -21,15 +22,18 @@ class IndividualFeatureExplaination extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedFeature: ""
+      selectedFeature:
+        !!this.props.featureImportanceData &&
+        !!this.props.featureImportanceData.features
+          ? this.props.featureImportanceData.features[0]
+          : ""
     };
     this.setSelectedFeature = this.setSelectedFeature.bind(this);
   }
   componentDidMount() {
     if (
       !!this.props.featureImportanceData &&
-      !!this.props.featureImportanceData.features &&
-      !!this.props.fetchFeatureIceCoords
+      !!this.props.featureImportanceData.features
     ) {
       const defaultFeature = this.props.featureImportanceData.features[0];
       this.props.fetchFeatureIceCoords(defaultFeature, ON_ICE_LOADER_HIDE);
@@ -37,19 +41,20 @@ class IndividualFeatureExplaination extends Component {
   }
 
   setSelectedFeature(e) {
+    this.props.showIceLoader();
     const selectedFeature = e.target.value;
-    this.props.fetchFeatureIceCoords(selectedFeature);
+    this.props.fetchFeatureIceCoords(selectedFeature, ON_ICE_LOADER_HIDE);
     this.setState({ selectedFeature });
   }
 
   render() {
-    console.log("featureImportance", this.props.featureImportanceData);
     const features =
       !!this.props.featureImportanceData &&
       !!this.props.featureImportanceData.features
         ? this.props.featureImportanceData.features
         : [];
     const options = {
+      zoomEnabled: true,
       animationEnabled: true,
       theme: "light2",
       axisX: {
@@ -58,34 +63,19 @@ class IndividualFeatureExplaination extends Component {
           : `Feature Values`,
         titleFontWeight: 700,
         margin: 20,
-        interval: 1,
-        reversed: true
+        interval: 1
       },
       axisY: {
-        title: "Predicted Liver Fat Percentage",
+        title: "Predicted Hepatic Steatosis Probability",
         margin: 20,
         titleFontWeight: 700
-        // labelFormatter: addSymbols,
       },
       toolTip: {
         backgroundColor: "#eee"
       },
       data: [
-        {
-          type: "bar",
-          // click: this.toggle,
-          // dataPoints: this.props.featureImportanceData,
-          dataPoints: [
-            { y: 2200000000, label: "Facebook" },
-            { y: 1800000000, label: "YouTube" },
-            { y: 800000000, label: "Instagram" },
-            { y: 563000000, label: "Qzone" },
-            { y: 376000000, label: "Weibo" },
-            { y: 336000000, label: "Twitter" },
-            { y: 330000000, label: "Reddit" }
-          ],
-          toolTipContent: "<span>{desc}</span>"
-        }
+        ...this.props.featureIceCoords.iceCoords,
+        this.props.featureIceCoords.pdp_points
       ]
     };
     return this.props.iceLoader ? (
@@ -99,6 +89,7 @@ class IndividualFeatureExplaination extends Component {
               type="select"
               name="feature"
               id="selectedFeature"
+              defaultValue={this.state.selectedFeature}
               onChange={this.setSelectedFeature}
             >
               {features.map((option, index) => (
@@ -108,34 +99,37 @@ class IndividualFeatureExplaination extends Component {
               ))}
             </Input>
           </FormGroup>
-          {!!this.state.selectedFeature && (
-            <Card>
-              <CardBody>
-                <CardTitle>
-                  {`Effect of `} <strong>{this.state.selectedFeature}</strong>
-                  {` over all participants`}
-                </CardTitle>
-                <CardSubtitle>
-                  {`ICE plot below demonstrates the change in model prediction with respect to the change in the values of `}
-                  <strong>{this.state.selectedFeature}</strong>
-                  {` while keeping all other contributing features constant`}
-                </CardSubtitle>
-              </CardBody>
-              <CardBody>
-                <CanvasJSChart
-                  options={options}
-                  /* onRef={ref => this.chart = ref} */
-                />
-              </CardBody>
-            </Card>
-          )}
+          {!!this.state.selectedFeature &&
+            !!this.props.featureIceCoords &&
+            this.props.featureIceCoords.iceCoords.length > 0 && (
+              <Card>
+                <CardBody>
+                  <CardTitle>
+                    {`Effect of `} <strong>{this.state.selectedFeature}</strong>
+                    {` over all participants`}
+                  </CardTitle>
+                  <CardSubtitle>
+                    {`ICE plot below demonstrates the change in model prediction with respect to the change in the values of `}
+                    <strong>{this.state.selectedFeature}</strong>
+                    {` while keeping all other contributing features constant`}
+                  </CardSubtitle>
+                </CardBody>
+                <CardBody>
+                  <CanvasJSChart
+                    options={options}
+                    /* onRef={ref => this.chart = ref} */
+                  />
+                </CardBody>
+              </Card>
+            )}
         </div>
       </AnimatedView>
     );
   }
 }
 const mapStateToProps = ({ api, settings }) => {
-  const { featureIceCoords, featureImportanceData } = api;
+  const { featureImportanceData } = api;
+  const featureIceCoords = iceSelector(api.featureIceCoords);
   const { iceLoader } = settings;
   return { featureIceCoords, featureImportanceData, iceLoader };
 };

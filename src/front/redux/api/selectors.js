@@ -21,3 +21,31 @@ export const importanceSelector = featureImportance => {
   }
   return importanceData;
 };
+
+export const iceSelector = featureIceCoords => {
+  let iceCoords = [];
+  let pdp_points = [];
+  if (!!featureIceCoords) {
+    const { ice_points } = featureIceCoords;
+    if (!!ice_points && ice_points.length > 0) {
+      ice_points.forEach((points, index) => {
+        iceCoords.push({
+          type: "line",
+          name: `Participant ${index + 1}`,
+          showInLegend: false,
+          dataPoints: points
+        });
+      });
+      pdp_points =
+        !!featureIceCoords.pdp_points && featureIceCoords.pdp_points.length > 0
+          ? {
+              type: "line",
+              name: `PDP for trend`,
+              dataPoints: featureIceCoords.pdp_points,
+              color: "#80091d"
+            }
+          : [];
+    }
+  }
+  return { iceCoords, pdp_points };
+};
