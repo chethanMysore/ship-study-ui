@@ -54,7 +54,9 @@ import {
   ON_LOADER_SHOW,
   ON_LOADER_HIDE,
   ON_ICE_LOADER_SHOW,
-  ON_ICE_LOADER_HIDE
+  ON_ICE_LOADER_HIDE,
+  ON_MODEL_LOADER_HIDE,
+  ON_MODEL_LOADER_SHOW
 } from "../../constants/actionTypes";
 
 export function enterHome(time = format(new Date())) {
@@ -456,6 +458,18 @@ export const showIceLoader = () => {
 export const hideIceLoader = () => {
   return {
     type: ON_ICE_LOADER_HIDE
+  };
+};
+
+export const hideModelLoader = () => {
+  return {
+    type: ON_MODEL_LOADER_HIDE
+  };
+};
+
+export const showModelLoader = () => {
+  return {
+    type: ON_MODEL_LOADER_SHOW
   };
 };
 

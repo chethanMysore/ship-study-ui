@@ -24,8 +24,8 @@ class IndividualFeatureExplaination extends Component {
     this.state = {
       selectedFeature:
         !!this.props.featureImportanceData &&
-        !!this.props.featureImportanceData.features
-          ? this.props.featureImportanceData.features[0]
+        !!this.props.featureImportanceData.featureDescription
+          ? this.props.featureImportanceData.featureDescription[0]
           : ""
     };
     this.setSelectedFeature = this.setSelectedFeature.bind(this);
@@ -41,17 +41,27 @@ class IndividualFeatureExplaination extends Component {
   }
 
   setSelectedFeature(e) {
-    this.props.showIceLoader();
     const selectedFeature = e.target.value;
-    this.props.fetchFeatureIceCoords(selectedFeature, ON_ICE_LOADER_HIDE);
-    this.setState({ selectedFeature });
+    const selectedIndex = this.props.featureImportanceData.featureDescription.findIndex(
+      feat => {
+        if (feat === selectedFeature) return feat;
+      }
+    );
+    if (selectedIndex >= 0) {
+      this.props.showIceLoader();
+      this.props.fetchFeatureIceCoords(
+        this.props.featureImportanceData.features[selectedIndex],
+        ON_ICE_LOADER_HIDE
+      );
+      this.setState({ selectedFeature });
+    }
   }
 
   render() {
     const features =
       !!this.props.featureImportanceData &&
-      !!this.props.featureImportanceData.features
-        ? this.props.featureImportanceData.features
+      !!this.props.featureImportanceData.featureDescription
+        ? this.props.featureImportanceData.featureDescription
         : [];
     const options = {
       zoomEnabled: true,
@@ -62,8 +72,7 @@ class IndividualFeatureExplaination extends Component {
           ? `${this.state.selectedFeature} values`
           : `Feature Values`,
         titleFontWeight: 700,
-        margin: 20,
-        interval: 1
+        margin: 20
       },
       axisY: {
         title: "Predicted Hepatic Steatosis Probability",

@@ -7,7 +7,8 @@ import {
   FEATURE_IMPORTANCE_DATA,
   FEATURE_ICE_COORDS,
   FETCH_FEATURE_ICE_COORDS,
-  ON_LOADER_HIDE
+  FETCH_MODEL_PERFORMANCE,
+  MODEL_PERFORMANCE
 } from "../../constants/actionTypes";
 
 import { fetchTableData, dispatchAction } from "./calls";
@@ -118,7 +119,7 @@ export const apiSagas = function*(action) {
   yield takeLatest(FETCH_FEATURE_ICE_COORDS, action =>
     dispatchPostRequest(FEATURE_ICE_COORDS, action.payload)
   );
-  // yield takeLatest(CREATE_NEW_LOCATION, action =>
-  //   addNewInstance(LOCATION_DATA, action.payload),
-  // );
+  yield takeLatest(FETCH_MODEL_PERFORMANCE, action =>
+    getData(MODEL_PERFORMANCE, action.payload, null)
+  );
 };

@@ -49,8 +49,8 @@ export const navigation = Object.freeze({
           faIconName: "fa-briefcase"
         },
         {
-          name: "Extra",
-          linkTo: "/Dashboard/extra",
+          name: "Model Performance",
+          linkTo: "/Dashboard/modelPerformance",
           faIconName: "fa-bell"
         }
       ]

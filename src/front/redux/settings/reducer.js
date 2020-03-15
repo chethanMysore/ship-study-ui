@@ -51,7 +51,9 @@ import {
   ON_LOADER_SHOW,
   ON_LOADER_HIDE,
   ON_ICE_LOADER_SHOW,
-  ON_ICE_LOADER_HIDE
+  ON_ICE_LOADER_HIDE,
+  ON_MODEL_LOADER_SHOW,
+  ON_MODEL_LOADER_HIDE
 } from "../../constants/actionTypes";
 
 const INIT_STATE = {
@@ -62,7 +64,8 @@ const INIT_STATE = {
   time: "",
   sideMenuIsCollapsed: false,
   loader: true,
-  iceLoader: true
+  iceLoader: true,
+  modelLoader: true
 };
 
 export default (state = INIT_STATE, action) => {
@@ -184,6 +187,20 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         iceLoader: false
+      };
+    }
+
+    case ON_MODEL_LOADER_SHOW: {
+      return {
+        ...state,
+        modelLoader: false
+      };
+    }
+
+    case ON_MODEL_LOADER_HIDE: {
+      return {
+        ...state,
+        modelLoader: false
       };
     }
 

@@ -6,7 +6,7 @@ import FeatureImportance from "../views/FeatureImportance";
 import Task2 from "../views/Task2";
 import IndividualFeatureExplaination from "../views/IndividualFeatureExplaination";
 import Task4 from "../views/Task4";
-import Extra from "../views/Extra";
+import ModelPerformance from "../views/ModelPerformance";
 import HomePage from "../views/HomePage";
 import { ON_LOADER_HIDE } from "../constants/actionTypes";
 
@@ -74,7 +74,10 @@ class App extends Component {
                       component={IndividualFeatureExplaination}
                     />
                     <Route path="/Dashboard/task4" component={Task4} />
-                    <Route path="/Dashboard/extra" component={Extra} />
+                    <Route
+                      path="/Dashboard/modelPerformance"
+                      component={ModelPerformance}
+                    />
                     <Route path="/" component={HomePage} />
                   </Switch>
                   {/* <MainRoutes /> */}

@@ -1,6 +1,7 @@
 import {
   FETCH_FEATURE_IMPORTANCE,
-  FETCH_FEATURE_ICE_COORDS
+  FETCH_FEATURE_ICE_COORDS,
+  FETCH_MODEL_PERFORMANCE
 } from "../../constants/actionTypes";
 
 export const fetchFeatureImportance = loader => {
@@ -17,9 +18,9 @@ export const fetchFeatureIceCoords = (feature_name, loader) => {
   };
 };
 
-// export const createNewLocation = data => {
-//   return {
-//     type: CREATE_NEW_LOCATION,
-//     payload: data,
-//   };
-// };
+export const fetchModelPerformance = loader => {
+  return {
+    type: FETCH_MODEL_PERFORMANCE,
+    payload: loader
+  };
+};
