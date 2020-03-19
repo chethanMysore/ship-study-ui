@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import {
+  Card,
+  CardHeader,
+  CardBody,
   Carousel,
   CarouselItem,
   CarouselControl,
