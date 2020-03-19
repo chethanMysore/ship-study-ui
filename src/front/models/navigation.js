@@ -44,8 +44,8 @@ export const navigation = Object.freeze({
           faIconName: "fa-bell"
         },
         {
-          name: "Task4",
-          linkTo: "/Dashboard/task4",
+          name: "Participant Analysis",
+          linkTo: "/Dashboard/participantAnalysis",
           faIconName: "fa-briefcase"
         },
         {

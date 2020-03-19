@@ -18,6 +18,7 @@ export const oauthPassword = "secret";
 export const featureImportancePath = "getFeatureImportance";
 export const featureICECoordsPath = "getIceCoords";
 export const modelPerformancePath = "getModelPerformance";
+export const minimalParticipantChangePath = "getMinimalChange";
 
 // export const userDataPath = "/entities/sec$User";
 export const ERROR_400 = "Request failed with status code 400";

@@ -8,7 +8,9 @@ import {
   FEATURE_ICE_COORDS,
   FETCH_FEATURE_ICE_COORDS,
   FETCH_MODEL_PERFORMANCE,
-  MODEL_PERFORMANCE
+  MODEL_PERFORMANCE,
+  FETCH_MINIMAL_PARTICIPANT_CHANGE,
+  MINIMAL_PARTICIPANT_CHANGE
 } from "../../constants/actionTypes";
 
 import { fetchTableData, dispatchAction } from "./calls";
@@ -121,5 +123,8 @@ export const apiSagas = function*(action) {
   );
   yield takeLatest(FETCH_MODEL_PERFORMANCE, action =>
     getData(MODEL_PERFORMANCE, action.payload, null)
+  );
+  yield takeLatest(FETCH_MINIMAL_PARTICIPANT_CHANGE, action =>
+    dispatchPostRequest(MINIMAL_PARTICIPANT_CHANGE, action.payload)
   );
 };
