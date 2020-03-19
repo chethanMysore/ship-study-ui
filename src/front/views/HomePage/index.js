@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import {
+  Card,
+  CardHeader,
+  CardBody,
   Carousel,
   CarouselItem,
   CarouselControl,
@@ -103,33 +106,59 @@ class HomePage extends Component {
       );
     });
     return (
-      <Jumbotron fluid>
-        <Container fluid>
-          <Carousel
-            className="display-3"
-            activeIndex={this.state.activeIndex}
-            next={this.next}
-            previous={this.previous}
-          >
-            <CarouselIndicators
-              items={items}
+      <div>
+        <Jumbotron fluid>
+          <Container fluid>
+            <Carousel
+              className="display-3"
               activeIndex={this.state.activeIndex}
-              onClickHandler={this.goToIndex}
-            />
-            {slides}
-            <CarouselControl
-              direction="prev"
-              directionText="Previous"
-              onClickHandler={this.previous}
-            />
-            <CarouselControl
-              direction="next"
-              directionText="Next"
-              onClickHandler={this.next}
-            />
-          </Carousel>
-        </Container>
-      </Jumbotron>
+              next={this.next}
+              previous={this.previous}
+            >
+              <CarouselIndicators
+                items={items}
+                activeIndex={this.state.activeIndex}
+                onClickHandler={this.goToIndex}
+              />
+              {slides}
+              <CarouselControl
+                direction="prev"
+                directionText="Previous"
+                onClickHandler={this.previous}
+              />
+              <CarouselControl
+                direction="next"
+                directionText="Next"
+                onClickHandler={this.next}
+              />
+            </Carousel>
+          </Container>
+        </Jumbotron>
+        <Card>
+          <CardHeader>
+            <h4>Ship Study Dashboard</h4>
+          </CardHeader>
+          <CardBody>
+            <blockquote className="blockquote mb-0">
+              <i>
+                {" "}
+                "The ultimate question after conducting the cohort study and
+                collecting the data for the same is how much one can rely on the
+                historical data? The participant can develop a new behaviour or
+                lifestyle between the consecutive data collection years or the
+                state-of-art machines vary from one area to other. The results
+                of these epidemiological studies can be enhanced by applying
+                mining methods to identify factors that could modulate the
+                outcome. The dashboard is built with the primary aim in
+                identification of merits of the evolution features towards
+                classification accuracy improvements which are susceptible to
+                interpretability".{" "}
+              </i>
+            </blockquote>
+          </CardBody>
+        </Card>
+        <br />
+      </div>
     );
   }
 }
