@@ -49,3 +49,67 @@ export const iceSelector = featureIceCoords => {
   }
   return { iceCoords, pdp_points };
 };
+
+const roundRuleFeatures = rule => {
+  rule = rule.replace(/([0-9]\.[0-9]*)/g, str => {
+    return parseFloat(str).toFixed(3);
+  });
+  return rule;
+};
+
+const classPrediction = {
+  "0": "NEGATIVE",
+  "1": "POSITIVE"
+};
+
+export const minimalChangeSelector = (minimalChange, featureImportance) => {
+  let participant_changes = {};
+  participant_changes.rulesData = [];
+  if (!!minimalChange) {
+    const { changes, rulesSet, prediction } = minimalChange;
+    if (!!rulesSet) {
+      rulesSet.forEach((rule, index) => {
+        participant_changes.rulesData.push({
+          label: roundRuleFeatures(rule.description),
+          y: rule.coefficient,
+          desc: `If <b>${roundRuleFeatures(
+            rule.description
+          )}</b> then the prediction changes by the factor of ${parseFloat(
+            rule.coefficient
+          ).toFixed(3)}`
+        });
+      });
+    }
+    if (!!changes) {
+      let changeDescription = "";
+      changes.forEach((change, index) => {
+        let predChange = classPrediction[prediction[0]];
+        if (predChange === "POSITIVE") {
+          predChange = "NEGATIVE";
+        } else {
+          predChange = "POSITIVE";
+        }
+        if (!!change.minimalChange && change.minimalChange.length > 0) {
+          changeDescription += `<p>Given the rule ${roundRuleFeatures(
+            change.rule[0]
+          )}, <br /><ul>`;
+          change.minimalChange.forEach(val => {
+            let featDesc = featureImportance.features.find((feat, index) => {
+              if (feat === val.feature[0])
+                return featureImportance.featureDescription[index];
+            });
+            changeDescription += `<li>As the participant's ${featDesc} <b>${
+              val.value[0] > 0 ? "increases" : "decreases"
+            }</b> by ${Math.abs(val.value[0]).toFixed(2)},<br />
+          the diagnosis changes from ${
+            classPrediction[prediction[0]]
+          } to ${predChange} </li>`;
+          });
+          changeDescription += `</ul><br /></p>`;
+        }
+      });
+      participant_changes.featChanges = changeDescription;
+    }
+  }
+  return participant_changes;
+};

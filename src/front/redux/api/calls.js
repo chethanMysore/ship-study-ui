@@ -10,13 +10,15 @@ import {
   oauthPassword,
   featureImportancePath,
   featureICECoordsPath,
-  modelPerformancePath
+  modelPerformancePath,
+  minimalParticipantChangePath
 } from "../../constants/defaultValues";
 
 import {
   FEATURE_IMPORTANCE_DATA,
   FEATURE_ICE_COORDS,
-  MODEL_PERFORMANCE
+  MODEL_PERFORMANCE,
+  MINIMAL_PARTICIPANT_CHANGE
 } from "../../constants/actionTypes";
 
 /**
@@ -114,6 +116,9 @@ const dispatchUserAction = (entityName, payload) => {
     switch (entityName) {
       case FEATURE_ICE_COORDS:
         entityPath = featureICECoordsPath;
+        break;
+      case MINIMAL_PARTICIPANT_CHANGE:
+        entityPath = minimalParticipantChangePath;
         break;
       default:
         entityPath = "";

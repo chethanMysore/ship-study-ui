@@ -1,7 +1,8 @@
 import {
   FEATURE_IMPORTANCE_DATA,
   FEATURE_ICE_COORDS,
-  MODEL_PERFORMANCE
+  MODEL_PERFORMANCE,
+  MINIMAL_PARTICIPANT_CHANGE
 } from "../../constants/actionTypes";
 
 /** ToDo: This is the static data. Remove after testing */
@@ -9,7 +10,8 @@ import {
 const INIT_STATE = {
   featureImportanceData: {},
   ExtraExtra: {},
-  modelPerformance: {}
+  modelPerformance: {},
+  minimalChange: {}
 };
 
 export default (state = INIT_STATE, { type, data }) => {
@@ -22,6 +24,9 @@ export default (state = INIT_STATE, { type, data }) => {
     }
     case MODEL_PERFORMANCE: {
       return Object.assign({}, state, { modelPerformance: data.response });
+    }
+    case MINIMAL_PARTICIPANT_CHANGE: {
+      return Object.assign({}, state, { minimalChange: data.response });
     }
     default:
       return { ...state };
