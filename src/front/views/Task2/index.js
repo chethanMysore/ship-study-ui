@@ -31,7 +31,9 @@ class Task2 extends Component {
               <CardBody>
                 <CardTitle>
                   {" "}
-                  <h3>SHIP Objectives</h3>
+                  <h3>
+                    <b>SHIP Objectives</b>
+                  </h3>
                 </CardTitle>
 
                 <CardText>
@@ -60,7 +62,9 @@ class Task2 extends Component {
             <Card style={{ width: "35rem" }}>
               <CardBody>
                 <CardTitle>
-                  <h3>Dataset Study Timeline</h3>
+                  <h3>
+                    <b>Dataset Study Timeline</b>
+                  </h3>
                 </CardTitle>
 
                 <CardText>

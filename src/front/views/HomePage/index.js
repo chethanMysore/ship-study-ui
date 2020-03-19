@@ -159,18 +159,26 @@ class HomePage extends Component {
         </Card>
         <br />
         <br />
-        <h4>About us!</h4>
-        <h5>
-          {" "}
-          We live in a world of data, and many people have to make sense of
-          numbers. The trouble is that there can be a lot of friction involved
-          when mining the data. WE are a team of four students who believe that
-          this is where dashboards come into play: a well-designed dashboard can
-          save huge amounts of time, helping people to quickly identify the
-          numbers that matter, in order to make insightful observations or to
-          compile reports for end users.{" "}
-        </h5>
-        <br />
+        <Card>
+          <CardHeader>
+            <h4>About us!</h4>
+          </CardHeader>
+          <CardBody>
+            <blockquote className="blockquote mb-0">
+              <i>
+                {" "}
+                We live in a world of data, and many people have to make sense
+                of numbers. The trouble is that there can be a lot of friction
+                involved when mining the data. WE are a team of four students
+                who believe that this is where dashboards come into play: a
+                well-designed dashboard can save huge amounts of time, helping
+                people to quickly identify the numbers that matter, in order to
+                make insightful observations or to compile reports for end
+                users.{" "}
+              </i>
+            </blockquote>
+          </CardBody>
+        </Card>
       </div>
     );
   }
