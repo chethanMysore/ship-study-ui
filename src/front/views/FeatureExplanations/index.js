@@ -3,7 +3,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AnimatedView, LoaderComponent } from "../../components";
-import { fetchFeatureIceCoords, showIceLoader } from "../../redux/actions";
+import {
+  fetchFeatureIceCoords,
+  showIceLoader,
+  enterFeatureExplanations
+} from "../../redux/actions";
 import { ON_ICE_LOADER_HIDE } from "../../constants/actionTypes";
 import { iceSelector } from "../../redux/selectors";
 import {
@@ -18,7 +22,7 @@ import {
 import CanvasJSReact from "../../util/js/canvasjs.react";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-class IndividualFeatureExplaination extends Component {
+class FeatureExplanations extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +35,7 @@ class IndividualFeatureExplaination extends Component {
     this.setSelectedFeature = this.setSelectedFeature.bind(this);
   }
   componentDidMount() {
+    this.props.enterFeatureExplanations();
     if (
       !!this.props.featureImportanceData &&
       !!this.props.featureImportanceData.features
@@ -145,5 +150,6 @@ const mapStateToProps = ({ api, settings }) => {
 
 export default connect(mapStateToProps, {
   fetchFeatureIceCoords,
-  showIceLoader
-})(IndividualFeatureExplaination);
+  showIceLoader,
+  enterFeatureExplanations
+})(FeatureExplanations);

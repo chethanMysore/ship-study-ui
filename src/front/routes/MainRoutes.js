@@ -5,8 +5,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "../components/privateRoute/PrivateRoute";
 import FeatureImportance from "../views/FeatureImportance";
-import Task2 from "../views/Task2";
-import IndividualFeatureExplaination from "../views/IndividualFeatureExplaination";
+import ProjectOverview from "../views/ProjectOverview";
+import FeatureExplanations from "../views/FeatureExplanations";
 import ParticipantAnalysis from "../views/ParticipantAnalysis";
 import ModelPerformance from "../views/ModelPerformance";
 import HomePage from "../views/HomePage";
@@ -16,10 +16,10 @@ export const MainRoutes = () => (
     <Route exact path="/" component={HomePage} />
 
     <Route path="/Dashboard/featureImportance" component={FeatureImportance} />
-    <Route path="/Dashboard/task2" component={Task2} />
+    <Route path="/Dashboard/projectOverview" component={ProjectOverview} />
     <Route
-      path="/Dashboard/individualFeatureExplaination"
-      component={IndividualFeatureExplaination}
+      path="/Dashboard/featureExplanations"
+      component={FeatureExplanations}
     />
     <Route
       path="/Dashboard/participantAnalysis"

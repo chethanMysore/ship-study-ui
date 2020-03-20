@@ -49,8 +49,6 @@ import {
   CLOSE_SIDE_MENU,
   SIDEMU_IS_COLLAPSED_KEY,
   READ_LOCALSTORAGE,
-  SIDEMU_IS_NOT_COLLAPSED_VALUE,
-  WRITE_LOCALSTORAGE,
   ON_LOADER_SHOW,
   ON_LOADER_HIDE,
   ON_ICE_LOADER_SHOW,
@@ -58,7 +56,12 @@ import {
   ON_MODEL_LOADER_HIDE,
   ON_MODEL_LOADER_SHOW,
   ON_PART_LOADER_HIDE,
-  ON_PART_LOADER_SHOW
+  ON_PART_LOADER_SHOW,
+  ENTER_PROJECT_OVERVIEW,
+  ENTER_FEATURE_IMPORTANCE,
+  ENTER_FEATURE_EXPLANATIONS,
+  ENTER_PARTICIPANT_ANALYSIS,
+  ENTER_MODEL_PERFORMANCE
 } from "../../constants/actionTypes";
 
 export function enterHome(time = format(new Date())) {
@@ -439,6 +442,41 @@ export function leaveProtected(time = format(new Date())) {
   };
 }
 
+export function enterProjectOverview() {
+  return {
+    type: ENTER_PROJECT_OVERVIEW,
+    currentView: "ProjectOverview"
+  };
+}
+
+export function enterFeatureImportance() {
+  return {
+    type: ENTER_FEATURE_IMPORTANCE,
+    currentView: "FeatureImportance"
+  };
+}
+
+export function enterFeatureExplanations() {
+  return {
+    type: ENTER_FEATURE_EXPLANATIONS,
+    currentView: "FeatureExplanations"
+  };
+}
+
+export function enterParticipantAnalysis() {
+  return {
+    type: ENTER_PARTICIPANT_ANALYSIS,
+    currentView: "ParticipantAnalysis"
+  };
+}
+
+export function enterModelPerformance() {
+  return {
+    type: ENTER_MODEL_PERFORMANCE,
+    currentView: "ModelPerformance"
+  };
+}
+
 export const showLoader = () => {
   return {
     type: ON_LOADER_SHOW
@@ -502,32 +540,16 @@ export function getSideMenuCollpasedStateFromLocalStorage(
     }
   };
 }
-export function openSideMenu(time = format(new Date())) {
+export function openSideMenu() {
   return {
     type: OPEN_SIDE_MENU,
-    isCollapsed: false,
-    time,
-    // for localStorageManager middleware
-    permanentStore: {
-      required: true,
-      storeKey: SIDEMU_IS_COLLAPSED_KEY,
-      storeValue: SIDEMU_IS_NOT_COLLAPSED_VALUE,
-      ReadOrWrite: WRITE_LOCALSTORAGE // write key / value to localStorage
-    }
+    isCollapsed: false
   };
 }
-export function closeSideMenu(time = format(new Date())) {
+export function closeSideMenu() {
   return {
     type: CLOSE_SIDE_MENU,
-    isCollapsed: true,
-    time,
-    // for localStorageManager middleware
-    permanentStore: {
-      required: true,
-      storeKey: SIDEMU_IS_COLLAPSED_KEY,
-      storeValue: SIDEMU_IS_COLLAPSED_VALUE,
-      ReadOrWrite: WRITE_LOCALSTORAGE // write key / value to localStorage
-    }
+    isCollapsed: true
   };
 }
 export function toggleSideMenu() {

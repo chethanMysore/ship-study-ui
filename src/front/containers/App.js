@@ -3,8 +3,8 @@ import React, { Component, Fragment, useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import FeatureImportance from "../views/FeatureImportance";
-import Task2 from "../views/Task2";
-import IndividualFeatureExplaination from "../views/IndividualFeatureExplaination";
+import ProjectOverview from "../views/ProjectOverview";
+import FeatureExplanations from "../views/FeatureExplanations";
 import ParticipantAnalysis from "../views/ParticipantAnalysis";
 import ModelPerformance from "../views/ModelPerformance";
 import HomePage from "../views/HomePage";
@@ -17,7 +17,11 @@ import { appConfig } from "../config";
 import { navigation } from "../models";
 import MainRoutes from "../routes/MainRoutes";
 import { NotificationContainer } from "../components/ReactNotifications";
-import { toggleSideMenu, fetchFeatureImportance } from "../redux/actions";
+import {
+  openSideMenu,
+  closeSideMenu,
+  fetchFeatureImportance
+} from "../redux/actions";
 import LoaderComponent from "../components/LoaderComponent";
 // #endregion
 
@@ -32,13 +36,16 @@ class App extends Component {
   toggleMenu(e) {
     if (e) {
       e.preventDefault();
-      this.props.toggleSideMenu();
+      if (this.props.isCollapsed) {
+        this.props.openSideMenu();
+      } else {
+        this.props.closeSideMenu();
+      }
     }
   }
   render() {
     const { isCollapsed, currentView } = this.props;
     const appName = appConfig.APP_NAME;
-
     return (
       <Fragment>
         <NotificationContainer />
@@ -68,10 +75,13 @@ class App extends Component {
                       component={FeatureImportance}
                     />
                     <Route path="/Dashboard/home" component={HomePage} />
-                    <Route path="/Dashboard/task2" component={Task2} />
                     <Route
-                      path="/Dashboard/IndividualFeatureExplaination"
-                      component={IndividualFeatureExplaination}
+                      path="/Dashboard/projectOverview"
+                      component={ProjectOverview}
+                    />
+                    <Route
+                      path="/Dashboard/featureExplanations"
+                      component={FeatureExplanations}
                     />
                     <Route
                       path="/Dashboard/participantAnalysis"
@@ -103,6 +113,7 @@ const mapStateToProps = ({ settings }) => {
 };
 
 export default connect(mapStateToProps, {
-  toggleSideMenu,
+  openSideMenu,
+  closeSideMenu,
   fetchFeatureImportance
 })(App);

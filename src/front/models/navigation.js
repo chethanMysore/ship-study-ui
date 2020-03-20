@@ -23,35 +23,40 @@ export const navigation = Object.freeze({
       id: 1,
       group: "Dashboard  ",
       menus: [
+        // {
+        //   name: "Home",
+        //   linkTo: "/",
+        //   faIconName: "fa-home"
+        // },
         {
-          name: "Dashboard preview",
-          linkTo: "/",
-          faIconName: "fa-eye"
+          name: "Project Overview",
+          linkTo: "/Dashboard/projectOverview",
+          faIconName: "fa-th",
+          pathname: "ProjectOverview"
         },
         {
           name: "Feature Importance",
           linkTo: "/Dashboard/featureImportance",
-          faIconName: "fa-check-square-o"
-        },
-        {
-          name: "Task2",
-          linkTo: "/Dashboard/task2",
-          faIconName: "fa-area-chart"
+          faIconName: "fa-bar-chart",
+          pathname: "FeatureImportance"
         },
         {
           name: "Feature Explainations",
-          linkTo: "/Dashboard/individualFeatureExplaination",
-          faIconName: "fa-bell"
+          linkTo: "/Dashboard/featureExplanations",
+          faIconName: "fa-line-chart",
+          pathname: "FeatureExplanations"
         },
         {
           name: "Participant Analysis",
           linkTo: "/Dashboard/participantAnalysis",
-          faIconName: "fa-briefcase"
+          faIconName: "fa-area-chart",
+          pathname: "ParticipantAnalysis"
         },
         {
           name: "Model Performance",
           linkTo: "/Dashboard/modelPerformance",
-          faIconName: "fa-bell"
+          faIconName: "fa-pie-chart",
+          pathname: "ModelPerformance"
         }
       ]
     }

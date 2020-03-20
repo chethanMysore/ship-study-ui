@@ -20,6 +20,11 @@ import {
   ENTER_ALERT_VIEW,
   ENTER_PAGINATION_VIEW,
   ENTER_PROTECTED_VIEW,
+  ENTER_FEATURE_IMPORTANCE,
+  ENTER_PROJECT_OVERVIEW,
+  ENTER_FEATURE_EXPLANATIONS,
+  ENTER_PARTICIPANT_ANALYSIS,
+  ENTER_MODEL_PERFORMANCE,
   LEAVE_HOME_VIEW,
   LEAVE_LOGIN_VIEW,
   LEAVE_SIMPLE_TABLES_VIEW,
@@ -136,6 +141,20 @@ export default (state = INIT_STATE, action) => {
         };
       }
       return state;
+
+    case ENTER_PROJECT_OVERVIEW:
+    case ENTER_FEATURE_IMPORTANCE:
+    case ENTER_FEATURE_EXPLANATIONS:
+    case ENTER_PARTICIPANT_ANALYSIS:
+    case ENTER_MODEL_PERFORMANCE:
+      if (state.currentView !== action.currentView) {
+        return {
+          ...state,
+          currentView: action.currentView
+        };
+      }
+      return state;
+
     case GET_SIDE_MENU_TOGGLE_STATE_FROM_LOCALSTORAGE: {
       const { permanentStore = { storeValue: false }, time } = action;
 
@@ -146,22 +165,20 @@ export default (state = INIT_STATE, action) => {
     }
 
     case OPEN_SIDE_MENU: {
-      const { isCollapsed, time } = action;
+      const { isCollapsed } = action;
 
       return {
         ...state,
-        isCollapsed,
-        time
+        isCollapsed
       };
     }
 
     case CLOSE_SIDE_MENU: {
-      const { isCollapsed, time } = action;
+      const { isCollapsed } = action;
 
       return {
         ...state,
-        isCollapsed,
-        time
+        isCollapsed
       };
     }
 

@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 import { AnimatedView, Label, StatsCard } from "../../components";
 import CustomModal from "../../newComponents/CustomModal";
 import CanvasJSReact from "../../util/js/canvasjs.react";
-import { fetchFeatureImportance } from "../../redux/actions";
+import {
+  fetchFeatureImportance,
+  enterFeatureImportance
+} from "../../redux/actions";
 import { addSymbols } from "../../util/Utils";
 import { importanceSelector } from "../../redux/selectors";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -31,6 +34,7 @@ class FeatureImportance extends Component {
   //   });
   // }
   componentDidMount() {
+    this.props.enterFeatureImportance();
     // this.props.fetchFeatureImportance(ON_LOADER_HIDE);
   }
 
@@ -100,5 +104,6 @@ const mapStateToProps = ({ api }) => {
 };
 
 export default connect(mapStateToProps, {
-  fetchFeatureImportance
+  fetchFeatureImportance,
+  enterFeatureImportance
 })(FeatureImportance);

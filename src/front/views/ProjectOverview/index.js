@@ -15,10 +15,14 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { AnimatedView } from "../../components";
+import { enterProjectOverview } from "../../redux/actions";
 
-class Task2 extends Component {
+class ProjectOverview extends Component {
   constructor(props) {
     super(props);
+  }
+  componentDidMount() {
+    this.props.enterProjectOverview();
   }
   render() {
     return (
@@ -27,7 +31,7 @@ class Task2 extends Component {
 
         <Row>
           <Col md="12" xl="6">
-            <Card style={{ width: "35rem" }}>
+            <Card>
               <CardBody>
                 <CardTitle>
                   {" "}
@@ -59,7 +63,7 @@ class Task2 extends Component {
             </Card>
           </Col>
           <Col md="12" xl="6">
-            <Card style={{ width: "35rem" }}>
+            <Card>
               <CardBody>
                 <CardTitle>
                   <h3>
@@ -103,7 +107,7 @@ class Task2 extends Component {
 
         <Row>
           <Col md="12" xl="6">
-            <Card style={{ width: "35rem" }}>
+            <Card>
               <CardBody>
                 <CardTitle>
                   {" "}
@@ -133,7 +137,7 @@ class Task2 extends Component {
             </Card>
           </Col>
           <Col md="12" xl="6">
-            <Card style={{ width: "35rem" }}>
+            <Card>
               <CardBody>
                 <CardTitle>
                   <h3>
@@ -171,4 +175,6 @@ const mapStateToProps = ({}) => {
   return {};
 };
 
-export default connect(mapStateToProps, {})(Task2);
+export default connect(mapStateToProps, { enterProjectOverview })(
+  ProjectOverview
+);

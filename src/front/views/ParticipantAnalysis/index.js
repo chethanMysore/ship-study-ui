@@ -3,7 +3,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AnimatedView, LoaderComponent } from "../../components";
-import { fetchMinimalChanges, showPartLoader } from "../../redux/actions";
+import {
+  fetchMinimalChanges,
+  showPartLoader,
+  enterParticipantAnalysis
+} from "../../redux/actions";
 import { minimalChangeSelector } from "../../redux/selectors";
 import CanvasJSReact from "../../util/js/canvasjs.react";
 import {
@@ -35,6 +39,7 @@ class ParticipantAnalysis extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
+    this.props.enterParticipantAnalysis();
     this.props.fetchMinimalChanges(1, ON_PART_LOADER_HIDE);
   }
   onParticipantChange(e) {
@@ -151,5 +156,6 @@ const mapStateToProps = ({ api, settings }) => {
 
 export default connect(mapStateToProps, {
   fetchMinimalChanges,
-  showPartLoader
+  showPartLoader,
+  enterParticipantAnalysis
 })(ParticipantAnalysis);

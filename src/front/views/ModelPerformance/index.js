@@ -4,7 +4,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import CanvasJSReact from "../../util/js/canvasjs.react";
-import { fetchModelPerformance } from "../../redux/actions";
+import {
+  fetchModelPerformance,
+  enterModelPerformance
+} from "../../redux/actions";
 import { toPercentage } from "../../util/Utils";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 import { Card, Button, CardTitle, CardText, Col, Row } from "reactstrap";
@@ -16,11 +19,11 @@ class ModelPerformance extends Component {
     super(props);
   }
   componentDidMount() {
+    this.props.enterModelPerformance();
     this.props.fetchModelPerformance(ON_MODEL_LOADER_HIDE);
   }
   render() {
     const { trainPerformance, testPerformance } = this.props.modelPerformance;
-    console.log("trainPerformance", trainPerformance);
     const optionsTrain =
       !!trainPerformance &&
       !!testPerformance &&
@@ -169,6 +172,7 @@ const mapStateToProps = ({ api, settings }) => {
   return { modelLoader, modelPerformance };
 };
 
-export default connect(mapStateToProps, { fetchModelPerformance })(
-  ModelPerformance
-);
+export default connect(mapStateToProps, {
+  fetchModelPerformance,
+  enterModelPerformance
+})(ModelPerformance);

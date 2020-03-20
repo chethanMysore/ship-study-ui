@@ -1,27 +1,20 @@
 // @flow
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Motion, spring } from 'react-motion';
+import React from "react";
+import PropTypes from "prop-types";
+import { Motion, spring } from "react-motion";
 
-type Props = {
-  title: string,
-  backColor: string,
-  isCollapsed: boolean,
-  onClick: (event?: SyntheticEvent<>) => any,
-};
-
-const MenuHeader = ({ title, backColor, isCollapsed, onClick }: Props) => (
+const MenuHeader = ({ title, backColor, isCollapsed, onClick }) => (
   <ul className="list-inline sidebar-menu__group-container" onClick={onClick}>
-    <li style={{ width: '100%', backgroundColor: backColor }}>
+    <li style={{ width: "100%", backgroundColor: backColor }}>
       <a
         className="btn"
-        style={{ width: '100%', paddinLeft: '0px !important' }}
+        style={{ width: "100%", paddinLeft: "0px !important" }}
       >
         <span className="pull-left sidebar-menu__group-title">{title}</span>
-        <Motion
+        {/* <Motion
           style={{
-            deg: isCollapsed ? spring(0) : spring(180),
+            deg: isCollapsed ? spring(0) : spring(180)
           }}
         >
           {({ deg }) => {
@@ -30,25 +23,18 @@ const MenuHeader = ({ title, backColor, isCollapsed, onClick }: Props) => (
                 className="fa fa-angle-up fa-1x pull-right"
                 style={{
                   WebkitTransform: `rotate(${deg}deg)`,
-                  transform: `rotate(${deg}deg)`,
+                  transform: `rotate(${deg}deg)`
                 }}
                 aria-hidden="true"
               />
             );
           }}
-        </Motion>
+        </Motion> */}
       </a>
     </li>
   </ul>
 );
 
-MenuHeader.displayName = 'MenuHeader';
-
-MenuHeader.propTypes = {
-  backColor: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  isCollapsed: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
+MenuHeader.displayName = "MenuHeader";
 
 export default MenuHeader;
