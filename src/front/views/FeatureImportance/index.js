@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { AnimatedView, Label, StatsCard } from "../../components";
+import { AnimatedView } from "../../components";
 import CustomModal from "../../newComponents/CustomModal";
 import CanvasJSReact from "../../util/js/canvasjs.react";
 import {
@@ -12,6 +12,27 @@ import {
 import { addSymbols } from "../../util/Utils";
 import { importanceSelector } from "../../redux/selectors";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import { Card, CardBody, Row, Col, CardTitle } from "reactstrap";
+
+const featureImpColumns = [
+  {
+    Header: "Feature Name",
+    accessor: "feature"
+  },
+  {
+    Header: "Feature Description",
+    accessor: "description"
+  },
+  {
+    id: "featType",
+    Header: "Feature Type",
+    accessor: "type",
+    cell: props =>
+      props === "original" ? "Original Feature" : "Evolutionary Feature"
+  }
+];
 
 class FeatureImportance extends Component {
   constructor(props) {
@@ -70,7 +91,7 @@ class FeatureImportance extends Component {
         {
           type: "bar",
           // click: this.toggle,
-          dataPoints: this.props.featureImportanceData,
+          dataPoints: this.props.featureImportanceData.importanceData,
           // dataPoints: [
           //   { y: 2200000000, label: 'Facebook' },
           //   { y: 1800000000, label: 'YouTube' },
@@ -87,12 +108,46 @@ class FeatureImportance extends Component {
 
     return (
       <AnimatedView>
-        <div>
-          <CanvasJSChart
-            options={options}
-            /* onRef={ref => this.chart = ref} */
-          />
-        </div>
+        <Card>
+          <CardBody>
+            <Row>
+              <Col md="12">
+                <Card>
+                  <CardBody>
+                    <CanvasJSChart
+                      options={options}
+                      /* onRef={ref => this.chart = ref} */
+                    />
+                  </CardBody>
+                </Card>
+              </Col>
+
+              <Col md="12">
+                <br />
+                <br />
+                <Card>
+                  <CardBody>
+                    <CardTitle>
+                      <h4>
+                        Observed set of features that are critical for diagnosis
+                        of Hepatic Steatosis
+                      </h4>
+                    </CardTitle>
+                  </CardBody>
+                  <CardBody>
+                    <ReactTable
+                      data={this.props.featureImportanceData.featImpTable}
+                      columns={featureImpColumns}
+                      filterable={true}
+                      showPagination={false}
+                      defaultPageSize={14}
+                    />
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
       </AnimatedView>
     );
   }

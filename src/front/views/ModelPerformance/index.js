@@ -10,7 +10,15 @@ import {
 } from "../../redux/actions";
 import { toPercentage } from "../../util/Utils";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-import { Card, Button, CardTitle, CardText, Col, Row } from "reactstrap";
+import {
+  Card,
+  Button,
+  CardTitle,
+  CardText,
+  Col,
+  Row,
+  CardBody
+} from "reactstrap";
 import { AnimatedView, LoaderComponent } from "../../components";
 import { ON_MODEL_LOADER_HIDE } from "../../constants/actionTypes";
 
@@ -132,36 +140,42 @@ class ModelPerformance extends Component {
       <LoaderComponent />
     ) : (
       <AnimatedView>
-        <div>
-          {!!this.props.modelPerformance &&
-          this.props.modelPerformance.trainPerformance &&
-          this.props.modelPerformance.testPerformance ? (
-            <Row>
-              <Col sm="12" xl="6">
-                <Card>
-                  <CanvasJSChart
-                    options={optionsTrain}
+        <Card>
+          <CardBody>
+            {!!this.props.modelPerformance &&
+            this.props.modelPerformance.trainPerformance &&
+            this.props.modelPerformance.testPerformance ? (
+              <Row>
+                <Col sm="12" xl="6">
+                  <Card>
+                    <CardBody>
+                      <CanvasJSChart
+                        options={optionsTrain}
 
-                    /* onRef={ref => this.chart = ref} */
-                  />
-                </Card>
-              </Col>
+                        /* onRef={ref => this.chart = ref} */
+                      />
+                    </CardBody>
+                  </Card>
+                </Col>
 
-              {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-              <Col sm="12" xl="6">
-                <Card>
-                  <CanvasJSChart
-                    options={optionsTest}
+                {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+                <Col sm="12" xl="6">
+                  <Card>
+                    <CardBody>
+                      <CanvasJSChart
+                        options={optionsTest}
 
-                    /* onRef={ref => this.chart = ref} */
-                  />
-                </Card>
-              </Col>
-            </Row>
-          ) : (
-            "Information Not Available"
-          )}
-        </div>
+                        /* onRef={ref => this.chart = ref} */
+                      />
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+            ) : (
+              "Information Not Available"
+            )}
+          </CardBody>
+        </Card>
       </AnimatedView>
     );
   }

@@ -1,15 +1,23 @@
 export const importanceSelector = featureImportance => {
   let importanceData = [];
+  let featImpTable = [];
   if (!!featureImportance) {
     const xCords = featureImportance.importance;
     const yCords = featureImportance.features;
     const desc = featureImportance.featureDescription;
+    const featType = featureImportance.featType;
     if (!!xCords && !!yCords && !!desc && xCords.length == yCords.length) {
       xCords.forEach((data, index) => {
+        featImpTable.push({
+          feature: yCords[index],
+          description: desc[index],
+          type: featType[index]
+        });
         importanceData.push({
           label: desc[index],
           y: xCords[index],
           name: desc[index],
+          color: featType[index] === "original" ? "#3182bd" : "#9ecae1",
           desc: `If the <b>${
             desc[index]
           }</b> changes by 1 unit, <br />then the patient has a <b>${Math.round(
@@ -19,7 +27,7 @@ export const importanceSelector = featureImportance => {
       });
     }
   }
-  return importanceData;
+  return { importanceData, featImpTable };
 };
 
 export const iceSelector = featureIceCoords => {
@@ -42,7 +50,8 @@ export const iceSelector = featureIceCoords => {
               type: "line",
               name: `PDP for trend`,
               dataPoints: featureIceCoords.pdp_points,
-              color: "#80091d"
+              color: "#1f33a7",
+              lineThickness: 10
             }
           : [];
     }
@@ -76,7 +85,8 @@ export const minimalChangeSelector = (minimalChange, featureImportance) => {
             rule.description
           )}</b> then the prediction changes by the factor of ${parseFloat(
             rule.coefficient
-          ).toFixed(3)}`
+          ).toFixed(3)}`,
+          color: rule.coefficient > 0 ? "#31a354" : "#de2d26"
         });
       });
     }

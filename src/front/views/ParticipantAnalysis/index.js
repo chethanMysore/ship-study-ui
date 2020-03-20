@@ -102,21 +102,25 @@ class ParticipantAnalysis extends Component {
                 </Card>
               </Col>
             )}
-          <Col md="12">
+          <Col md="4">
+            <br />
+            <br />
             <FormGroup>
-              <Label for="participantId">Search with participant ID</Label>
               <Input
                 type="text"
                 name="partId"
                 id="partId"
-                defaultValue={this.props.participantId}
-                placeholder={"Participant ID e.g., 1"}
+                placeholder={
+                  "Search here with Participant ID in the range 1 to 582   e.g., 1"
+                }
                 onChange={this.onParticipantChange}
               />
               {/* <Button color="primary" size="sm" onClick={this.handleSubmit}>
                 Submit
               </Button> */}
             </FormGroup>
+          </Col>
+          <Col md="12">
             {!!this.props.minimalChange &&
               !!this.props.minimalChange.featChanges && (
                 <Card>
