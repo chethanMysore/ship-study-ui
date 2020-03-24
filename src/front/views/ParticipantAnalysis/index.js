@@ -26,6 +26,7 @@ import {
   ON_PART_LOADER_HIDE,
   ON_PART_LOADER_SHOW
 } from "../../constants/actionTypes";
+import "./_participantAnalysis.scss";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -61,7 +62,8 @@ class ParticipantAnalysis extends Component {
         titleFontWeight: 700,
         margin: 20,
         interval: 1,
-        reversed: true
+        reversed: true,
+        labelAutoFit: true
       },
       axisY: {
         title: "Factor of Importance",
@@ -73,9 +75,19 @@ class ParticipantAnalysis extends Component {
       },
       data: [
         {
-          type: "bar",
+          type: "stackedBar",
           dataPoints: this.props.minimalChange.rulesData,
-          toolTipContent: "<span>{desc}</span>"
+          toolTipContent: "<span>{desc}</span>",
+          showInLegend: true,
+          legendText: "Positively impacting rules",
+          legendMarkerColor: "#3182bd"
+        },
+        {
+          type: "stackedBar",
+          dataPoints: [{ y: 0, label: "" }],
+          showInLegend: true,
+          legendText: "Negatively impacting rules",
+          legendMarkerColor: "#9ecae1"
         }
       ]
     };
@@ -90,10 +102,10 @@ class ParticipantAnalysis extends Component {
                 <Card>
                   <CardBody>
                     <CardTitle>
-                      {`Extracted rules and their importance factors`}
+                      <h3>{`Extracted rules and their importance factors`}</h3>
                     </CardTitle>
                     <CardSubtitle>
-                      {`This plot illustrates the built machine learning model by describing the features as IF-THEN-RULES and their factors of importance.`}
+                      <p>{`This plot illustrates the built machine learning model by describing the features as IF-THEN-RULES and their factors of importance.`}</p>
                     </CardSubtitle>
                   </CardBody>
                   <CardBody>
@@ -102,9 +114,7 @@ class ParticipantAnalysis extends Component {
                 </Card>
               </Col>
             )}
-          <Col md="4">
-            <br />
-            <br />
+          <Col md="8" xs="12" xl="6" className="mt-5">
             <FormGroup>
               <Input
                 type="text"
@@ -114,6 +124,7 @@ class ParticipantAnalysis extends Component {
                   "Search here with Participant ID in the range 1 to 582   e.g., 1"
                 }
                 onChange={this.onParticipantChange}
+                className="search-bar"
               />
               {/* <Button color="primary" size="sm" onClick={this.handleSubmit}>
                 Submit

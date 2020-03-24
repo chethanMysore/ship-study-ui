@@ -146,7 +146,7 @@ class ModelPerformance extends Component {
             this.props.modelPerformance.trainPerformance &&
             this.props.modelPerformance.testPerformance ? (
               <Row>
-                <Col sm="12" xl="6">
+                <Col sm="12" xl="6" md="12">
                   <Card>
                     <CardBody>
                       <CanvasJSChart
@@ -159,7 +159,7 @@ class ModelPerformance extends Component {
                 </Col>
 
                 {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-                <Col sm="12" xl="6">
+                <Col sm="12" xl="6" md="12">
                   <Card>
                     <CardBody>
                       <CanvasJSChart

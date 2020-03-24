@@ -65,8 +65,6 @@ class FeatureImportance extends Component {
     const options = {
       animationEnabled: true,
       theme: "light2",
-      // height: height,
-      // width: width,
       title: {
         text: "Importance of Crucial Factors on Diagnosis of Hepatic Steatosis",
         padding: 30
@@ -82,72 +80,69 @@ class FeatureImportance extends Component {
         title: "Feature Importance",
         margin: 20,
         titleFontWeight: 700
-        // labelFormatter: addSymbols,
       },
       toolTip: {
         backgroundColor: "#eee"
       },
       data: [
         {
-          type: "bar",
-          // click: this.toggle,
+          type: "stackedBar",
+          showInLegend: true,
+          legendText: "Original Features",
+          legendMarkerColor: "#3182bd",
           dataPoints: this.props.featureImportanceData.importanceData,
-          // dataPoints: [
-          //   { y: 2200000000, label: 'Facebook' },
-          //   { y: 1800000000, label: 'YouTube' },
-          //   { y: 800000000, label: 'Instagram' },
-          //   { y: 563000000, label: 'Qzone' },
-          //   { y: 376000000, label: 'Weibo' },
-          //   { y: 336000000, label: 'Twitter' },
-          //   { y: 330000000, label: 'Reddit' },
-          // ],
           toolTipContent: "<span>{desc}</span>"
+        },
+        {
+          type: "stackedBar",
+          showInLegend: true,
+          legendText: "Evolutionary Features",
+          legendMarkerColor: "#9ecae1",
+          dataPoints: [{ y: 0, label: "" }] // hack to display multiple legendtexts for the same data series
         }
       ]
     };
 
     return (
       <AnimatedView>
-        <Card>
-          <CardBody>
-            <Row>
-              <Col md="12">
-                <Card>
-                  <CardBody>
-                    <CanvasJSChart
-                      options={options}
-                      /* onRef={ref => this.chart = ref} */
-                    />
-                  </CardBody>
-                </Card>
-              </Col>
+        {/* <Card>
+          <CardBody> */}
+        <Row>
+          <Col md="12">
+            <Card>
+              <CardBody>
+                <CanvasJSChart
+                  options={options}
+                  /* onRef={ref => this.chart = ref} */
+                />
+              </CardBody>
+            </Card>
+          </Col>
 
-              <Col md="12">
-                <br />
-                <br />
-                <Card>
-                  <CardBody>
-                    <CardTitle>
-                      <h4>
-                        Observed set of features that are critical for diagnosis
-                        of Hepatic Steatosis
-                      </h4>
-                    </CardTitle>
-                  </CardBody>
-                  <CardBody>
-                    <ReactTable
-                      data={this.props.featureImportanceData.featImpTable}
-                      columns={featureImpColumns}
-                      filterable={true}
-                      showPagination={false}
-                      defaultPageSize={14}
-                    />
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
+          <Col md="12" className="mt-5">
+            <Card>
+              <CardBody>
+                <CardTitle>
+                  <h4>
+                    Observed set of features that are critical for diagnosis of
+                    Hepatic Steatosis
+                  </h4>
+                </CardTitle>
+              </CardBody>
+              <CardBody>
+                <ReactTable
+                  data={this.props.featureImportanceData.featImpTable}
+                  columns={featureImpColumns}
+                  filterable={true}
+                  showPagination={false}
+                  defaultPageSize={14}
+                />
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        {/* </CardBody>
+        </Card> */}
       </AnimatedView>
     );
   }

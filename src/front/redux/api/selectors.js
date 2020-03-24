@@ -1,3 +1,5 @@
+import { customSort } from "../../util/Utils";
+
 export const importanceSelector = featureImportance => {
   let importanceData = [];
   let featImpTable = [];
@@ -32,31 +34,36 @@ export const importanceSelector = featureImportance => {
 
 export const iceSelector = featureIceCoords => {
   let iceCoords = [];
-  let pdp_points = [];
+  let pdpPoints = [];
   if (!!featureIceCoords) {
-    const { ice_points } = featureIceCoords;
-    if (!!ice_points && ice_points.length > 0) {
-      ice_points.forEach((points, index) => {
+    const { icePoints, featureName } = featureIceCoords;
+    if (!!icePoints && icePoints.length > 0) {
+      icePoints.forEach((points, index) => {
         iceCoords.push({
           type: "line",
           name: `Participant ${index + 1}`,
-          showInLegend: false,
-          dataPoints: points
+          dataPoints: points,
+          color: "#9ecae1",
+          markerType: "none"
         });
       });
-      pdp_points =
-        !!featureIceCoords.pdp_points && featureIceCoords.pdp_points.length > 0
+      pdpPoints =
+        !!featureIceCoords.pdpPoints && featureIceCoords.pdpPoints.length > 0
           ? {
               type: "line",
               name: `PDP for trend`,
-              dataPoints: featureIceCoords.pdp_points,
-              color: "#1f33a7",
-              lineThickness: 10
+              dataPoints: featureIceCoords.pdpPoints,
+              color: "#3182bd",
+              lineThickness: 20,
+              markerType: "none",
+              showInLegend: true,
+              legendText: `Trend in participant changes for ${featureName[0]}`,
+              legendMarkerColor: "#3182bd"
             }
           : [];
     }
   }
-  return { iceCoords, pdp_points };
+  return { iceCoords, pdpPoints };
 };
 
 const roundRuleFeatures = rule => {
@@ -77,7 +84,7 @@ export const minimalChangeSelector = (minimalChange, featureImportance) => {
   if (!!minimalChange) {
     const { changes, rulesSet, prediction } = minimalChange;
     if (!!rulesSet) {
-      rulesSet.forEach((rule, index) => {
+      customSort(rulesSet, "coefficient").forEach((rule, index) => {
         participant_changes.rulesData.push({
           label: roundRuleFeatures(rule.description),
           y: rule.coefficient,
@@ -86,7 +93,7 @@ export const minimalChangeSelector = (minimalChange, featureImportance) => {
           )}</b> then the prediction changes by the factor of ${parseFloat(
             rule.coefficient
           ).toFixed(3)}`,
-          color: rule.coefficient > 0 ? "#31a354" : "#de2d26"
+          color: rule.coefficient > 0 ? "#3182bd" : "#9ecae1"
         });
       });
     }

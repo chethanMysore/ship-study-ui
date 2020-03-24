@@ -10,6 +10,7 @@ import {
 } from "../../redux/actions";
 import { ON_ICE_LOADER_HIDE } from "../../constants/actionTypes";
 import { iceSelector } from "../../redux/selectors";
+import { customSort } from "../../util/Utils";
 import {
   Card,
   CardBody,
@@ -63,11 +64,14 @@ class FeatureExplanations extends Component {
   }
 
   render() {
-    const features =
+    const features = customSort(
       !!this.props.featureImportanceData &&
-      !!this.props.featureImportanceData.featureDescription
+        !!this.props.featureImportanceData.featureDescription
         ? this.props.featureImportanceData.featureDescription
-        : [];
+        : [],
+      "",
+      "asc"
+    );
     const options = {
       zoomEnabled: true,
       animationEnabled: true,
@@ -85,11 +89,20 @@ class FeatureExplanations extends Component {
         titleFontWeight: 700
       },
       toolTip: {
-        backgroundColor: "#eee"
+        backgroundColor: "#eee",
+        enabled: false
       },
       data: [
         ...this.props.featureIceCoords.iceCoords,
-        this.props.featureIceCoords.pdp_points
+        this.props.featureIceCoords.pdpPoints,
+        // hack to display legend for multiple lines
+        {
+          type: "line",
+          dataPoints: [{ x: 0, y: 0 }],
+          showInLegend: true,
+          legendText: `ICE Curves for ${this.props.featureIceCoords.iceCoords.length} participants`,
+          legendMarkerColor: "#9ecae1"
+        }
       ]
     };
     return this.props.iceLoader ? (

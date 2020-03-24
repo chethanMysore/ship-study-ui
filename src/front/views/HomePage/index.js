@@ -136,9 +136,7 @@ class HomePage extends Component {
         </Col>
 
         {/* </Jumbotron> */}
-        <Col md="12">
-          <br />
-          <br />
+        <Col md="12" className="mt-5">
           <Card>
             <CardHeader>
               <h4>Ship Study Dashboard</h4>
@@ -163,9 +161,7 @@ class HomePage extends Component {
             </CardBody>
           </Card>
         </Col>
-        <Col md="12">
-          <br />
-          <br />
+        <Col md="12" className="mt-5">
           <Card>
             <CardHeader>
               <h4>About us!</h4>

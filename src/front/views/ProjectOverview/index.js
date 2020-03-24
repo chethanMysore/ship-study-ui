@@ -155,10 +155,7 @@ class ProjectOverview extends Component {
                     </Col>
                   </Row>
 
-                  <br />
-                  <br />
-
-                  <Row>
+                  <Row className="mt-5">
                     <Col md="12" xl="6">
                       <Card className="card info2">
                         <CardBody>
