@@ -1,34 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
+  Card,
+  CardHeader,
+  CardBody,
   Carousel,
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
   CarouselCaption,
   Col,
-} from 'reactstrap';
+  Row
+} from "reactstrap";
 
-import { Jumbotron, Container } from 'reactstrap';
+import { Jumbotron, Container } from "reactstrap";
+import { enterHome } from "../../redux/actions";
+import { connect } from "react-redux";
+import PomeraniaImg from "../../img/pomerania.jpg";
+import IMLImg from "../../img/IML.png";
+import "./_homePage.scss";
 
 const items = [
   {
-    src:
-      'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Pomerania Map',
-    caption: 'Pomeraia Map',
+    src: PomeraniaImg,
+    altText: "Pomerania Map",
+    caption: "Pomerania Map",
+    classname: "pomerania",
+    key: 1
   },
   {
-    src:
-      'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Problem Statement',
-    caption: 'Problem Statement',
-  },
-  {
-    src:
-      'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Interpretable ML',
-    caption: 'Interpretable ML',
-  },
+    src: IMLImg,
+    altText: "Problem Statement",
+    caption: "Problem Statement",
+    classname: "iml",
+    key: 2
+  }
 ];
 
 class HomePage extends Component {
@@ -36,13 +41,16 @@ class HomePage extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      animating: false,
+      animating: false
     };
     this.setAnimating = this.setAnimating.bind(this);
     this.setActiveIndex = this.setActiveIndex.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
+  }
+  componentDidMount() {
+    this.props.enterHome();
   }
   setActiveIndex(nextIndex) {
     this.setState({ activeIndex: nextIndex });
@@ -85,50 +93,105 @@ class HomePage extends Component {
         <CarouselItem
           onExiting={() => this.setAnimating(true)}
           onExited={() => this.setAnimating(false)}
-          key={item.src}
+          key={item.key}
         >
-          <Jumbotron fluid>
-            <Container fluid>
-              <img src={item.src} alt={item.altText} />
-            </Container>
-          </Jumbotron>
-          <CarouselCaption
-            captionText={item.caption}
-            captionHeader={item.caption}
-          />
+          {/* <Jumbotron fluid> */}
+          <Container fluid>
+            <Card className={`carousel-img ${item.classname}`}></Card>
+          </Container>
+          {/* </Jumbotron> */}
+          <CarouselCaption captionHeader={item.caption} />
         </CarouselItem>
       );
     });
     return (
-      <Jumbotron fluid>
-        <Container fluid>
-          <Carousel
-            className="display-3"
-            activeIndex={this.state.activeIndex}
-            next={this.next}
-            previous={this.previous}
-          >
-            <CarouselIndicators
-              items={items}
+      <Row className="row home">
+        <Col md="12">
+          {/* <Jumbotron fluid> */}
+          <Container fluid>
+            <Carousel
+              className="display-3"
               activeIndex={this.state.activeIndex}
-              onClickHandler={this.goToIndex}
-            />
-            {slides}
-            <CarouselControl
-              direction="prev"
-              directionText="Previous"
-              onClickHandler={this.previous}
-            />
-            <CarouselControl
-              direction="next"
-              directionText="Next"
-              onClickHandler={this.next}
-            />
-          </Carousel>
-        </Container>
-      </Jumbotron>
+              next={this.next}
+              previous={this.previous}
+            >
+              <CarouselIndicators
+                items={items}
+                activeIndex={this.state.activeIndex}
+                onClickHandler={this.goToIndex}
+              />
+              {slides}
+              <CarouselControl
+                direction="prev"
+                directionText="Previous"
+                onClickHandler={this.previous}
+              />
+              <CarouselControl
+                direction="next"
+                directionText="Next"
+                onClickHandler={this.next}
+              />
+            </Carousel>
+          </Container>
+        </Col>
+
+        {/* </Jumbotron> */}
+        <Col md="12" className="mt-5">
+          <Card>
+            <CardHeader>
+              <h4>Ship Study Dashboard</h4>
+            </CardHeader>
+            <CardBody>
+              <blockquote className="blockquote mb-0">
+                <i>
+                  {" "}
+                  "The ultimate question after conducting the cohort study and
+                  collecting the data for the same is how much one can rely on
+                  the historical data? The participant can develop a new
+                  behaviour or lifestyle between the consecutive data collection
+                  years or the state-of-art machines vary from one area to
+                  other. The results of these epidemiological studies can be
+                  enhanced by applying mining methods to identify factors that
+                  could modulate the outcome. The dashboard is built with the
+                  primary aim in identification of merits of the evolution
+                  features towards classification accuracy improvements which
+                  are susceptible to interpretability".{" "}
+                </i>
+              </blockquote>
+            </CardBody>
+          </Card>
+        </Col>
+        <Col md="12" className="mt-5">
+          <Card>
+            <CardHeader>
+              <h4>About us!</h4>
+            </CardHeader>
+            <CardBody>
+              <blockquote className="blockquote mb-0">
+                <i>
+                  {" "}
+                  We live in a world of data, and many people have to make sense
+                  of numbers. The trouble is that there can be a lot of friction
+                  involved when mining the data. WE are a team of four students
+                  who believe that this is where dashboards come into play: a
+                  well-designed dashboard can save huge amounts of time, helping
+                  people to quickly identify the numbers that matter, in order
+                  to make insightful observations or to compile reports for end
+                  users.{" "}
+                </i>
+              </blockquote>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     );
   }
 }
 
-export default HomePage;
+const mapStateToProps = ({}) => {
+  return {};
+};
+
+export default connect(mapStateToProps, {
+  enterHome
+})(HomePage);

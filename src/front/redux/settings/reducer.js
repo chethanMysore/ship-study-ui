@@ -20,6 +20,11 @@ import {
   ENTER_ALERT_VIEW,
   ENTER_PAGINATION_VIEW,
   ENTER_PROTECTED_VIEW,
+  ENTER_FEATURE_IMPORTANCE,
+  ENTER_PROJECT_OVERVIEW,
+  ENTER_FEATURE_EXPLANATIONS,
+  ENTER_PARTICIPANT_ANALYSIS,
+  ENTER_MODEL_PERFORMANCE,
   LEAVE_HOME_VIEW,
   LEAVE_LOGIN_VIEW,
   LEAVE_SIMPLE_TABLES_VIEW,
@@ -48,22 +53,27 @@ import {
   READ_LOCALSTORAGE,
   SIDEMU_IS_NOT_COLLAPSED_VALUE,
   WRITE_LOCALSTORAGE,
-} from '../../constants/actionTypes';
-
-type PermanentStore = {
-  required: boolean,
-  storeKey: string,
-  storeValue: boolean,
-  ReadOrWrite: boolean, // write key / value to localStorage
-};
+  ON_LOADER_SHOW,
+  ON_LOADER_HIDE,
+  ON_ICE_LOADER_SHOW,
+  ON_ICE_LOADER_HIDE,
+  ON_MODEL_LOADER_SHOW,
+  ON_MODEL_LOADER_HIDE,
+  ON_PART_LOADER_HIDE,
+  ON_PART_LOADER_SHOW
+} from "../../constants/actionTypes";
 
 const INIT_STATE = {
-  currentView: 'home',
+  currentView: "home",
   enterTime: null,
   leaveTime: null,
   isCollapsed: false,
-  time: '',
+  time: "",
   sideMenuIsCollapsed: false,
+  loader: true,
+  iceLoader: true,
+  modelLoader: true,
+  partLoader: true
 };
 
 export default (state = INIT_STATE, action) => {
@@ -95,7 +105,7 @@ export default (state = INIT_STATE, action) => {
           ...state,
           currentView: action.currentView,
           enterTime: action.enterTime,
-          leaveTime: action.leaveTime,
+          leaveTime: action.leaveTime
         };
       }
       return state;
@@ -127,38 +137,107 @@ export default (state = INIT_STATE, action) => {
           ...state,
           currentView: action.currentView,
           enterTime: action.enterTime,
-          leaveTime: action.leaveTime,
+          leaveTime: action.leaveTime
         };
       }
       return state;
+
+    case ENTER_PROJECT_OVERVIEW:
+    case ENTER_FEATURE_IMPORTANCE:
+    case ENTER_FEATURE_EXPLANATIONS:
+    case ENTER_PARTICIPANT_ANALYSIS:
+    case ENTER_MODEL_PERFORMANCE:
+      if (state.currentView !== action.currentView) {
+        return {
+          ...state,
+          currentView: action.currentView
+        };
+      }
+      return state;
+
     case GET_SIDE_MENU_TOGGLE_STATE_FROM_LOCALSTORAGE: {
       const { permanentStore = { storeValue: false }, time } = action;
 
       return {
         isCollapsed: Boolean(permanentStore.storeValue),
-        time,
+        time
       };
     }
 
     case OPEN_SIDE_MENU: {
-      const { isCollapsed, time } = action;
+      const { isCollapsed } = action;
 
       return {
         ...state,
-        isCollapsed,
-        time,
+        isCollapsed
       };
     }
 
     case CLOSE_SIDE_MENU: {
-      const { isCollapsed, time } = action;
+      const { isCollapsed } = action;
 
       return {
         ...state,
-        isCollapsed,
-        time,
+        isCollapsed
       };
     }
+
+    case ON_LOADER_SHOW: {
+      return {
+        ...state,
+        loader: true
+      };
+    }
+
+    case ON_LOADER_HIDE: {
+      return {
+        ...state,
+        loader: false
+      };
+    }
+
+    case ON_ICE_LOADER_SHOW: {
+      return {
+        ...state,
+        iceLoader: true
+      };
+    }
+
+    case ON_ICE_LOADER_HIDE: {
+      return {
+        ...state,
+        iceLoader: false
+      };
+    }
+
+    case ON_MODEL_LOADER_SHOW: {
+      return {
+        ...state,
+        modelLoader: true
+      };
+    }
+
+    case ON_MODEL_LOADER_HIDE: {
+      return {
+        ...state,
+        modelLoader: false
+      };
+    }
+
+    case ON_PART_LOADER_SHOW: {
+      return {
+        ...state,
+        partLoader: true
+      };
+    }
+
+    case ON_PART_LOADER_HIDE: {
+      return {
+        ...state,
+        partLoader: false
+      };
+    }
+
     default:
       return state;
   }

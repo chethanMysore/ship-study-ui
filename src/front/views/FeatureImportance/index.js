@@ -1,17 +1,38 @@
 // @flow
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { AnimatedView, Label, StatsCard } from '../../components';
-import CustomModal from '../../newComponents/CustomModal';
-import CanvasJSReact from '../../util/js/canvasjs.react';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { AnimatedView } from "../../components";
+import CustomModal from "../../newComponents/CustomModal";
+import CanvasJSReact from "../../util/js/canvasjs.react";
 import {
   fetchFeatureImportance,
-  fetchFeatureIceCoords,
-} from '../../redux/actions';
-import { addSymbols } from '../../util/Utils';
-import { importanceSelector } from '../../redux/selectors';
+  enterFeatureImportance
+} from "../../redux/actions";
+import { addSymbols } from "../../util/Utils";
+import { importanceSelector } from "../../redux/selectors";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import { Card, CardBody, Row, Col, CardTitle } from "reactstrap";
+
+const featureImpColumns = [
+  {
+    Header: "Feature Name",
+    accessor: "feature"
+  },
+  {
+    Header: "Feature Description",
+    accessor: "description"
+  },
+  {
+    id: "featType",
+    Header: "Feature Type",
+    accessor: "type",
+    cell: props =>
+      props === "original" ? "Original Feature" : "Evolutionary Feature"
+  }
+];
 
 class FeatureImportance extends Component {
   constructor(props) {
@@ -19,11 +40,10 @@ class FeatureImportance extends Component {
     this.state = {
       modal: false,
       selectedBin: null,
-      title: 'Feature Description',
+      title: "Feature Description"
     };
     // Uncomment this for modal
     // this.toggle = this.toggle.bind(this);
-    this.getFeatureICE = this.getFeatureICE.bind(this);
   }
   // Uncomment this for modal
   // toggle(e) {
@@ -35,74 +55,117 @@ class FeatureImportance extends Component {
   //   });
   // }
   componentDidMount() {
-    this.props.fetchFeatureImportance();
+    this.props.enterFeatureImportance();
+    // this.props.fetchFeatureImportance(ON_LOADER_HIDE);
   }
-  getFeatureICE() {
-    this.props.fetchFeatureIceCoords('frac_class_0_in_neighborhood_s2');
-  }
+
   render() {
     const width = Math.round(window.screen.width) * 0.8;
     const height = Math.round(window.screen.height) * 0.8;
     const options = {
       animationEnabled: true,
-      theme: 'light2',
-      // height: height,
-      // width: width,
+      theme: "dark2",
+      backgroundColor: "#979494",
+      height: 500,
       title: {
-        text: 'Importance of Crucial Factors on Diagnosis of Hepatic Steatosis',
-        padding: 30,
+        text: "Importance of Crucial Factors on Diagnosis of Hepatic Steatosis",
+        fontColor: "black",
+        fontSize: 24,
+        fontWeight: 700,
+        padding: 30
       },
       axisX: {
-        title: 'Features',
+        title: "Features",
         titleFontWeight: 700,
+        titleFontColor: "black",
+        titleFontSize: 24,
         margin: 20,
         interval: 1,
         reversed: true,
+        tickColor: "black",
+        lineColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       axisY: {
-        title: 'Feature Importance',
+        title: "Feature Importance",
         margin: 20,
         titleFontWeight: 700,
-        // labelFormatter: addSymbols,
+        titleFontColor: "black",
+        titleFontSize: 24,
+        gridColor: "black",
+        tickColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       toolTip: {
-        backgroundColor: '#eee',
+        backgroundColor: "#eee",
+        fontColor: "black"
+      },
+      legend: {
+        fontColor: "black"
       },
       data: [
         {
-          type: 'bar',
-          // click: this.toggle,
-          dataPoints: this.props.featureImportanceData,
-          // dataPoints: [
-          //   { y: 2200000000, label: 'Facebook' },
-          //   { y: 1800000000, label: 'YouTube' },
-          //   { y: 800000000, label: 'Instagram' },
-          //   { y: 563000000, label: 'Qzone' },
-          //   { y: 376000000, label: 'Weibo' },
-          //   { y: 336000000, label: 'Twitter' },
-          //   { y: 330000000, label: 'Reddit' },
-          // ],
-          toolTipContent: '<span>{desc}</span>',
+          type: "bar",
+          showInLegend: true,
+          legendText: "Original Features",
+          legendMarkerColor: "#3182bd",
+          indexLabelFontColor: "white",
+          indexLabelFontSize: 14,
+          dataPoints: this.props.featureImportanceData.importanceData,
+          toolTipContent: "<span>{desc}</span>"
         },
-      ],
+        {
+          type: "stackedBar",
+          showInLegend: true,
+          legendText: "Evolutionary Features",
+          legendMarkerColor: "#9ecae1",
+          dataPoints: [{ y: 0, label: "" }] // hack to display multiple legendtexts for the same data series
+        }
+      ]
     };
 
     return (
       <AnimatedView>
-        <div onClick={this.getFeatureICE}>
-          <CanvasJSChart
-            options={options}
-            /* onRef={ref => this.chart = ref} */
-          />
-          {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-          {/* <CustomModal
-            title={this.state.title}
-            modal={this.state.modal}
-            toggle={this.toggle}
-          >
-            <StatsCard statValue={''} statLabel={'title'} backColor={'green'} />
-          </CustomModal> */}
-        </div>
+        {/* <Card>
+          <CardBody> */}
+        <Row>
+          <Col md="12">
+            <Card>
+              <CardBody>
+                <CanvasJSChart
+                  options={options}
+                  /* onRef={ref => this.chart = ref} */
+                />
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col md="12" className="mt-5">
+            <Card>
+              <CardBody>
+                <CardTitle>
+                  <h4>
+                    Observed set of features that are critical for diagnosis of
+                    Hepatic Steatosis
+                  </h4>
+                </CardTitle>
+              </CardBody>
+              <CardBody>
+                <ReactTable
+                  data={this.props.featureImportanceData.featImpTable}
+                  columns={featureImpColumns}
+                  filterable={true}
+                  showPagination={false}
+                  defaultPageSize={14}
+                />
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        {/* </CardBody>
+        </Card> */}
       </AnimatedView>
     );
   }
@@ -110,11 +173,10 @@ class FeatureImportance extends Component {
 
 const mapStateToProps = ({ api }) => {
   const featureImportanceData = importanceSelector(api.featureImportanceData);
-  const { featureIceCoords } = api;
-  return { featureImportanceData, featureIceCoords };
+  return { featureImportanceData };
 };
 
 export default connect(mapStateToProps, {
   fetchFeatureImportance,
-  fetchFeatureIceCoords,
+  enterFeatureImportance
 })(FeatureImportance);

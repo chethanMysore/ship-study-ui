@@ -1,0 +1,16 @@
+.card {
+  height: 100% !important;
+  &.info1 {
+    background-color: #ebeca5;
+  }
+  &.info2 {
+    background-color: #ecdba5;
+  }
+  &.workflow {
+    background-image: url("../../img/project_workflow.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    min-height: 1024px;
+  }
+}

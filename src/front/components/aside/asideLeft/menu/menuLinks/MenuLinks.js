@@ -1,29 +1,18 @@
 // @flow
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import ViewLink from './viewLink/ViewLink';
+import React from "react";
+import PropTypes from "prop-types";
+import ViewLink from "./viewLink/ViewLink";
 
-type View = {
-  name: string,
-  linkTo: string,
-  faIconName: string,
-  itemCount?: number,
-};
-type Props = {
-  activeView: string,
-  views: Array<View>,
-};
-
-function MenuLinks({ activeView, views }: Props) {
+function MenuLinks({ activeView, views }) {
   return (
     <ul className="sidebar-menu sidebar-menu__marginTop">
-      {views.map(({ name, linkTo, faIconName, itemCount }, idx) => {
+      {views.map(({ name, linkTo, faIconName, itemCount, pathname }, idx) => {
         return (
           <ViewLink
             className="js-menulinks-viewlinks"
             key={idx}
-            isActive={activeView === name}
+            isActive={activeView === pathname}
             linkTo={linkTo}
             viewName={name}
             faIconName={faIconName}
@@ -35,18 +24,6 @@ function MenuLinks({ activeView, views }: Props) {
   );
 }
 
-MenuLinks.displayName = 'MenuLinks';
-
-MenuLinks.propTypes = {
-  activeView: PropTypes.string.isRequired,
-  views: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      linkTo: PropTypes.string.isRequired,
-      faIconName: PropTypes.string.isRequired,
-      itemCount: PropTypes.number,
-    }),
-  ).isRequired,
-};
+MenuLinks.displayName = "MenuLinks";
 
 export default MenuLinks;

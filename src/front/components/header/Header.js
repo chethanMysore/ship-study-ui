@@ -1,20 +1,10 @@
 // @flow
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Button from './button/Button';
-
-type Props = {
-  userLogin: string,
-  userFirstname: string,
-  userLastname: string,
-  userPicture: string | any,
-  showPicture: boolean,
-  appName: string,
-  toggleSideMenu: () => any,
-  onLogout: () => any,
-};
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Button from "./button/Button";
+import { Link } from "react-router-dom";
 
 const FixedHeader = styled.header`
   position: fixed;
@@ -36,35 +26,17 @@ const FixedHeader = styled.header`
   }
 `;
 
-const Header = ({ toggleSideMenu, appName }: Props) => (
+const Header = ({ toggleSideMenu, appName }) => (
   <FixedHeader className="header fixed--header">
-    <a href="#" className="logo">
+    <Link to="/" className="logo">
       {appName}
-    </a>
+    </Link>
     <nav className="navbar navbar-static-top" role="navigation">
       <Button toggleSideMenu={toggleSideMenu} />
     </nav>
   </FixedHeader>
 );
 
-Header.propTypes = {
-  appName: PropTypes.string,
-
-  userLogin: PropTypes.string,
-  userFirstname: PropTypes.string,
-  userLastname: PropTypes.string,
-  userPicture: PropTypes.string,
-  showPicture: PropTypes.bool,
-  onLogout: PropTypes.func,
-
-  currentView: PropTypes.string,
-  toggleSideMenu: PropTypes.func,
-};
-
-Header.defaultProps = {
-  appName: 'applicationName',
-};
-
-Header.displayName = 'Header';
+Header.displayName = "Header";
 
 export default Header;

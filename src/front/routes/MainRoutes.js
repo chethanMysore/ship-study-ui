@@ -1,25 +1,31 @@
 // @flow
 
 /* eslint no-process-env:0 */
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from '../components/privateRoute/PrivateRoute';
-import FeatureImportance from '../views/FeatureImportance';
-import Task2 from '../views/Task2';
-import Task3 from '../views/Task3';
-import Task4 from '../views/Task4';
-import Extra from '../views/Extra';
-import HomePage from '../views/HomePage';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import PrivateRoute from "../components/privateRoute/PrivateRoute";
+import FeatureImportance from "../views/FeatureImportance";
+import ProjectOverview from "../views/ProjectOverview";
+import FeatureExplanations from "../views/FeatureExplanations";
+import ParticipantAnalysis from "../views/ParticipantAnalysis";
+import ModelPerformance from "../views/ModelPerformance";
+import HomePage from "../views/HomePage";
 
 export const MainRoutes = () => (
   <Switch>
     <Route exact path="/" component={HomePage} />
 
     <Route path="/Dashboard/featureImportance" component={FeatureImportance} />
-    <Route path="/Dashboard/task2" component={Task2} />
-    <Route path="/Dashboard/task3" component={Task3} />
-    <Route path="/Dashboard/task4" component={Task4} />
-    <Route path="/Dashboard/extra" component={Extra} />
+    <Route path="/Dashboard/projectOverview" component={ProjectOverview} />
+    <Route
+      path="/Dashboard/featureExplanations"
+      component={FeatureExplanations}
+    />
+    <Route
+      path="/Dashboard/participantAnalysis"
+      component={ParticipantAnalysis}
+    />
+    <Route path="/Dashboard/modelPerformance" component={ModelPerformance} />
     {/* <Route exact path="/general" component={GeneralConnected} />
     <Route path="/general/breadcrumb" component={BreadcrumbViewConnected} />
     <Route path="/general/stat" component={StatViewConnected} />

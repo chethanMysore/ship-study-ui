@@ -1,6 +1,6 @@
-import { format } from 'date-fns';
-import { type Dispatch, type GetState } from '../../types/redux-thunk';
-import { type State } from '../../types/redux/modules/sideMenu';
+import { format } from "date-fns";
+import { type Dispatch, type GetState } from "../../types/redux-thunk";
+import { type State } from "../../types/redux/modules/sideMenu";
 import {
   ENTER_HOME_VIEW,
   ENTER_LOGIN_VIEW,
@@ -49,398 +49,485 @@ import {
   CLOSE_SIDE_MENU,
   SIDEMU_IS_COLLAPSED_KEY,
   READ_LOCALSTORAGE,
-  SIDEMU_IS_NOT_COLLAPSED_VALUE,
-  WRITE_LOCALSTORAGE,
-} from '../../constants/actionTypes';
+  ON_LOADER_SHOW,
+  ON_LOADER_HIDE,
+  ON_ICE_LOADER_SHOW,
+  ON_ICE_LOADER_HIDE,
+  ON_MODEL_LOADER_HIDE,
+  ON_MODEL_LOADER_SHOW,
+  ON_PART_LOADER_HIDE,
+  ON_PART_LOADER_SHOW,
+  ENTER_PROJECT_OVERVIEW,
+  ENTER_FEATURE_IMPORTANCE,
+  ENTER_FEATURE_EXPLANATIONS,
+  ENTER_PARTICIPANT_ANALYSIS,
+  ENTER_MODEL_PERFORMANCE
+} from "../../constants/actionTypes";
 
-type PermanentStore = {
-  required: boolean,
-  storeKey: string,
-  storeValue: boolean,
-  ReadOrWrite: boolean, // write key / value to localStorage
-};
-
-export function enterHome(time: Date = format(new Date())) {
+export function enterHome(time = format(new Date())) {
   return {
     type: ENTER_HOME_VIEW,
-    currentView: 'Home',
+    currentView: "Home",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveHome(time: Date = format(new Date())) {
+export function leaveHome(time = format(new Date())) {
   return {
     type: LEAVE_HOME_VIEW,
-    currentView: 'Home',
+    currentView: "Home",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterSimpleTables(time: Date = format(new Date())) {
+export function enterSimpleTables(time = format(new Date())) {
   return {
     type: ENTER_SIMPLE_TABLES_VIEW,
-    currentView: 'SimpleTables',
+    currentView: "SimpleTables",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveSimpleTables(time: Date = format(new Date())) {
+export function leaveSimpleTables(time = format(new Date())) {
   return {
     type: LEAVE_SIMPLE_TABLES_VIEW,
-    currentView: 'SimpleTables',
+    currentView: "SimpleTables",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterBasicElements(time: Date = format(new Date())) {
+export function enterBasicElements(time = format(new Date())) {
   return {
     type: ENTER_BASIC_ELEMENTS_VIEW,
-    currentView: 'BasicElements',
+    currentView: "BasicElements",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveBasicElements(time: Date = format(new Date())) {
+export function leaveBasicElements(time = format(new Date())) {
   return {
     type: LEAVE_BASIC_ELEMENTS_VIEW,
-    currentView: 'BasicElements',
+    currentView: "BasicElements",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterGeneral(time: Date = format(new Date())) {
+export function enterGeneral(time = format(new Date())) {
   return {
     type: ENTER_GENERAL_VIEW,
-    currentView: 'General',
+    currentView: "General",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveGeneral(time: Date = format(new Date())) {
+export function leaveGeneral(time = format(new Date())) {
   return {
     type: LEAVE_GENERAL_VIEW,
-    currentView: 'General',
+    currentView: "General",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterPageNotFound(time: Date = format(new Date())) {
+export function enterPageNotFound(time = format(new Date())) {
   return {
     type: ENTER_PAGE_NOT_FOUND_VIEW,
-    currentView: 'PageNotFound',
+    currentView: "PageNotFound",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leavePageNotFound(time: Date = format(new Date())) {
+export function leavePageNotFound(time = format(new Date())) {
   return {
     type: LEAVE_PAGE_NOT_FOUND_VIEW,
-    currentView: 'PageNotFound',
+    currentView: "PageNotFound",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterStatsCard(time: Date = format(new Date())) {
+export function enterStatsCard(time = format(new Date())) {
   return {
     type: ENTER_STATS_CARD_VIEW,
-    currentView: 'StatsCard',
+    currentView: "StatsCard",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveStatsCard(time: Date = format(new Date())) {
+export function leaveStatsCard(time = format(new Date())) {
   return {
     type: LEAVE_STATS_CARD_VIEW,
-    currentView: 'StatsCard',
+    currentView: "StatsCard",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterEarningGraph(time: Date = format(new Date())) {
+export function enterEarningGraph(time = format(new Date())) {
   return {
     type: ENTER_EARNING_GRAPH_VIEW,
-    currentView: 'EarningGraph',
+    currentView: "EarningGraph",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveEarningGraph(time: Date = format(new Date())) {
+export function leaveEarningGraph(time = format(new Date())) {
   return {
     type: LEAVE_EARNING_GRAPH_VIEW,
-    currentView: 'EarningGraph',
+    currentView: "EarningGraph",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterNotifications(time: Date = format(new Date())) {
+export function enterNotifications(time = format(new Date())) {
   return {
     type: ENTER_NOTIFICATIONS_VIEW,
-    currentView: 'Notifications',
+    currentView: "Notifications",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveNotifications(time: Date = format(new Date())) {
+export function leaveNotifications(time = format(new Date())) {
   return {
     type: LEAVE_NOTIFICATIONS_VIEW,
-    currentView: 'Notifications',
+    currentView: "Notifications",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterWorkProgress(time: Date = format(new Date())) {
+export function enterWorkProgress(time = format(new Date())) {
   return {
     type: ENTER_WORK_PROGRESS_VIEW,
-    currentView: 'WorkProgress',
+    currentView: "WorkProgress",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveWorkProgress(time: Date = format(new Date())) {
+export function leaveWorkProgress(time = format(new Date())) {
   return {
     type: LEAVE_WORK_PROGRESS_VIEW,
-    currentView: 'WorkProgress',
+    currentView: "WorkProgress",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterTwitterFeed(time: Date = format(new Date())) {
+export function enterTwitterFeed(time = format(new Date())) {
   return {
     type: ENTER_TWITTER_FEED_VIEW,
-    currentView: 'TwitterFeed',
+    currentView: "TwitterFeed",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveTwitterFeed(time: Date = format(new Date())) {
+export function leaveTwitterFeed(time = format(new Date())) {
   return {
     type: LEAVE_TWITTER_FEED_VIEW,
-    currentView: 'TwitterFeed',
+    currentView: "TwitterFeed",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterTeamMatesView(time: Date = format(new Date())) {
+export function enterTeamMatesView(time = format(new Date())) {
   return {
     type: ENTER_TEAM_MATES_VIEW,
-    currentView: 'TeamMatesView',
+    currentView: "TeamMatesView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveTeamMatesView(time: Date = format(new Date())) {
+export function leaveTeamMatesView(time = format(new Date())) {
   return {
     type: LEAVE_TEAM_MATES_VIEW,
-    currentView: 'TeamMatesView',
+    currentView: "TeamMatesView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterTodoListView(time: Date = format(new Date())) {
+export function enterTodoListView(time = format(new Date())) {
   return {
     type: ENTER_TODO_LIST_VIEW,
-    currentView: 'TodoListView',
+    currentView: "TodoListView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveTodoListView(time: Date = format(new Date())) {
+export function leaveTodoListView(time = format(new Date())) {
   return {
     type: LEAVE_TODO_LIST_VIEW,
-    currentView: 'TodoListView',
+    currentView: "TodoListView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterBreadcrumb(time: Date = format(new Date())) {
+export function enterBreadcrumb(time = format(new Date())) {
   return {
     type: ENTER_BREADCRUMB_VIEW,
-    currentView: 'BreadcrumbView',
+    currentView: "BreadcrumbView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveBreadcrumb(time: Date = format(new Date())) {
+export function leaveBreadcrumb(time = format(new Date())) {
   return {
     type: LEAVE_BREADCRUMB_VIEW,
-    currentView: 'BreadcrumbView',
+    currentView: "BreadcrumbView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterStat(time: Date = format(new Date())) {
+export function enterStat(time = format(new Date())) {
   return {
     type: ENTER_STAT_VIEW,
-    currentView: 'StatView',
+    currentView: "StatView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveStat(time: Date = format(new Date())) {
+export function leaveStat(time = format(new Date())) {
   return {
     type: LEAVE_STAT_VIEW,
-    currentView: 'StatView',
+    currentView: "StatView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterBasicProgressBar(time: Date = format(new Date())) {
+export function enterBasicProgressBar(time = format(new Date())) {
   return {
     type: ENTER_BASIC_PROGRESS_BAR_VIEW,
-    currentView: 'BasicProgressBarView',
+    currentView: "BasicProgressBarView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveBasicProgressBar(time: Date = format(new Date())) {
+export function leaveBasicProgressBar(time = format(new Date())) {
   return {
     type: LEAVE_BASIC_PROGRESS_BAR_VIEW,
-    currentView: 'BasicProgressBarView',
+    currentView: "BasicProgressBarView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterTabPanel(time: Date = format(new Date())) {
+export function enterTabPanel(time = format(new Date())) {
   return {
     type: ENTER_TAB_PANEL_VIEW,
-    currentView: 'TabPanel',
+    currentView: "TabPanel",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveTabPanel(time: Date = format(new Date())) {
+export function leaveTabPanel(time = format(new Date())) {
   return {
     type: LEAVE_TAB_PANEL_VIEW,
-    currentView: 'TabPanel',
+    currentView: "TabPanel",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterStripedProgressBar(time: Date = format(new Date())) {
+export function enterStripedProgressBar(time = format(new Date())) {
   return {
     type: ENTER_STRIPED_PROGRESS_BAR_VIEW,
-    currentView: 'StripedProgressBarView',
+    currentView: "StripedProgressBarView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveStripedProgressBar(time: Date = format(new Date())) {
+export function leaveStripedProgressBar(time = format(new Date())) {
   return {
     type: LEAVE_STRIPED_PROGRESS_BAR_VIEW,
-    currentView: 'StripedProgressBarView',
+    currentView: "StripedProgressBarView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterAlert(time: Date = format(new Date())) {
+export function enterAlert(time = format(new Date())) {
   return {
     type: ENTER_ALERT_VIEW,
-    currentView: 'AlertView',
+    currentView: "AlertView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveAlert(time: Date = format(new Date())) {
+export function leaveAlert(time = format(new Date())) {
   return {
     type: LEAVE_ALERT_VIEW,
-    currentView: 'AlertView',
+    currentView: "AlertView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterPagination(time: Date = format(new Date())) {
+export function enterPagination(time = format(new Date())) {
   return {
     type: ENTER_PAGINATION_VIEW,
-    currentView: 'PaginationView',
+    currentView: "PaginationView",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leavePagination(time: Date = format(new Date())) {
+export function leavePagination(time = format(new Date())) {
   return {
     type: LEAVE_PAGINATION_VIEW,
-    currentView: 'PaginationView',
+    currentView: "PaginationView",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterLogin(time: Date = format(new Date())) {
+export function enterLogin(time = format(new Date())) {
   return {
     type: ENTER_LOGIN_VIEW,
-    currentView: 'Login',
+    currentView: "Login",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveLogin(time: Date = format(new Date())) {
+export function leaveLogin(time = format(new Date())) {
   return {
     type: LEAVE_LOGIN_VIEW,
-    currentView: 'Login',
+    currentView: "Login",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
-export function enterProtected(time: Date = format(new Date())) {
+export function enterProtected(time = format(new Date())) {
   return {
     type: ENTER_PROTECTED_VIEW,
-    currentView: 'Protected',
+    currentView: "Protected",
     enterTime: time,
-    leaveTime: null,
+    leaveTime: null
   };
 }
 
-export function leaveProtected(time: Date = format(new Date())) {
+export function leaveProtected(time = format(new Date())) {
   return {
     type: LEAVE_PROTECTED_VIEW,
-    currentView: 'Protected',
+    currentView: "Protected",
     enterTime: null,
-    leaveTime: time,
+    leaveTime: time
   };
 }
 
+export function enterProjectOverview() {
+  return {
+    type: ENTER_PROJECT_OVERVIEW,
+    currentView: "ProjectOverview"
+  };
+}
+
+export function enterFeatureImportance() {
+  return {
+    type: ENTER_FEATURE_IMPORTANCE,
+    currentView: "FeatureImportance"
+  };
+}
+
+export function enterFeatureExplanations() {
+  return {
+    type: ENTER_FEATURE_EXPLANATIONS,
+    currentView: "FeatureExplanations"
+  };
+}
+
+export function enterParticipantAnalysis() {
+  return {
+    type: ENTER_PARTICIPANT_ANALYSIS,
+    currentView: "ParticipantAnalysis"
+  };
+}
+
+export function enterModelPerformance() {
+  return {
+    type: ENTER_MODEL_PERFORMANCE,
+    currentView: "ModelPerformance"
+  };
+}
+
+export const showLoader = () => {
+  return {
+    type: ON_LOADER_SHOW
+  };
+};
+
+export const hideLoader = () => {
+  return {
+    type: ON_LOADER_HIDE
+  };
+};
+
+export const showIceLoader = () => {
+  return {
+    type: ON_ICE_LOADER_SHOW
+  };
+};
+
+export const hideIceLoader = () => {
+  return {
+    type: ON_ICE_LOADER_HIDE
+  };
+};
+
+export const hideModelLoader = () => {
+  return {
+    type: ON_MODEL_LOADER_HIDE
+  };
+};
+
+export const showModelLoader = () => {
+  return {
+    type: ON_MODEL_LOADER_SHOW
+  };
+};
+
+export const showPartLoader = () => {
+  return {
+    type: ON_PART_LOADER_SHOW
+  };
+};
+
+export const hidePartLoader = () => {
+  return {
+    type: ON_PART_LOADER_HIDE
+  };
+};
+
 export function getSideMenuCollpasedStateFromLocalStorage(
-  time?: string = format(new Date()),
-): Action {
+  time = format(new Date())
+) {
   return {
     type: GET_SIDE_MENU_TOGGLE_STATE_FROM_LOCALSTORAGE,
     time,
@@ -449,42 +536,26 @@ export function getSideMenuCollpasedStateFromLocalStorage(
       required: true,
       storeKey: SIDEMU_IS_COLLAPSED_KEY,
       storeValue: false, // set default to false
-      ReadOrWrite: READ_LOCALSTORAGE, // write key / value to localStorage
-    },
+      ReadOrWrite: READ_LOCALSTORAGE // write key / value to localStorage
+    }
   };
 }
-export function openSideMenu(time?: string = format(new Date())): Action {
+export function openSideMenu() {
   return {
     type: OPEN_SIDE_MENU,
-    isCollapsed: false,
-    time,
-    // for localStorageManager middleware
-    permanentStore: {
-      required: true,
-      storeKey: SIDEMU_IS_COLLAPSED_KEY,
-      storeValue: SIDEMU_IS_NOT_COLLAPSED_VALUE,
-      ReadOrWrite: WRITE_LOCALSTORAGE, // write key / value to localStorage
-    },
+    isCollapsed: false
   };
 }
-export function closeSideMenu(time?: string = format(new Date())): Action {
+export function closeSideMenu() {
   return {
     type: CLOSE_SIDE_MENU,
-    isCollapsed: true,
-    time,
-    // for localStorageManager middleware
-    permanentStore: {
-      required: true,
-      storeKey: SIDEMU_IS_COLLAPSED_KEY,
-      storeValue: SIDEMU_IS_COLLAPSED_VALUE,
-      ReadOrWrite: WRITE_LOCALSTORAGE, // write key / value to localStorage
-    },
+    isCollapsed: true
   };
 }
 export function toggleSideMenu() {
   return (
     dispatch: Dispatch<Action>,
-    getState: GetState<{ sideMenu: State }>,
+    getState: GetState<{ sideMenu: State }>
   ) => {
     const state = getState();
     const sideMenuStore = state.sideMenu;

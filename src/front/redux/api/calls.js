@@ -1,5 +1,5 @@
-import cookie from 'react-cookies';
-import axios from 'axios';
+import cookie from "react-cookies";
+import axios from "axios";
 
 import {
   apiBasePath,
@@ -10,12 +10,16 @@ import {
   oauthPassword,
   featureImportancePath,
   featureICECoordsPath,
-} from '../../constants/defaultValues';
+  modelPerformancePath,
+  minimalParticipantChangePath
+} from "../../constants/defaultValues";
 
 import {
   FEATURE_IMPORTANCE_DATA,
   FEATURE_ICE_COORDS,
-} from '../../constants/actionTypes';
+  MODEL_PERFORMANCE,
+  MINIMAL_PARTICIPANT_CHANGE
+} from "../../constants/actionTypes";
 
 /**
  * Builds final Url by adding query params
@@ -23,7 +27,7 @@ import {
  * @param {*} params
  */
 const BuildUrlQuery = (url, params) => {
-  let query = '';
+  let query = "";
   params.forEach((param, i) => {
     i == 0
       ? (query += `?${param.key}=${param.value}`)
@@ -38,16 +42,19 @@ const BuildUrlQuery = (url, params) => {
  */
 const getRequest = (
   entityName,
-  options = { byId: false, id: '', queryParams: [] },
+  options = { byId: false, id: "", queryParams: [] }
 ) => {
   return new Promise((resolve, reject) => {
-    let entityPath = '';
+    let entityPath = "";
     switch (entityName) {
       case FEATURE_IMPORTANCE_DATA:
         entityPath = featureImportancePath;
         break;
+      case MODEL_PERFORMANCE:
+        entityPath = modelPerformancePath;
+        break;
       default:
-        entityPath = '';
+        entityPath = "";
     }
     let requestUrl = `${apiBasePath}${entityPath}`;
     if (!!options && options.byId) {
@@ -73,18 +80,18 @@ const getRequest = (
  */
 const updateEntitiesRequest = (token, entityName, id, updateData) => {
   return new Promise((resolve, reject) => {
-    let entityPath = '';
+    let entityPath = "";
     switch (entityName) {
       // case USER_ACCOUNT_DATA:
       //   entityPath = userDataPath;
       //   break;
       default:
-        entityPath = '';
+        entityPath = "";
     }
     const requestUrl = `${apiBasePath}${entityPath}/${id}`;
     const request = axios.create();
     request.defaults.headers.common.Authorization = `Bearer ${token}`;
-    request.defaults.headers.common.ContentType = 'application/json';
+    request.defaults.headers.common.ContentType = "application/json";
     request
       .put(requestUrl, updateData)
       .then(res => resolve(res.data))
@@ -103,15 +110,18 @@ const updateEntitiesRequest = (token, entityName, id, updateData) => {
  */
 const dispatchUserAction = (entityName, payload) => {
   return new Promise((resolve, reject) => {
-    let entityPath = '';
-    const options = { byId: false, id: '', queryParams: [] };
-    const contentType = 'application/json';
+    let entityPath = "";
+    const options = { byId: false, id: "", queryParams: [] };
+    const contentType = "application/json";
     switch (entityName) {
       case FEATURE_ICE_COORDS:
         entityPath = featureICECoordsPath;
         break;
+      case MINIMAL_PARTICIPANT_CHANGE:
+        entityPath = minimalParticipantChangePath;
+        break;
       default:
-        entityPath = '';
+        entityPath = "";
     }
     let requestUrl = `${apiBasePath}${entityPath}`;
     if (!!options && !!options.queryParams && options.queryParams.length > 0) {
@@ -121,7 +131,7 @@ const dispatchUserAction = (entityName, payload) => {
     // request.defaults.headers.common.Authorization = `Bearer ${token}`;
     request.defaults.headers.common.ContentType = contentType;
     axios({
-      method: 'post',
+      method: "post",
       url: requestUrl,
       // config: {
       //   headers: {
@@ -129,7 +139,7 @@ const dispatchUserAction = (entityName, payload) => {
       //     'Content-Type': contentType,
       //   },
       // },
-      data: payload,
+      data: payload
     })
       .then(res => resolve(res.data))
       .catch(err => {
@@ -147,18 +157,18 @@ const dispatchUserAction = (entityName, payload) => {
  */
 const createDataInstance = (token, entityName, newData) => {
   return new Promise((resolve, reject) => {
-    let entityPath = '';
+    let entityPath = "";
     switch (entityName) {
       // case LOCATION_DATA:
       //   entityPath = locationDataPath;
       //   break;
       default:
-        entityPath = '';
+        entityPath = "";
     }
     const requestUrl = `${apiBasePath}${entityPath}`;
     const request = axios.create();
     request.defaults.headers.common.Authorization = `Bearer ${token}`;
-    request.defaults.headers.common.ContentType = 'application/json';
+    request.defaults.headers.common.ContentType = "application/json";
     request
       .post(requestUrl, newData)
       .then(res => resolve(res.data))
@@ -175,24 +185,24 @@ const createDataInstance = (token, entityName, newData) => {
 const getTokenFromApi = (username = username, password = password) => {
   return new Promise((resolve, reject) => {
     const bodyFormData = new FormData();
-    bodyFormData.set('grant_type', grantType);
-    bodyFormData.set('username', username);
-    bodyFormData.set('password', password);
+    bodyFormData.set("grant_type", grantType);
+    bodyFormData.set("username", username);
+    bodyFormData.set("password", password);
 
     axios({
-      method: 'post',
+      method: "post",
       url: `${apiBasePath}${tokenPath}`,
       config: {
         headers: {
           Authorization: `Basic ${defaultAuth}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
       },
       auth: {
         username: oauthUsername,
-        password: oauthPassword,
+        password: oauthPassword
       },
-      data: bodyFormData,
+      data: bodyFormData
     })
       .then(res => resolve(res.data))
       .catch(err => {
@@ -209,22 +219,22 @@ const getTokenFromApi = (username = username, password = password) => {
 const refreshExpiredOAuthToken = refreshToken => {
   return new Promise((resolve, reject) => {
     const bodyFormData = new FormData();
-    bodyFormData.set('grant_type', refreshGrantType);
-    bodyFormData.set('refresh_token', refreshToken);
+    bodyFormData.set("grant_type", refreshGrantType);
+    bodyFormData.set("refresh_token", refreshToken);
     axios({
-      method: 'post',
+      method: "post",
       url: `${apiBasePath}${tokenPath}`,
       config: {
         headers: {
           Authorization: `Basic ${defaultAuth}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
       },
       auth: {
         username: oauthUsername,
-        password: oauthPassword,
+        password: oauthPassword
       },
-      data: bodyFormData,
+      data: bodyFormData
     })
       .then(res => resolve(res.data))
       .catch(err => {
@@ -244,7 +254,7 @@ const refreshExpiredOAuthToken = refreshToken => {
  */
 const fetchOAuthToken = () => {
   return new Promise(async (resolve, reject) => {
-    const accessToken = cookie.load('access_token');
+    const accessToken = cookie.load("access_token");
     if (
       !!accessToken &&
       !!accessToken.token &&
@@ -272,15 +282,15 @@ const fetchOAuthToken = () => {
  */
 const saveToken = token => {
   cookie.save(
-    'access_token',
+    "access_token",
     {
       token: btoa(token.access_token),
       expires_in: parseInt(
-        new Date().getTime() + parseInt(token.expires_in * 1000),
+        new Date().getTime() + parseInt(token.expires_in * 1000)
       ),
-      refreshToken: btoa(token.refresh_token),
+      refreshToken: btoa(token.refresh_token)
     },
-    { path: '/' },
+    { path: "/" }
   );
 };
 
@@ -321,22 +331,15 @@ export const userLookUp = (username, password) => {
  */
 export const fetchTableData = (
   entityName,
-  options = { byId: false, id: '', queryParams: [] },
+  options = { byId: false, id: "", queryParams: [] }
 ) => {
   return new Promise(async (resolve, reject) => {
-    // fetchOAuthToken()
-    // .then(accessToken => {
     getRequest(entityName, options)
       .then(data => resolve(data))
       .catch(err => {
         err.isError = true;
         reject(err);
       });
-    // })
-    // .catch(err => {
-    //   err.isError = true;
-    //   reject(err);
-    // });
   });
 };
 

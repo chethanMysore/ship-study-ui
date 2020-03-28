@@ -1,60 +1,65 @@
 // @flow
 
 export const navigation = Object.freeze({
-  brand: 'reactDirectorAdmin',
+  brand: "reactDirectorAdmin",
   leftLinks: [],
   rightLinks: [
     {
-      label: 'Home',
-      link: '/',
-      view: 'home',
-      isRouteBtn: true,
+      label: "Home",
+      link: "/",
+      view: "home",
+      isRouteBtn: true
     },
     {
-      label: 'About',
-      link: '/about',
-      view: 'about',
-      isRouteBtn: true,
-    },
+      label: "About",
+      link: "/about",
+      view: "about",
+      isRouteBtn: true
+    }
   ],
   sideMenu: [
     // group menu #1
     {
       id: 1,
-      group: 'Dashboard  ',
+      group: "Dashboard  ",
       menus: [
+        // {
+        //   name: "Home",
+        //   linkTo: "/",
+        //   faIconName: "fa-home"
+        // },
         {
-          name: 'Dashboard preview',
-          linkTo: '/',
-          faIconName: 'fa-eye',
+          name: "Project Overview",
+          linkTo: "/Dashboard/projectOverview",
+          faIconName: "fa-th",
+          pathname: "ProjectOverview"
         },
         {
-          name: 'Feature Importance',
-          linkTo: '/Dashboard/featureImportance',
-          faIconName: 'fa-check-square-o',
+          name: "Feature Importance",
+          linkTo: "/Dashboard/featureImportance",
+          faIconName: "fa-bar-chart",
+          pathname: "FeatureImportance"
         },
         {
-          name: 'Task2',
-          linkTo: '/Dashboard/task2',
-          faIconName: 'fa-area-chart',
+          name: "Feature Explainations",
+          linkTo: "/Dashboard/featureExplanations",
+          faIconName: "fa-line-chart",
+          pathname: "FeatureExplanations"
         },
         {
-          name: 'Task3',
-          linkTo: '/Dashboard/task3',
-          faIconName: 'fa-bell',
+          name: "Participant Analysis",
+          linkTo: "/Dashboard/participantAnalysis",
+          faIconName: "fa-area-chart",
+          pathname: "ParticipantAnalysis"
         },
         {
-          name: 'Task4',
-          linkTo: '/Dashboard/task4',
-          faIconName: 'fa-briefcase',
-        },
-        {
-          name: 'Extra',
-          linkTo: '/Dashboard/extra',
-          faIconName: 'fa-bell',
-        },
-      ],
-    },
+          name: "Model Performance",
+          linkTo: "/Dashboard/modelPerformance",
+          faIconName: "fa-pie-chart",
+          pathname: "ModelPerformance"
+        }
+      ]
+    }
     // // group menu #2
     // {
     //   id: 2,
@@ -131,5 +136,5 @@ export const navigation = Object.freeze({
     //     },
     //   ],
     // },
-  ],
+  ]
 });
