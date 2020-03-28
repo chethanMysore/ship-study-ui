@@ -16,7 +16,9 @@ export const importanceSelector = featureImportance => {
           type: featType[index]
         });
         importanceData.push({
-          label: desc[index],
+          label: yCords[index],
+          indexLabel: desc[index],
+          indexLabelPlacement: "outside",
           y: xCords[index],
           name: desc[index],
           color: featType[index] === "original" ? "#3182bd" : "#9ecae1",
@@ -70,6 +72,9 @@ const roundRuleFeatures = rule => {
   rule = rule.replace(/([0-9]\.[0-9]*)/g, str => {
     return parseFloat(str).toFixed(3);
   });
+  rule = rule.replace(/\%in\%/g, "is");
+  rule = rule.replace(/c\(\"0\"\)/g, "FALSE");
+  rule = rule.replace(/c\(\"1\"\)/g, "TRUE");
   return rule;
 };
 
@@ -82,12 +87,14 @@ export const minimalChangeSelector = (minimalChange, featureImportance) => {
   let participant_changes = {};
   participant_changes.rulesData = [];
   if (!!minimalChange) {
-    const { changes, rulesSet, prediction } = minimalChange;
+    const { changes, rulesSet, prediction, predictedProb } = minimalChange;
     if (!!rulesSet) {
       customSort(rulesSet, "coefficient").forEach((rule, index) => {
         participant_changes.rulesData.push({
-          label: roundRuleFeatures(rule.description),
+          indexLabel: roundRuleFeatures(rule.description),
+          indexLabelPlacement: "outside",
           y: rule.coefficient,
+          label: rule.rule,
           desc: `If <b>${roundRuleFeatures(
             rule.description
           )}</b> then the prediction changes by the factor of ${parseFloat(
@@ -115,12 +122,21 @@ export const minimalChangeSelector = (minimalChange, featureImportance) => {
               if (feat === val.feature[0])
                 return featureImportance.featureDescription[index];
             });
-            changeDescription += `<li>As the participant's ${featDesc} <b>${
-              val.value[0] > 0 ? "increases" : "decreases"
-            }</b> by ${Math.abs(val.value[0]).toFixed(2)},<br />
-          the diagnosis changes from ${
-            classPrediction[prediction[0]]
-          } to ${predChange} </li>`;
+            let val_change = Math.abs(val.value[0]).toFixed(2);
+            if (val_change > 0) {
+              changeDescription += `<li>As the participant's ${featDesc} value <b>${
+                val.value[0] > 0 ? "increases" : "decreases"
+              }</b> by ${val_change},<br />
+              the diagnosis changes from ${
+                classPrediction[prediction[0]]
+              } to ${predChange} with ${(
+                Math.abs(predictedProb - 0.5) * 100
+              ).toFixed(
+                2
+              )}% decrease in the probability of participant getting diagnosed as ${
+                classPrediction[prediction[0]]
+              }.</li>`;
+            }
           });
           changeDescription += `</ul><br /></p>`;
         }

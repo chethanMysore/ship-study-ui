@@ -197,19 +197,26 @@ class ProjectOverview extends Component {
                           </CardTitle>
 
                           <CardText>
-                            The very first step is to preprocess the SHIP
-                            dataset. This would include handling missing values
-                            and feature removal if the missingness is above a
-                            threshold. Next step is to encode categorical data
-                            and normalize the dataset. This data is then
-                            augmented to extract evolution features by the
-                            framework. The original features and the evolution
-                            features are then used as inputs for a black box
-                            model. Now, using any one of the suitable model
-                            agnostic methods, we observe the variance in target
-                            output for variations in feature values that are
-                            given as inputs. We also observe the variations in
-                            target output corresponding to the variations in
+                            We have discretized the observed liver fat
+                            percentage using a threshold of 10%. This has been
+                            determined after careful considerations from the
+                            medical experts and the previous research conducted
+                            on the dataset. Thus we transform our goal into a
+                            classification problem with 2 classes: POSITIVE, if
+                            liver fat percentage is greater than the threshold
+                            and NEGATIVE otherwise. The very first step is to
+                            preprocess the SHIP dataset. This would include
+                            handling missing values and feature removal if the
+                            missingness is above a threshold. Next step is to
+                            encode categorical data and normalize the dataset.
+                            This data is then augmented to extract evolution
+                            features by the framework. The original features and
+                            the evolution features are then used as inputs for a
+                            black box model. Now, using any one of the suitable
+                            model agnostic methods, we observe the variance in
+                            target output for variations in feature values that
+                            are given as inputs. We also observe the variations
+                            in target output corresponding to the variations in
                             specific feature values while ignoring the effects
                             of other features.
                           </CardText>

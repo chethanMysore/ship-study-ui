@@ -64,32 +64,55 @@ class FeatureImportance extends Component {
     const height = Math.round(window.screen.height) * 0.8;
     const options = {
       animationEnabled: true,
-      theme: "light2",
+      theme: "dark2",
+      backgroundColor: "#979494",
+      height: 500,
       title: {
         text: "Importance of Crucial Factors on Diagnosis of Hepatic Steatosis",
+        fontColor: "black",
+        fontSize: 24,
+        fontWeight: 700,
         padding: 30
       },
       axisX: {
         title: "Features",
         titleFontWeight: 700,
+        titleFontColor: "black",
+        titleFontSize: 24,
         margin: 20,
         interval: 1,
-        reversed: true
+        reversed: true,
+        tickColor: "black",
+        lineColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       axisY: {
         title: "Feature Importance",
         margin: 20,
-        titleFontWeight: 700
+        titleFontWeight: 700,
+        titleFontColor: "black",
+        titleFontSize: 24,
+        gridColor: "black",
+        tickColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       toolTip: {
-        backgroundColor: "#eee"
+        backgroundColor: "#eee",
+        fontColor: "black"
+      },
+      legend: {
+        fontColor: "black"
       },
       data: [
         {
-          type: "stackedBar",
+          type: "bar",
           showInLegend: true,
           legendText: "Original Features",
           legendMarkerColor: "#3182bd",
+          indexLabelFontColor: "white",
+          indexLabelFontSize: 14,
           dataPoints: this.props.featureImportanceData.importanceData,
           toolTipContent: "<span>{desc}</span>"
         },

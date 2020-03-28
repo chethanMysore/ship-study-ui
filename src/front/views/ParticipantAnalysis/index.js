@@ -56,27 +56,49 @@ class ParticipantAnalysis extends Component {
   render() {
     const options = {
       animationEnabled: true,
-      theme: "light2",
+      theme: "dark2",
+      backgroundColor: "#979494",
+      dataPointWidth: 20,
       axisX: {
         title: "Extracted Rules",
+        titleFontColor: "black",
         titleFontWeight: 700,
+        titleFontSize: 24,
         margin: 20,
-        interval: 1,
         reversed: true,
-        labelAutoFit: true
+        interval: 1,
+        labelAutoFit: true,
+        labelWrap: true,
+        labelMaxWidth: 300,
+        tickColor: "black",
+        lineColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       axisY: {
         title: "Factor of Importance",
         margin: 20,
-        titleFontWeight: 700
+        titleFontColor: "black",
+        titleFontWeight: 700,
+        titleFontSize: 24,
+        tickColor: "black",
+        gridColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       toolTip: {
-        backgroundColor: "#eee"
+        backgroundColor: "#eee",
+        fontColor: "black"
+      },
+      legend: {
+        fontColor: "black"
       },
       data: [
         {
           type: "stackedBar",
           dataPoints: this.props.minimalChange.rulesData,
+          indexLabelFontColor: "white",
+          indexLabelFontSize: 12,
           toolTipContent: "<span>{desc}</span>",
           showInLegend: true,
           legendText: "Positively impacting rules",

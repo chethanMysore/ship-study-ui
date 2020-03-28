@@ -75,22 +75,39 @@ class FeatureExplanations extends Component {
     const options = {
       zoomEnabled: true,
       animationEnabled: true,
-      theme: "light2",
+      theme: "dark2",
+      backgroundColor: "#979494",
       axisX: {
         title: !!this.state.selectedFeature
           ? `${this.state.selectedFeature} values`
           : `Feature Values`,
         titleFontWeight: 700,
-        margin: 20
+        titleFontColor: "black",
+        titleFontSize: 24,
+        margin: 20,
+        tickColor: "black",
+        lineColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       axisY: {
         title: "Predicted Hepatic Steatosis Probability",
         margin: 20,
-        titleFontWeight: 700
+        titleFontWeight: 700,
+        titleFontColor: "black",
+        titleFontSize: 24,
+        tickColor: "black",
+        lineColor: "black",
+        gridColor: "black",
+        labelFontColor: "black",
+        labelFontSize: 12
       },
       toolTip: {
         backgroundColor: "#eee",
         enabled: false
+      },
+      legend: {
+        fontColor: "black"
       },
       data: [
         ...this.props.featureIceCoords.iceCoords,
@@ -98,9 +115,16 @@ class FeatureExplanations extends Component {
         // hack to display legend for multiple lines
         {
           type: "line",
-          dataPoints: [{ x: 0, y: 0 }],
+          dataPoints: [
+            {
+              x: 0,
+              y: 0
+            }
+          ],
           showInLegend: true,
           legendText: `ICE Curves for ${this.props.featureIceCoords.iceCoords.length} participants`,
+          markerType: "none",
+          color: "#9ecae1",
           legendMarkerColor: "#9ecae1"
         }
       ]
