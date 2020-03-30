@@ -48,7 +48,6 @@ class ProjectOverview extends Component {
     const activeTab = this.state.activeTab;
     return (
       <AnimatedView>
-        {/* <Container className="themed-container" fluid="xl"> */}
         <div>
           <Nav tabs>
             <NavItem>
@@ -238,8 +237,6 @@ class ProjectOverview extends Component {
             </TabPane>
           </TabContent>
         </div>
-
-        {/* </Container> */}
       </AnimatedView>
     );
   }

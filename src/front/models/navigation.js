@@ -18,7 +18,6 @@ export const navigation = Object.freeze({
     }
   ],
   sideMenu: [
-    // group menu #1
     {
       id: 1,
       group: "Dashboard  ",
@@ -41,7 +40,7 @@ export const navigation = Object.freeze({
           pathname: "FeatureImportance"
         },
         {
-          name: "Feature Explainations",
+          name: "Feature Explanations",
           linkTo: "/Dashboard/featureExplanations",
           faIconName: "fa-line-chart",
           pathname: "FeatureExplanations"

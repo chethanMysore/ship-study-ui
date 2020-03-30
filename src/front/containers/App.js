@@ -15,7 +15,6 @@ import { Header, AsideLeft, AsideRight } from "../components";
 // import { Modals } from '../views';
 import { appConfig } from "../config";
 import { navigation } from "../models";
-import MainRoutes from "../routes/MainRoutes";
 import { NotificationContainer } from "../components/ReactNotifications";
 import {
   openSideMenu,
@@ -93,12 +92,8 @@ class App extends Component {
                     />
                     <Route path="/" component={HomePage} />
                   </Switch>
-                  {/* <MainRoutes /> */}
                 </AsideRight>
               </div>
-              {/* <Footer /> */}
-              {/* modals cannot be placed anywhere (avoid backdrop or modal placement issues) so all grouped in same component and outside .wrapper*/}
-              {/* <Modals /> */}
             </div>
           )}
         </Fragment>

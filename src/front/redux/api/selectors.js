@@ -1,5 +1,9 @@
 import { customSort } from "../../util/Utils";
 
+/**
+ * Manipulates the api response for feature importance to create points to plot the graph
+ * @param {*} featureImportance
+ */
 export const importanceSelector = featureImportance => {
   let importanceData = [];
   let featImpTable = [];
@@ -21,7 +25,7 @@ export const importanceSelector = featureImportance => {
           indexLabelPlacement: "outside",
           y: xCords[index],
           name: desc[index],
-          color: featType[index] === "original" ? "#3182bd" : "#9ecae1",
+          color: featType[index] === "Original Feature" ? "#3182bd" : "#9ecae1",
           desc: `If the <b>${
             desc[index]
           }</b> changes by 1 unit, <br />then the patient has a <b>${Math.round(
@@ -30,10 +34,15 @@ export const importanceSelector = featureImportance => {
         });
       });
     }
+    importanceData = customSort(importanceData, "y");
   }
   return { importanceData, featImpTable };
 };
 
+/**
+ * Transforms the api response for ice co-ordinates to fit the required format of canvasjs chart datapoints
+ * @param {*} featureIceCoords
+ */
 export const iceSelector = featureIceCoords => {
   let iceCoords = [];
   let pdpPoints = [];
@@ -68,6 +77,10 @@ export const iceSelector = featureIceCoords => {
   return { iceCoords, pdpPoints };
 };
 
+/**
+ * Parse rules to round off feature values to 3 decimal places
+ * @param {*} rule
+ */
 const roundRuleFeatures = rule => {
   rule = rule.replace(/([0-9]\.[0-9]*)/g, str => {
     return parseFloat(str).toFixed(3);
@@ -78,11 +91,19 @@ const roundRuleFeatures = rule => {
   return rule;
 };
 
+/**
+ * ENUM for class prediction
+ */
 const classPrediction = {
   "0": "NEGATIVE",
   "1": "POSITIVE"
 };
 
+/**
+ * Transforms the api response for minimal participant change to display resective semantics of the obtained results
+ * @param {*} minimalChange
+ * @param {*} featureImportance
+ */
 export const minimalChangeSelector = (minimalChange, featureImportance) => {
   let participant_changes = {};
   participant_changes.rulesData = [];
@@ -145,4 +166,29 @@ export const minimalChangeSelector = (minimalChange, featureImportance) => {
     }
   }
   return participant_changes;
+};
+
+/**
+ * Selects numeric features from the api response for feature importance data
+ * @param {*} importanceData
+ */
+export const numericFeatureSelector = importanceData => {
+  let numericFeatures = [];
+  let featureDescriptions = [];
+  let featureData = {};
+  if (
+    !!importanceData &&
+    !!importanceData.features &&
+    !!importanceData.dataType
+  ) {
+    importanceData.features.forEach((feat, index) => {
+      if (importanceData.dataType[index] === "Numeric") {
+        numericFeatures.push(importanceData.features[index]);
+        featureDescriptions.push(importanceData.featureDescription[index]);
+      }
+    });
+  }
+  featureData.featureDescription = featureDescriptions;
+  featureData.features = numericFeatures;
+  return featureData;
 };

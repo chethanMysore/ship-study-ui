@@ -22,14 +22,12 @@ import "./_homePage.scss";
 const items = [
   {
     src: PomeraniaImg,
-    altText: "Pomerania Map",
     caption: "Pomerania Map",
     classname: "pomerania",
     key: 1
   },
   {
     src: IMLImg,
-    altText: "Problem Statement",
     caption: "Problem Statement",
     classname: "iml",
     key: 2
@@ -95,11 +93,9 @@ class HomePage extends Component {
           onExited={() => this.setAnimating(false)}
           key={item.key}
         >
-          {/* <Jumbotron fluid> */}
           <Container fluid>
             <Card className={`carousel-img ${item.classname}`}></Card>
           </Container>
-          {/* </Jumbotron> */}
           <CarouselCaption captionHeader={item.caption} />
         </CarouselItem>
       );
@@ -107,7 +103,6 @@ class HomePage extends Component {
     return (
       <Row className="row home">
         <Col md="12">
-          {/* <Jumbotron fluid> */}
           <Container fluid>
             <Carousel
               className="display-3"
@@ -135,7 +130,6 @@ class HomePage extends Component {
           </Container>
         </Col>
 
-        {/* </Jumbotron> */}
         <Col md="12" className="mt-5">
           <Card>
             <CardHeader>
