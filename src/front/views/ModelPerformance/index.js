@@ -52,7 +52,6 @@ class ModelPerformance extends Component {
             data: [
               {
                 type: "column",
-                showInLegend: true,
                 indexLabel: "{name}: {y}",
                 yValueFormatString: "#'%'",
                 dataPoints: [
@@ -106,7 +105,6 @@ class ModelPerformance extends Component {
             data: [
               {
                 type: "column",
-                showInLegend: true,
                 indexLabel: "{name}: {y}",
                 yValueFormatString: "#'%'",
                 dataPoints: [
