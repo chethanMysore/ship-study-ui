@@ -5,15 +5,19 @@ import {
   MINIMAL_PARTICIPANT_CHANGE
 } from "../../constants/actionTypes";
 
-/** ToDo: This is the static data. Remove after testing */
-
+/**
+ * This is the state container for all api related states used across the application
+ */
 const INIT_STATE = {
-  featureImportanceData: {},
-  ExtraExtra: {},
-  modelPerformance: {},
-  minimalChange: {}
+  featureImportanceData: {}, // stores feature importance data returned from api
+  modelPerformance: {}, // stores model performance results
+  minimalChange: {}, // stores minimal change of participant returned from api
+  featureIceCoords: {} // stores ice and pdp co-ordinates returned from api
 };
 
+/**
+ * This is the state reducer for updating the respective states on corresponding actions
+ */
 export default (state = INIT_STATE, { type, data }) => {
   switch (type) {
     case FEATURE_IMPORTANCE_DATA: {

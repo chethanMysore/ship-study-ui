@@ -1,7 +1,6 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 
 import {
-  CREATE_NEW_NOTIFICATION,
   WRITE_ERROR_MESSAGE,
   FETCH_FEATURE_IMPORTANCE,
   FEATURE_IMPORTANCE_DATA,
@@ -40,7 +39,7 @@ const getData = function*(entityName, loader, options) {
 };
 
 /**
- *
+ * Midleware to perform http - post requests
  * @param {*} entityName
  * @param {*} payload
  * @sideEffects 1. dispatch error message if request fails
@@ -72,46 +71,7 @@ const dispatchPostRequest = function*(entityName, payload) {
 };
 
 /**
- * Dispatches user actions like uploadImageFile
- * @param {*} entityName
- * @param {*} payload
- * @sideEffects 1. dispatch error message if request fails,
- *              2. Creates a notification to the user on success
- */
-const uploadImageFile = function*(entityName, payload) {
-  try {
-    const data = yield call(dispatchAction, entityName, payload);
-    if (data.isError) {
-      yield put({
-        type: WRITE_ERROR_MESSAGE,
-        payload: { message: "Action Failed", source: "uploadImageFile" }
-      });
-    } else {
-      yield all([
-        put({
-          type: DOWNLOAD_FILE,
-          data: data.id
-        }),
-        put({
-          type: CREATE_NEW_NOTIFICATION,
-          payload: {
-            message: "Action Successful",
-            messageType: "success",
-            source: "uploadImageFile"
-          }
-        })
-      ]);
-    }
-  } catch (error) {
-    yield put({
-      type: WRITE_ERROR_MESSAGE,
-      payload: { message: error.message, source: "uploadImageFile" }
-    });
-  }
-};
-
-/**
- * Encapsulates sagas to handle side effects on actions pertaining to Data Tables
+ * Encapsulates sagas to handle side effects on actions pertaining to model results
  * @param {*} action
  */
 export const apiSagas = function*(action) {

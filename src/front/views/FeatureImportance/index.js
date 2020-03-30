@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AnimatedView } from "../../components";
-import CustomModal from "../../newComponents/CustomModal";
 import CanvasJSReact from "../../util/js/canvasjs.react";
 import {
   fetchFeatureImportance,
@@ -42,21 +41,10 @@ class FeatureImportance extends Component {
       selectedBin: null,
       title: "Feature Description"
     };
-    // Uncomment this for modal
-    // this.toggle = this.toggle.bind(this);
   }
-  // Uncomment this for modal
-  // toggle(e) {
-  //   console.log('e', e);
-  //   this.setState({
-  //     modal: !this.state.modal,
-  //     selectedBin:
-  //       !!e && !!e.datapoint ? e.datapoint.y : this.state.selectedBin,
-  //   });
-  // }
+
   componentDidMount() {
     this.props.enterFeatureImportance();
-    // this.props.fetchFeatureImportance(ON_LOADER_HIDE);
   }
 
   render() {
@@ -128,16 +116,11 @@ class FeatureImportance extends Component {
 
     return (
       <AnimatedView>
-        {/* <Card>
-          <CardBody> */}
         <Row>
           <Col md="12">
             <Card>
               <CardBody>
-                <CanvasJSChart
-                  options={options}
-                  /* onRef={ref => this.chart = ref} */
-                />
+                <CanvasJSChart options={options} />
               </CardBody>
             </Card>
           </Col>
@@ -164,8 +147,6 @@ class FeatureImportance extends Component {
             </Card>
           </Col>
         </Row>
-        {/* </CardBody>
-        </Card> */}
       </AnimatedView>
     );
   }

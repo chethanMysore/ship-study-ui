@@ -1,8 +1,5 @@
 // @flow
 
-import { navigation } from './navigation';
-import { earningGraphMockData } from './earningGraphMockData';
-import { userInfosMockData } from './userInfosMock';
-import { teamMatesMock } from './teamMatesMock';
+import { navigation } from "./navigation";
 
-export { navigation, earningGraphMockData, userInfosMockData, teamMatesMock };
+export { navigation };

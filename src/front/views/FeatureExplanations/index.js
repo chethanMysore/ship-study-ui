@@ -9,7 +9,7 @@ import {
   enterFeatureExplanations
 } from "../../redux/actions";
 import { ON_ICE_LOADER_HIDE } from "../../constants/actionTypes";
-import { iceSelector } from "../../redux/selectors";
+import { iceSelector, numericFeatureSelector } from "../../redux/selectors";
 import { customSort } from "../../util/Utils";
 import {
   Card,
@@ -64,14 +64,12 @@ class FeatureExplanations extends Component {
   }
 
   render() {
-    const features = customSort(
+    const features =
       !!this.props.featureImportanceData &&
-        !!this.props.featureImportanceData.featureDescription
+      !!this.props.featureImportanceData.featureDescription
         ? this.props.featureImportanceData.featureDescription
-        : [],
-      "",
-      "asc"
-    );
+        : [];
+
     const options = {
       zoomEnabled: true,
       animationEnabled: true,
@@ -166,10 +164,7 @@ class FeatureExplanations extends Component {
                   </CardSubtitle>
                 </CardBody>
                 <CardBody>
-                  <CanvasJSChart
-                    options={options}
-                    /* onRef={ref => this.chart = ref} */
-                  />
+                  <CanvasJSChart options={options} />
                 </CardBody>
               </Card>
             )}
@@ -179,7 +174,9 @@ class FeatureExplanations extends Component {
   }
 }
 const mapStateToProps = ({ api, settings }) => {
-  const { featureImportanceData } = api;
+  const featureImportanceData = numericFeatureSelector(
+    api.featureImportanceData
+  );
   const featureIceCoords = iceSelector(api.featureIceCoords);
   const { iceLoader } = settings;
   return { featureIceCoords, featureImportanceData, iceLoader };

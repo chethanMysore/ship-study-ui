@@ -44,7 +44,6 @@ class ModelPerformance extends Component {
             },
             subtitles: [
               {
-                //text: `${toPercentage(trainPerformance[0].accuracy)}% Accuracy`,
                 verticalAlign: "center",
                 fontSize: 30,
                 dockInsidePlotArea: false
@@ -99,9 +98,6 @@ class ModelPerformance extends Component {
             },
             subtitles: [
               {
-                // text: !!testPerformance
-                //   ? `${toPercentage(testPerformance[0].accuracy)}% Accuracy`
-                //   : "Info not available",
                 verticalAlign: "center",
                 fontSize: 30,
                 dockInsidePlotArea: false
@@ -149,42 +145,29 @@ class ModelPerformance extends Component {
       <LoaderComponent />
     ) : (
       <AnimatedView>
-        <Card>
-          <CardBody>
-            {!!this.props.modelPerformance &&
-            this.props.modelPerformance.trainPerformance &&
-            this.props.modelPerformance.testPerformance ? (
-              <Row>
-                <Col sm="12" xl="6" md="12">
-                  <Card>
-                    <CardBody>
-                      <CanvasJSChart
-                        options={optionsTrain}
+        {!!this.props.modelPerformance &&
+        this.props.modelPerformance.trainPerformance &&
+        this.props.modelPerformance.testPerformance ? (
+          <Row>
+            <Col sm="12" xl="6" md="12">
+              <Card>
+                <CardBody>
+                  <CanvasJSChart options={optionsTrain} />
+                </CardBody>
+              </Card>
+            </Col>
 
-                        /* onRef={ref => this.chart = ref} */
-                      />
-                    </CardBody>
-                  </Card>
-                </Col>
-
-                {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-                <Col sm="12" xl="6" md="12">
-                  <Card>
-                    <CardBody>
-                      <CanvasJSChart
-                        options={optionsTest}
-
-                        /* onRef={ref => this.chart = ref} */
-                      />
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-            ) : (
-              "Information Not Available"
-            )}
-          </CardBody>
-        </Card>
+            <Col sm="12" xl="6" md="12">
+              <Card>
+                <CardBody>
+                  <CanvasJSChart options={optionsTest} />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        ) : (
+          "Information Not Available"
+        )}
       </AnimatedView>
     );
   }

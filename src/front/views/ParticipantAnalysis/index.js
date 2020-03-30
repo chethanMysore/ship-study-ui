@@ -44,12 +44,10 @@ class ParticipantAnalysis extends Component {
     this.props.fetchMinimalChanges(1, ON_PART_LOADER_HIDE);
   }
   onParticipantChange(e) {
-    // this.setState({ participantId: e.target.value });
     this.handleSubmit(e.target.value);
   }
   handleSubmit(partId) {
     if (!!partId) {
-      // this.props.showPartLoader();
       this.props.fetchMinimalChanges(parseInt(partId), ON_PART_LOADER_HIDE);
     }
   }
@@ -148,9 +146,6 @@ class ParticipantAnalysis extends Component {
                 onChange={this.onParticipantChange}
                 className="search-bar"
               />
-              {/* <Button color="primary" size="sm" onClick={this.handleSubmit}>
-                Submit
-              </Button> */}
             </FormGroup>
           </Col>
           <Col md="12">
