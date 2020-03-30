@@ -44,15 +44,15 @@ class ModelPerformance extends Component {
             },
             subtitles: [
               {
-                text: `${toPercentage(trainPerformance[0].accuracy)}% Accuracy`,
+                //text: `${toPercentage(trainPerformance[0].accuracy)}% Accuracy`,
                 verticalAlign: "center",
-                fontSize: 24,
-                dockInsidePlotArea: true
+                fontSize: 30,
+                dockInsidePlotArea: false
               }
             ],
             data: [
               {
-                type: "doughnut",
+                type: "column",
                 showInLegend: true,
                 indexLabel: "{name}: {y}",
                 yValueFormatString: "#'%'",
@@ -76,6 +76,10 @@ class ModelPerformance extends Component {
                   {
                     name: "F1 - Measure",
                     y: toPercentage(trainPerformance[0].f1)
+                  },
+                  {
+                    name: "Accuracy",
+                    y: toPercentage(trainPerformance[0].accuracy)
                   }
                 ]
               }
@@ -95,17 +99,17 @@ class ModelPerformance extends Component {
             },
             subtitles: [
               {
-                text: !!testPerformance
-                  ? `${toPercentage(testPerformance[0].accuracy)}% Accuracy`
-                  : "Info not available",
+                // text: !!testPerformance
+                //   ? `${toPercentage(testPerformance[0].accuracy)}% Accuracy`
+                //   : "Info not available",
                 verticalAlign: "center",
-                fontSize: 24,
-                dockInsidePlotArea: true
+                fontSize: 30,
+                dockInsidePlotArea: false
               }
             ],
             data: [
               {
-                type: "doughnut",
+                type: "column",
                 showInLegend: true,
                 indexLabel: "{name}: {y}",
                 yValueFormatString: "#'%'",
@@ -129,6 +133,11 @@ class ModelPerformance extends Component {
                   {
                     name: "F1 - Measure",
                     y: toPercentage(testPerformance[0].f1)
+                  },
+
+                  {
+                    name: "Accuracy",
+                    y: toPercentage(trainPerformance[0].accuracy)
                   }
                 ]
               }

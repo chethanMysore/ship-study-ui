@@ -22,15 +22,15 @@ import "./_homePage.scss";
 const items = [
   {
     src: PomeraniaImg,
-    altText: "Pomerania Map",
-    caption: "Pomerania Map",
+    //altText: "Pomerania Map",
+    //caption: "Pomerania Map",
     classname: "pomerania",
     key: 1
   },
   {
     src: IMLImg,
-    altText: "Problem Statement",
-    caption: "Problem Statement",
+    // altText: "Problem Statement",
+    // caption: "Problem Statement",
     classname: "iml",
     key: 2
   }
