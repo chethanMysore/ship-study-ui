@@ -154,7 +154,7 @@ class ModelPerformance extends Component {
 
                   {
                     label: "Accuracy",
-                    y: toPercentage(trainPerformance[0].accuracy),
+                    y: toPercentage(testPerformance[0].accuracy),
                     color: "#3182bd"
                   }
                 ]
