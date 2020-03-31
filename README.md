@@ -6,27 +6,27 @@ A reactjs frontend dashboard that visualizes the model results of **SHIP Cohort 
 
 - Home Page: Introduction to the project and our problem statement
 
-![Home-Page](docs/Home_page.png)
+![Home-Page](static/Home_page.png)
 
 - Project Overview: Displays the overview of the research goals of the project
 
-![Project-Overview](docs/Project_Overview.png)
+![Project-Overview](static/Project_Overview.png)
 
 - Feature Importance: Displays features critical in diagnosis of Hepatic Steatosis
 
-![Feature-Importance](docs/Feature_Importance.png)
+![Feature-Importance](static/Feature_Importance.png)
 
 - Feature Explanations: Displays ICE and PDP curves for selected feature
 
-![Feature-Explanations](docs/Feature_Explanations.png)
+![Feature-Explanations](static/Feature_Explanations.png)
 
 - Participant Analysis: Displays the minimal change in the participant so that the predicted diagnosis changes
 
-![Participant-Analysis](docs/Participant_Analysis.png)
+![Participant-Analysis](static/Participant_Analysis.png)
 
 - Model Performance: Displays the model performance results evaluated against training set and test set
 
-![Model-Performance](docs/Model_Performance.png)
+![Model-Performance](static/Model_Performance.png)
 
 ## Installation and Launching the application
 

@@ -49,36 +49,48 @@ class ModelPerformance extends Component {
                 dockInsidePlotArea: false
               }
             ],
+            axisY: {
+              title: "In Percentage",
+              gridColor: "white"
+            },
             data: [
               {
                 type: "column",
-                showInLegend: true,
-                indexLabel: "{name}: {y}",
+                indexLabel: "{y}",
+                indexLabelPlacement: "outside",
                 yValueFormatString: "#'%'",
                 dataPoints: [
                   {
-                    name: "Sensitivity",
-                    y: toPercentage(trainPerformance[0].sensitivity)
+                    label: "Sensitivity",
+                    y: toPercentage(trainPerformance[0].sensitivity),
+                    color: "#3182bd"
                   },
                   {
-                    name: "Specificity",
-                    y: toPercentage(trainPerformance[0].specificity)
+                    label: "Specificity",
+                    y: toPercentage(trainPerformance[0].specificity),
+                    color: "#3182bd"
                   },
                   {
-                    name: "Positive Prediction Value",
-                    y: toPercentage(trainPerformance[0].positivePredictionValue)
+                    label: "Positive Prediction Value",
+                    y: toPercentage(
+                      trainPerformance[0].positivePredictionValue
+                    ),
+                    color: "#3182bd"
                   },
                   {
-                    name: "Kappa",
-                    y: toPercentage(trainPerformance[0].kappa)
+                    label: "Kappa",
+                    y: toPercentage(trainPerformance[0].kappa),
+                    color: "#3182bd"
                   },
                   {
-                    name: "F1 - Measure",
-                    y: toPercentage(trainPerformance[0].f1)
+                    label: "F1 - Measure",
+                    y: toPercentage(trainPerformance[0].f1),
+                    color: "#3182bd"
                   },
                   {
-                    name: "Accuracy",
-                    y: toPercentage(trainPerformance[0].accuracy)
+                    label: "Accuracy",
+                    y: toPercentage(trainPerformance[0].accuracy),
+                    color: "#3182bd"
                   }
                 ]
               }
@@ -103,37 +115,47 @@ class ModelPerformance extends Component {
                 dockInsidePlotArea: false
               }
             ],
+            axisY: {
+              title: "In Percentage",
+              gridColor: "white"
+            },
             data: [
               {
                 type: "column",
-                showInLegend: true,
-                indexLabel: "{name}: {y}",
+                indexLabel: "{y}",
+                indexLabelPlacement: "outside",
                 yValueFormatString: "#'%'",
                 dataPoints: [
                   {
-                    name: "Sensitivity",
-                    y: toPercentage(testPerformance[0].sensitivity)
+                    label: "Sensitivity",
+                    y: toPercentage(testPerformance[0].sensitivity),
+                    color: "#3182bd"
                   },
                   {
-                    name: "Specificity",
-                    y: toPercentage(testPerformance[0].specificity)
+                    label: "Specificity",
+                    y: toPercentage(testPerformance[0].specificity),
+                    color: "#3182bd"
                   },
                   {
-                    name: "Positive Prediction Value",
-                    y: toPercentage(testPerformance[0].positivePredictionValue)
+                    label: "Positive Prediction Value",
+                    y: toPercentage(testPerformance[0].positivePredictionValue),
+                    color: "#3182bd"
                   },
                   {
-                    name: "Kappa",
-                    y: toPercentage(testPerformance[0].kappa)
+                    label: "Kappa",
+                    y: toPercentage(testPerformance[0].kappa),
+                    color: "#3182bd"
                   },
                   {
-                    name: "F1 - Measure",
-                    y: toPercentage(testPerformance[0].f1)
+                    label: "F1 - Measure",
+                    y: toPercentage(testPerformance[0].f1),
+                    color: "#3182bd"
                   },
 
                   {
-                    name: "Accuracy",
-                    y: toPercentage(trainPerformance[0].accuracy)
+                    label: "Accuracy",
+                    y: toPercentage(trainPerformance[0].accuracy),
+                    color: "#3182bd"
                   }
                 ]
               }
