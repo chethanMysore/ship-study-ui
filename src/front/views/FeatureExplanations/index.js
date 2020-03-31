@@ -86,7 +86,9 @@ class FeatureExplanations extends Component {
         tickColor: "black",
         lineColor: "black",
         labelFontColor: "black",
-        labelFontSize: 12
+        labelFontSize: 12,
+        minimum: 0,
+        maximum: 1
       },
       axisY: {
         title: "Predicted Hepatic Steatosis Probability",
@@ -98,7 +100,9 @@ class FeatureExplanations extends Component {
         lineColor: "black",
         gridColor: "black",
         labelFontColor: "black",
-        labelFontSize: 12
+        labelFontSize: 12,
+        minimum: 0,
+        maximum: 1
       },
       toolTip: {
         backgroundColor: "#eee",

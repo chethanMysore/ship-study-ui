@@ -78,7 +78,7 @@ class ProjectOverview extends Component {
                   <br />
                   <Row>
                     <Col md="12" xl="6">
-                      <Card className="card info1">
+                      <Card className="card info2">
                         <CardBody>
                           <CardTitle>
                             {" "}
@@ -133,7 +133,7 @@ class ProjectOverview extends Component {
                               {" "}
                               SHIP Cohort 1<br />
                             </b>
-                            The 5-year follow-up commenced on the 23rd of
+                            The 5-year follow-up SHIP-1 commenced on the 23rd of
                             October 2002 and was completed on September 1st,
                             2006. Examinations included four parts: medical
                             examination, oral health examination, health-
@@ -142,9 +142,9 @@ class ProjectOverview extends Component {
                             <b>
                               SHIP Cohort 2<br />
                             </b>
-                            The 11-year follow-up commenced on the June 25th,
-                            2008 and was completed on September 27th, 2012.
-                            Examinations included four parts: medical
+                            The 11-year follow-up SHIP-2 commenced on the June
+                            25th, 2008 and was completed on September 27th,
+                            2012. Examinations included four parts: medical
                             examination, oral health examination, health-
                             interview and questionnaire. Of particular
                             importance was the whole-body MRI.
@@ -187,7 +187,7 @@ class ProjectOverview extends Component {
                       </Card>
                     </Col>
                     <Col md="12" xl="6">
-                      <Card className="card info1">
+                      <Card className="card info2">
                         <CardBody>
                           <CardTitle>
                             <h3>
