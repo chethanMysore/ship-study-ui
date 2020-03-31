@@ -49,6 +49,9 @@ class ModelPerformance extends Component {
                 dockInsidePlotArea: false
               }
             ],
+            axisY: {
+              gridColor: "white"
+            },
             data: [
               {
                 type: "column",
@@ -57,27 +60,35 @@ class ModelPerformance extends Component {
                 dataPoints: [
                   {
                     name: "Sensitivity",
-                    y: toPercentage(trainPerformance[0].sensitivity)
+                    y: toPercentage(trainPerformance[0].sensitivity),
+                    color: "#3182bd"
                   },
                   {
                     name: "Specificity",
-                    y: toPercentage(trainPerformance[0].specificity)
+                    y: toPercentage(trainPerformance[0].specificity),
+                    color: "#3182bd"
                   },
                   {
                     name: "Positive Prediction Value",
-                    y: toPercentage(trainPerformance[0].positivePredictionValue)
+                    y: toPercentage(
+                      trainPerformance[0].positivePredictionValue
+                    ),
+                    color: "#3182bd"
                   },
                   {
                     name: "Kappa",
-                    y: toPercentage(trainPerformance[0].kappa)
+                    y: toPercentage(trainPerformance[0].kappa),
+                    color: "#3182bd"
                   },
                   {
                     name: "F1 - Measure",
-                    y: toPercentage(trainPerformance[0].f1)
+                    y: toPercentage(trainPerformance[0].f1),
+                    color: "#3182bd"
                   },
                   {
                     name: "Accuracy",
-                    y: toPercentage(trainPerformance[0].accuracy)
+                    y: toPercentage(trainPerformance[0].accuracy),
+                    color: "#3182bd"
                   }
                 ]
               }
@@ -102,6 +113,9 @@ class ModelPerformance extends Component {
                 dockInsidePlotArea: false
               }
             ],
+            axisY: {
+              gridColor: "white"
+            },
             data: [
               {
                 type: "column",
@@ -110,28 +124,34 @@ class ModelPerformance extends Component {
                 dataPoints: [
                   {
                     name: "Sensitivity",
-                    y: toPercentage(testPerformance[0].sensitivity)
+                    y: toPercentage(testPerformance[0].sensitivity),
+                    color: "#3182bd"
                   },
                   {
                     name: "Specificity",
-                    y: toPercentage(testPerformance[0].specificity)
+                    y: toPercentage(testPerformance[0].specificity),
+                    color: "#3182bd"
                   },
                   {
                     name: "Positive Prediction Value",
-                    y: toPercentage(testPerformance[0].positivePredictionValue)
+                    y: toPercentage(testPerformance[0].positivePredictionValue),
+                    color: "#3182bd"
                   },
                   {
                     name: "Kappa",
-                    y: toPercentage(testPerformance[0].kappa)
+                    y: toPercentage(testPerformance[0].kappa),
+                    color: "#3182bd"
                   },
                   {
                     name: "F1 - Measure",
-                    y: toPercentage(testPerformance[0].f1)
+                    y: toPercentage(testPerformance[0].f1),
+                    color: "#3182bd"
                   },
 
                   {
                     name: "Accuracy",
-                    y: toPercentage(trainPerformance[0].accuracy)
+                    y: toPercentage(trainPerformance[0].accuracy),
+                    color: "#3182bd"
                   }
                 ]
               }
