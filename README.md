@@ -2,7 +2,7 @@
 
 ## Overview
 
-A reactjs frontend dashboard that visualizes the model results of **SHIP Cohort Study**. The application has 5 views:
+A reactjs frontend dashboard that visualizes the model results of **[SHIP Cohort Study](https://github.com/chethanMysore/ship-cohort-study)**. The application has 5 views:
 
 - Home Page: Introduction to the project and our problem statement
 
