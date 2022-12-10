@@ -48,7 +48,7 @@
     "babel-polyfill": "^6.26.0",
     "better-react-spinkit": "^2.0.4",
     "bluebird": "^3.5.1",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "bootstrap": "^3.4.1",
     "bootstrap-sass": "^3.4.1",
     "chart.js": "^2.7.3",
